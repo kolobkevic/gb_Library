@@ -1,4 +1,4 @@
-package gb.lib.common.entities;
+package gb.library.common.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
