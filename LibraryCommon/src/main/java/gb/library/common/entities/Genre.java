@@ -1,4 +1,4 @@
-package gb.lib.common.entities;
+package gb.library.common.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,15 +12,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "genres")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Author extends IdBasedEntity{
-    @Column(name = "first_name", nullable = false, length = 45)
-    private String firstName;
-    @Column(name = "last_name", nullable = false, length = 60)
-    private String lastName;
+public class Genre extends IdBasedEntity{
+    @Column(name = "name", length = 40, nullable = false, unique = true)
+    private String name;
+    @Column(name = "description", length = 128)
+    private String description;
 
     @Column(name = "created_at")
     @CreationTimestamp

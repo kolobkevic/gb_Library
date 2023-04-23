@@ -1,4 +1,4 @@
-package gb.lib.common.entities;
+package gb.library.common.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

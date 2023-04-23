@@ -1,4 +1,4 @@
-package gb.lib.common.entities;
+package gb.library.common.entities;
 
 public enum RegistrationType {
     MANUAL,

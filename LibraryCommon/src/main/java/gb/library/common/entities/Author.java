@@ -1,6 +1,8 @@
-package gb.lib.common.entities;
+package gb.library.common.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,23 +10,17 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "books_on_hands")
+@Table(name = "authors")
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookOnHands extends IdBasedEntity{
-    @ManyToOne()
-    @JoinColumn(name = "book_id", nullable = false)
-    private LibraryBook book;
-    @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-    @Column(name = "taken_at", nullable = false)
-    private LocalDate takenAt;
-    private boolean returned;
+public class Author extends IdBasedEntity{
+    @Column(name = "first_name", nullable = false, length = 45)
+    private String firstName;
+    @Column(name = "last_name", nullable = false, length = 60)
+    private String lastName;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -48,5 +44,4 @@ public class BookOnHands extends IdBasedEntity{
     /*
      * METHODS
      */
-
 }
