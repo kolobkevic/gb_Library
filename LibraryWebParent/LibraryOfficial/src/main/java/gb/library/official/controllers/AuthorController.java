@@ -20,9 +20,6 @@ public class AuthorController {
     public Page<Author> findAll(@RequestParam(defaultValue = "1", name = "p") int pageIndex,
                                 @RequestParam(required = false, name = "firstName") String firstName,
                                 @RequestParam(required = false, name = "lastName") String lastName) {
-        if (pageIndex < 1) {
-            pageIndex = 1;
-        }
 
         if (firstName != null && !firstName.isBlank()) {
             return authorService.findByFirstName(pageIndex - 1, PAGE_SIZE, firstName);

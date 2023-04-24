@@ -19,11 +19,14 @@ public class MyAuthorService implements AuthorService {
     @Override
     public Author findById(Integer id) {
         return authorRepository.findById(id).orElseThrow(() ->
-                new ObjectInDBNotFoundException("Автор не найден в базе"));
+                new ObjectInDBNotFoundException("Автор не найден в базе", "Author"));
     }
 
     @Override
     public Page<Author> findAll(int pageIndex, int pageSize) {
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
         return authorRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 
@@ -50,7 +53,7 @@ public class MyAuthorService implements AuthorService {
     @Override
     public Author update(Author author) {
         Author updatedAuthor = authorRepository.findById(author.getId()).orElseThrow(
-                () -> new ObjectInDBNotFoundException("Автор не найден в базе, id: " + author.getId()));
+                () -> new ObjectInDBNotFoundException("Автор не найден в базе, id: " + author.getId(), "Author"));
         updatedAuthor.setFirstName(author.getFirstName());
         updatedAuthor.setLastName(author.getLastName());
         return updatedAuthor;
