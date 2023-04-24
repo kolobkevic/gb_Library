@@ -1,0 +1,40 @@
+<div>
+    <h3>Каталог товаров</h3>
+    <div class="row border">
+        <div class="col-2 border">Лого</div>
+        <div class="col-7 border">Поиск</div>
+        <div class="col-2 border">Личный кабинет</div>
+        <div class="col-1 border">Корзина</div>
+    </div>
+    <div class="row border">
+        <div class="col-2 border">
+            Место для каких-нибудь фильтров
+        </div>
+        <div class="col-10 border">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Инвентарный номер</td>
+                    <td>Название</td>
+                    <td>Автор</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="b in booksListPage.content">
+                    <td>{{b.inventory_number}}</td>
+                    <td>{{b.title}}</td>
+                    <td>{{b.author}}</td>
+                    <td>
+                        <button class="btn btn-primary" data-ng-click="reserveBook(b.inventory_number)">Забронировать</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-ng-click="reserveBook(b.inventory_number)">Отменить бронирование</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
