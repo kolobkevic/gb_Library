@@ -3,10 +3,9 @@ package gb.library.official.services;
 import gb.lib.common.entities.Author;
 import org.springframework.data.domain.Page;
 
-import java.util.Optional;
 
 public interface AuthorService {
-    Optional<Author> findById(Integer id);
+    Author findById(Integer id);
 
     Page<Author> findAll(int pageIndex, int pageSize);
 

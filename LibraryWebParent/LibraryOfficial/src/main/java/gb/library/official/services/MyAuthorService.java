@@ -1,22 +1,25 @@
 package gb.library.official.services;
 
 import gb.lib.common.entities.Author;
+import gb.lib.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.official.repositories.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MyAuthorService implements AuthorService {
     private final AuthorRepository authorRepository;
 
+    public static final int PAGE_SIZE = 10;
+
     @Override
-    public Optional<Author> findById(Integer id) {
-        return authorRepository.findById(id);
+    public Author findById(Integer id) {
+        return authorRepository.findById(id).orElseThrow(() ->
+                new ObjectInDBNotFoundException("Автор не найден в базе"));
     }
 
     @Override
@@ -47,7 +50,7 @@ public class MyAuthorService implements AuthorService {
     @Override
     public Author update(Author author) {
         Author updatedAuthor = authorRepository.findById(author.getId()).orElseThrow(
-                () -> new RuntimeException("Продукт не найден в базе, id: " + author.getId()));
+                () -> new ObjectInDBNotFoundException("Автор не найден в базе, id: " + author.getId()));
         updatedAuthor.setFirstName(author.getFirstName());
         updatedAuthor.setLastName(author.getLastName());
         return updatedAuthor;

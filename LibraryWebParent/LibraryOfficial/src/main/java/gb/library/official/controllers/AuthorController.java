@@ -6,6 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
+import static gb.library.official.services.MyAuthorService.PAGE_SIZE;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/authors")
@@ -21,20 +25,18 @@ public class AuthorController {
             pageIndex = 1;
         }
 
-        int pageSize = 10;
-
         if (firstName != null && !firstName.isBlank()) {
-            return authorService.findByFirstName(pageIndex - 1, pageSize, firstName);
+            return authorService.findByFirstName(pageIndex - 1, PAGE_SIZE, firstName);
         }
         if (lastName != null && !lastName.isBlank()) {
-            return authorService.findByLastName(pageIndex - 1, pageSize, lastName);
+            return authorService.findByLastName(pageIndex - 1, PAGE_SIZE, lastName);
         }
-        return authorService.findAll(pageIndex - 1, pageSize);
+        return authorService.findAll(pageIndex - 1, PAGE_SIZE);
     }
 
     @GetMapping("/{id}")
     public Author findById(@PathVariable Integer id) {
-        return authorService.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return authorService.findById(id);
     }
 
     @DeleteMapping("delete/{id}")
