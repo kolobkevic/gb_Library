@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: page_head('Home page - Library Admin', 'none')"></head>
+<head th:insert="~{fragments :: page_head('Home page - Library Admin', 'none')}"></head>
 
 <body>
     <div class="container-fluid">
 
-        <div th:replace="navigation :: menu"></div>
+        <div th:insert="~{navigation :: menu}"></div>
 
         <h1>
             WELCOME TO ADMINS PAGE
         </h1>
 
-        <div th:replace="fragments :: footer"></div>
+        <div th:insert="~{fragments :: footer}"></div>
 
     </div>
 </body>

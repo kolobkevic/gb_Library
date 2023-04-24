@@ -20,8 +20,8 @@ class GenreRepositoryTest {
     @Test
     public void testCreation(){
         Genre genre = new Genre();
-        genre.setName("Фентези");
-        genre.setDescription("Произведения жанра фэнтези основываются на мифологических и сказочных мотивах, переосмысленных или переработанных авторами.");
+        genre.setName("Фольклор");
+        genre.setDescription("Народные произведения: эпос, легенды, мифы и сказки");
         Genre savedGenre = repository.save(genre);
         assertThat(savedGenre.getId()).isGreaterThan(0);
     }
