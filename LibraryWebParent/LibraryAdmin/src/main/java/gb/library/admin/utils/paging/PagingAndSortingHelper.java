@@ -22,6 +22,18 @@ public class PagingAndSortingHelper {
         this.keyword    = keyword;
     }
 
+    public String getSortField() {
+        return sortField;
+    }
+
+    public String getSortDir() {
+        return sortDir;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
     public void updateModelAttributes(int pageNum, Page<?> page){
         List<?> listItems = page.getContent();
         int pageSize = page.getSize();
@@ -40,22 +52,12 @@ public class PagingAndSortingHelper {
         model.addAttribute("entitiesList", listItems);
     }
 
-    public String getSortField() {
-        return sortField;
-    }
-
-    public String getSortDir() {
-        return sortDir;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
     public void listEntities(int pageNum, int pageSize,
                              SearchRepository<?, Integer> repo){
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+
+        if (pageNum<1) pageNum = 1;
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
 

@@ -1,4 +1,4 @@
-package gb.library.admin;
+package gb.library.admin.configs;
 
 import gb.library.admin.utils.paging.PagingAndSortingArgumentResolver;
 import org.springframework.context.annotation.Configuration;

@@ -42,17 +42,15 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public void delete(Integer id) {
+        // добавить exception
         if (repository.existsById(id)){
             repository.deleteById(id);
-            return true;
         }
-        return false; // заменить на exception
+
     }
 
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
-        if (pageNum<1) pageNum = 1;
-
         helper.listEntities(pageNum, GENRES_PER_PAGE, repository);
     }
 
@@ -61,11 +59,9 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
         Genre genre = repository.findByName(name);
         if (genre != null) {
             if (!Objects.equals(genre.getId(), id)) {
-                System.out.println("Duplicate");
                 return "Duplicate";
             }
         }
-        System.out.println("OK");
         return "OK";
     }
 

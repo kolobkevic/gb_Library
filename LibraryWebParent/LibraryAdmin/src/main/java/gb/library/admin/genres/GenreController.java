@@ -61,7 +61,7 @@ public class GenreController {
             return "genres/genre_form";
         }  catch (NoSuchElementException ex) { //поменять перехват ошибки
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
-            return "redirect:/categories";
+            return "redirect:/genres";
         }
     }
 
