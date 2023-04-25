@@ -25,9 +25,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
         <dependency>
-            <groupId>org.webjars.bower</groupId>
+            <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>3.6.3</version>
+            <version>3.6.4</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
         <dependency>

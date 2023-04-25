@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: page_head('Жанры - админка библиотеки', 'none')}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div th:insert="~{navigation :: menu}"></div>
+
+        <div>
+            <h2>Справочник "Книжные жанры"</h2>
+            <a th:href="@{/genres/new}" class="fas fa-solid fa-square-plus fa-2x icon-green mr-2"
+                      title="Создать новый"></a>
+        </div>
+
+        <div th:insert="~{fragments :: search_form_and_message}"></div>
+
+
+        <div class="full-details">
+            <table class="table table-bordered table-striped table-hover table-responsive-xl">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="hideable-column">ID</th>
+                        <th>Название жанра</th>
+                        <th>Краткое описание</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="genre : ${entitiesList}">
+                        <td class="hideable-column">[[${genre.id}]]</td>
+                        <td>[[${genre.name}]]</td>
+                        <td>[[${genre.description}]]</td>
+                        <td>
+                            <a th:insert="~{fragments :: entity_edit('/genres/edit/' + ${genre.id})}"></a>
+                            &nbsp;
+                            <a th:insert="~{fragments :: entity_delete('/genres/delete/' + ${genre.id}, ${genre.id})}"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="less-details">
+            <div th:each="genre : ${entitiesList}" class="row m-1 border">
+                <div class="col">
+                    <div><h5>[[${genre.name}]]</h5></div>
+                    <div class="mt-2">
+                        <a th:insert="~{fragments :: entity_edit('/genres/edit/' + ${genre.id})}"></a>
+                        &nbsp;
+                        <a th:insert="~{fragments :: entity_delete('/genres/delete/' + ${genre.id}, ${genre.id})}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:insert="~{fragments_modal :: modal_confirmation('Подтвердите удаление')}"></div>
+
+        <div th:insert="~{navigation :: pagination}"></div>
+
+        <div th:insert="~{fragments :: footer}"></div>
+    </div>
+<script type="text/javascript">
+
+    module_URI = "[[@{/genres}]]";
+
+    $(document).ready(function (){
+        $(".link-delete").on("click", function (e){
+            e.preventDefault();
+            showDeleteConfirmModal($(this));
+        });
+    });
+
+</script>
+<script th:src="@{/js/common_list.js}"></script>
+</body>
+</html>

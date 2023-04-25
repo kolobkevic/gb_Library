@@ -19,6 +19,40 @@
 </head>
 <body>
 
+    <div th:fragment="search_form_and_message">
+        <form th:action="@{${moduleURL} + '/page/1'}" class="form-inline m-3">
+            <input type="hidden" name="sortField" th:value="${sortField}"/>
+            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+            <label>
+                Поиск:&nbsp;
+                <input type="search" name="keyword" class="form-control" th:value="${keyword}" required/>
+            </label>
+            &nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" onclick="clearFilter()">
+                <i class="fas fa-delete-left"></i>
+            </button>
+        </form>
+
+        <div th:if="${message != null}" class="alert alert-success text-center">
+            [[${message}]]
+        </div>
+    </div>
+
+
+    <a th:fragment="entity_edit(editURL)" class="fas fa-edit fa-2x icon-green"
+       th:href="@{${editURL}}" th:title="'Редактировать запись'"></a>
+    <a th:fragment="entity_delete(deleteURL, entityID)" class="fas fa-trash fa-2x icon-dark link-delete"
+       th:href="@{${deleteURL}}" th:entityID="${entityID}" th:title="'Удалить запись'"></a>
+
+
+    <div th:fragment="format_time(dateTime)" th:remove="tag">
+        <span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+    </div>
+
 
     <div th:fragment="footer" class="text-center m-2">
         <hr>

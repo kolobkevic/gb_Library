@@ -27,11 +27,11 @@
 			<artifactId>bootstrap</artifactId>
 			<version>5.2.3</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
 		<dependency>
-			<groupId>org.webjars.bower</groupId>
+			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>3.6.3</version>
+			<version>3.6.4</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
 		<dependency>

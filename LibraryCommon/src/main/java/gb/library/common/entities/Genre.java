@@ -19,7 +19,7 @@ import java.time.Instant;
 public class Genre extends IdBasedEntity{
     @Column(name = "name", length = 40, nullable = false, unique = true)
     private String name;
-    @Column(name = "description", length = 128)
+    @Column(name = "description", length = 200)
     private String description;
 
     @Column(name = "created_at")
