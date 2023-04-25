@@ -61,10 +61,10 @@
 
         let params = {id: gId, name: gName, _csrf: csrfValue};
 
-        console.log("отправка на сервер");
+        // console.log("отправка на сервер");
 
         $.post(uri, params, function (response){
-            console.log(response);
+            // console.log(response);
             if (response === "OK") {
                 form.submit();
             } else if (response === "Duplicate") {
