@@ -1,6 +1,6 @@
 package gb.library.official.repositories;
 
-import gb.lib.common.entities.Author;
+import gb.library.common.entities.Author;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

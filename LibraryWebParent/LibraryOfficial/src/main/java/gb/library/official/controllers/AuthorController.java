@@ -1,6 +1,6 @@
 package gb.library.official.controllers;
 
-import gb.lib.common.entities.Author;
+import gb.library.common.entities.Author;
 import gb.library.official.services.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
