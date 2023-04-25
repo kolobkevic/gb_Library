@@ -6,17 +6,9 @@
 
     function config($routeProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'index.html',
-                controller: 'entranceController'
-            })
             .when('/books', {
                 templateUrl: 'books/books.html',
                 controller: 'booksController'
-            })
-            .when('/current_books', {
-                templateUrl: 'current_books/current_books.html',
-                controller: 'currentBooksController'
             })
             .when('/reserved_books', {
                 templateUrl: 'reserved_books/reserved_books.html',
@@ -60,7 +52,7 @@ angular.module('reader-front').controller('indexController', function ($rootScop
     const contextPath = 'http://localhost:8070/reader';
 
     $scope.tryToAuth = function () {
-        $http.post('http://localhost:5555/auth/auth', $scope.user)
+        $http.post('http://localhost:5555/auth/auth', $scope.user) // поменять адрес на актуальный
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;

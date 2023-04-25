@@ -1,4 +1,4 @@
-angular.module('reader-front').controller('booksController', function ($scope, $http, $location, $localStorage) {
+angular.module('reader-front').controller('booksController', function ($scope, $http) {
     const contextPath = 'http://localhost:8070/books/';
     let currentPageIndex = 1;
 
@@ -18,7 +18,8 @@ angular.module('reader-front').controller('booksController', function ($scope, $
 
     $scope.reserveBook = function (inventory_number) {
         $http({
-            url: 'http://localhost:8070/readers/api/v1/reserved/' + '/add/' + inventory_number, // адрес пока такой
+            url: 'http://localhost:8070/readers/api/v1/reserved/' + '/add/' // поменять адрес на актуальный
+                + inventory_number,
             method: 'GET',
         }).then(function successCallback(response) {
             alert('Книга добавлена в резерв');
