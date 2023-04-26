@@ -12,5 +12,5 @@ public interface AbstractDaoService <E, K>{
 
     public E update(E entity);
 
-    public boolean delete(K id);
+    public void delete(K id);
 }

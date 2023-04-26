@@ -1,6 +1,6 @@
 package gb.library.official.services;
 
-import gb.lib.common.entities.Author;
+import gb.library.common.entities.Author;
 import org.springframework.data.domain.Page;
 
 

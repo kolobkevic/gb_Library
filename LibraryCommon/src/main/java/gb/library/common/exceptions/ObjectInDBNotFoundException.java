@@ -1,4 +1,4 @@
-package gb.lib.common.exceptions;
+package gb.library.common.exceptions;
 
 public class ObjectInDBNotFoundException extends RuntimeException {
     String entityName;

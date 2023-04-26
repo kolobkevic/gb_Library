@@ -1,7 +1,7 @@
 package gb.library.official.services;
 
-import gb.lib.common.entities.Author;
-import gb.lib.common.exceptions.ObjectInDBNotFoundException;
+import gb.library.common.entities.Author;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.official.repositories.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
