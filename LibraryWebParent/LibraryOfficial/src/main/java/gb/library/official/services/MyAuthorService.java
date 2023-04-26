@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -27,17 +28,23 @@ public class MyAuthorService implements AuthorService {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
-        return authorRepository.findAll(PageRequest.of(pageIndex, pageSize));
+        return authorRepository.findAll(PageRequest.of(pageIndex - 1, pageSize));
     }
 
     @Override
     public Page<Author> findByFirstName(int pageIndex, int pageSize, String firstName) {
-        return authorRepository.findAllByFirstName(PageRequest.of(pageIndex, pageSize), firstName);
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+        return authorRepository.findAllByFirstName(PageRequest.of(pageIndex - 1, pageSize), firstName);
     }
 
     @Override
     public Page<Author> findByLastName(int pageIndex, int pageSize, String lastName) {
-        return authorRepository.findAllByLastName(PageRequest.of(pageIndex, pageSize), lastName);
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+        return authorRepository.findAllByLastName(PageRequest.of(pageIndex - 1, pageSize), lastName);
     }
 
     @Override
@@ -51,12 +58,13 @@ public class MyAuthorService implements AuthorService {
     }
 
     @Override
+    @Transactional
     public Author update(Author author) {
         Author updatedAuthor = authorRepository.findById(author.getId()).orElseThrow(
                 () -> new ObjectInDBNotFoundException("Автор не найден в базе, id: " + author.getId(), "Author"));
         updatedAuthor.setFirstName(author.getFirstName());
         updatedAuthor.setLastName(author.getLastName());
-        return updatedAuthor;
+        return authorRepository.save(updatedAuthor);
     }
 
 }
