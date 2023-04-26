@@ -1,5 +1,6 @@
 package gb.library.official.services;
 
+import gb.library.common.dtos.GenreDTO;
 import gb.library.common.entities.Genre;
 import gb.library.official.exceptions.ResourceNotFoundException;
 import gb.library.official.repositories.GenreRepository;
@@ -44,11 +45,11 @@ public class GenreService {
     }
 
 
-    public Genre update(Genre genre) {
-        Genre updatedGenre = genreRepository.findById(genre.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Жанр не найде базе, id: " + genre.getId()));
-        updatedGenre.setName(genre.getName());
-        updatedGenre.setDescription(genre.getDescription());
-        return updatedGenre;
+    public Genre update(GenreDTO genreDTO) {
+        Genre updatedGenre = genreRepository.findById(genreDTO.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("Жанр не найде базе, id: " + genreDTO.getId()));
+        updatedGenre.setName(genreDTO.getName());
+        updatedGenre.setDescription(genreDTO.getDescription());
+        return genreRepository.save(updatedGenre);
     }
 }

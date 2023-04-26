@@ -1,8 +1,12 @@
 package gb.library.official.controllers;
 
+import gb.library.common.dtos.GenreDTO;
 import gb.library.common.entities.Genre;
+import gb.library.official.converters.GenreConverter;
 import gb.library.official.services.GenreService;
+import gb.library.official.validators.GenreValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,19 +14,23 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/genres")
+@CrossOrigin
 public class GenreController {
     private final GenreService genreService;
+    private final GenreConverter converter;
+    private final GenreValidator validator;
 
     @GetMapping
-    public List<Genre> findAll(@RequestParam(required = false, name = "genre") String genre,
+    public List<GenreDTO> findAll(@RequestParam(required = false, name = "name") String name,
                                @RequestParam(required = false, name = "description") String description) {
 
-        return genreService.findAll(genre, description);
+
+        return genreService.findAll(name, description).stream().map(converter::entityToDto).toList();
     }
 
     @GetMapping("/{id}")
-    public Genre findById(@PathVariable Integer id) {
-        return genreService.findById(id);
+    public GenreDTO findById(@PathVariable Integer id) {
+        return converter.entityToDto(genreService.findById(id));
     }
 
     @DeleteMapping("delete/{id}")
@@ -31,12 +39,19 @@ public class GenreController {
     }
 
     @PutMapping
-    public Genre updateGenre(@RequestBody Genre genre) {
-        return genreService.update(genre);
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Genre updateGenre(@RequestBody GenreDTO genreDTO) {
+        validator.validate(genreDTO);
+        return genreService.update(genreDTO);
     }
 
     @PostMapping
-    public Genre saveNewGenre(@RequestBody Genre genre) {
-        return genreService.save(genre);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Genre saveNewGenre(@RequestBody GenreDTO genreDTO) {
+        validator.validate(genreDTO);
+        Genre newGenre =new Genre();
+        newGenre.setName(genreDTO.getName());
+        newGenre.setDescription(genreDTO.getDescription());
+        return genreService.save(newGenre);
     }
 }
