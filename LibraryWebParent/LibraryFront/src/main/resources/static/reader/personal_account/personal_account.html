@@ -23,7 +23,7 @@
     <div ng-controller="accountController">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="nav nav-pills nav-fill">
                     <li class="nav-item">
                         <a class="nav-link" href="../index.html">Главная</a>
                     </li>
@@ -37,47 +37,9 @@
                         <a class="nav-link" href="../user_history/user_history.html">История книг</a>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()">
-                        <a class="nav-link" href="personal_account.html">Личный кабинет</a>
+                        <a class="nav-link active" href="personal_account.html">Личный кабинет</a>
                     </li>
 
-                    <li class="nav-item" ng-show="!isUserLoggedIn()">
-
-                            <div class="input-group input-group-sm" style="padding: 4px;">
-                                <div class="dropdown" ng-submit="tryToAuth()">
-                                    <button type="button" class="btn btn-primary dropdown-toggle"
-                                            data-bs-toggle="dropdown" aria-expanded="true"
-                                            data-bs-auto-close="outside">
-                                        Войти
-                                    </button>
-                                    <form class="dropdown-menu p-4">
-                                        <div class="mb-3">
-                                            <label for="exampleDropdownFormEmail2" class="form-label">Почтовый
-                                                адрес</label>
-                                            <input type="email" class="form-control" id="exampleDropdownFormEmail2"
-                                                   placeholder="email@example.ru" ng-model="user.username">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="exampleDropdownFormPassword2"
-                                                   class="form-label">Пароль</label>
-                                            <input type="password" class="form-control"
-                                                   id="exampleDropdownFormPassword2" placeholder="Пароль"
-                                                   ng-model="user.password">
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                                                <label class="form-check-label" for="dropdownCheck2">
-                                                    Запомнить меня
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Sign in</button>
-                                        <button type="button" class="btn btn-primary">Регистрация</button>
-                                    </form>
-                                </div>
-
-                            </div>
-                    </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
                         <h6 ng-model="user">{{user.username}}</h6>
                         <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>

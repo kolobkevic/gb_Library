@@ -23,12 +23,12 @@
     <div ng-controller="booksController">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="nav nav-pills nav-fill">
                     <li class="nav-item">
                         <a class="nav-link" href="../index.html">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="books.html">Каталог книг</a>
+                        <a class="nav-link active" href="books.html">Каталог книг</a>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()">
                         <a class="nav-link" href="../reserved_books/reserved_books.html">Забронированные</a>
