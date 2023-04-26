@@ -11,7 +11,7 @@
                 controller: 'booksController'
             })
             .when('/reserved_books', {
-                templateUrl: 'reserved_books/reserved_books.html',
+                templateUrl: 'reserved_books/user_history.html',
                 controller: 'reservedBooksController'
             })
             .when('/personal_account', {

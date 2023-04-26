@@ -3,7 +3,12 @@
     margin: 0 auto;
 }
 
-.border {
-    border: 1px solid black;
-    padding: 1px;
+/*сделал для себя, удобно видеть границы*/
+/*.border {*/
+/*    border: 1px solid black;*/
+/*    padding: 1px;*/
+/*}*/
+
+form.dropdown-menu.p-4.show {
+    width: 250px;
 }

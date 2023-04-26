@@ -5,10 +5,10 @@
     <title>Библиотека</title>
     <link rel="stylesheet" href="../style.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
@@ -30,31 +30,53 @@
                     <li class="nav-item">
                         <a class="nav-link" href="books.html">Каталог книг</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" ng-show="isUserLoggedIn()">
                         <a class="nav-link" href="../reserved_books/reserved_books.html">Забронированные</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">История книг</a>
+                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                        <a class="nav-link" href="../user_history/user_history.html">История книг</a>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()">
-                        <a class="nav-link" href="#!/account">Личный кабинет</a>
+                        <a class="nav-link" href="../personal_account/personal_account.html">Личный кабинет</a>
                     </li>
 
                     <li class="nav-item" ng-show="!isUserLoggedIn()">
-                        <form class="align-middle" ng-submit="tryToAuth()">
+
                             <div class="input-group input-group-sm" style="padding: 4px;">
-                                <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
+                                <div class="dropdown" ng-submit="tryToAuth()">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="true"
+                                            data-bs-auto-close="outside">
+                                        Войти
+                                    </button>
+                                    <form class="dropdown-menu p-4">
+                                        <div class="mb-3">
+                                            <label for="exampleDropdownFormEmail2" class="form-label">Почтовый
+                                                адрес</label>
+                                            <input type="email" class="form-control" id="exampleDropdownFormEmail2"
+                                                   placeholder="email@example.ru" ng-model="user.username">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleDropdownFormPassword2"
+                                                   class="form-label">Пароль</label>
+                                            <input type="password" class="form-control"
+                                                   id="exampleDropdownFormPassword2" placeholder="Пароль"
+                                                   ng-model="user.password">
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                                                <label class="form-check-label" for="dropdownCheck2">
+                                                    Запомнить меня
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Sign in</button>
+                                        <button type="button" class="btn btn-primary">Регистрация</button>
+                                    </form>
+                                </div>
 
-                                <input id="navPasswordField" class="form-control" ng-model="user.password"
-                                       type="password"
-                                       aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;">
-
-                                <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
-                                        style="margin-left: 10px;" type="submit">Войти
-                                </button>
                             </div>
-                        </form>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
                         <h6 ng-model="user">{{user.username}}</h6>
@@ -67,12 +89,100 @@
 
     <div class="row border">
         <div class="col-2 border">Лого</div>
-        <div class="col-7 border">Поиск</div>
+        <div class="col-7 border">
+            <input name="searchInput" type="text" placeholder="Поиск">
+        </div>
         <div class="col-3 border">Личный кабинет</div>
     </div>
     <div class="row border">
         <div class="col-2 border">
-            Место для каких-нибудь фильтров
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                            Жанры
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="genreCheckbox_1">
+                                    <label class="form-check-label" for="genreCheckbox_1">Романы</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="genreCheckbox_2">
+                                    <label class="form-check-label" for="genreCheckbox_2">Приключения</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="genreCheckbox_3">
+                                    <label class="form-check-label" for="genreCheckbox_3">Детектив</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                            Возрастной рейтинг
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="ageCheckbox_G">
+                                    <label class="form-check-label" for="ageCheckbox_G">G какое-то описание</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="ageCheckbox_PG">
+                                    <label class="form-check-label" for="ageCheckbox_PG">PG</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="ageCheckbox_PG13">
+                                    <label class="form-check-label" for="ageCheckbox_PG13">PG-13</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="ageCheckbox_R">
+                                    <label class="form-check-label" for="ageCheckbox_R">R</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseThree">
+                            Авторы
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="authorCheckbox_1">
+                                    <label class="form-check-label" for="authorCheckbox_1">Л. Толстой</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="authorCheckbox_2">
+                                    <label class="form-check-label" for="authorCheckbox_2">М. Горький</label>
+                                </li>
+                                <li class="list-group-item">
+                                    <input class="form-check-input me-1" type="checkbox" value="" id="authorCheckbox_3">
+                                    <label class="form-check-label" for="authorCheckbox_3">С. Кинг</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> <!--может авторы и не нужны-->
+            </div>
         </div>
         <div class="col-10 border">
             <table class="table">
