@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="../style.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
@@ -20,6 +20,10 @@
 </head>
 
 <body ng-app="employee-front">
+<div ng-controller="genresController" style="  display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;">
     <div class="top">
         <div class="container top__content">
             <div class="menu">
@@ -30,25 +34,94 @@
             </div>
         </div>
     </div>
-    <div class="top_2">
-        <div class="container top__content">
-            <div class="menu_2">
-                <a class="inactive_item" href="authors.html">Авторы</a>
-                <a class="inactive_item" href="genres.html">Жанры</a>
-                <a class="active_item" href="locations.html">Книжные полки</a>
+
+
+
+    <div class="container top__content">
+        <div class="menu_2">
+            <a class="inactive_item" href="authors.html">Авторы</a>
+            <a class="inactive_item" href="genres.html">Жанры</a>
+            <a class="active_item" href="locations.html">Книжные полки</a>
+            <a class="inactive_item" href="world_books.html">Книги мира</a>
+        </div>
+    </div>
+
+    <div class="main container">
+        <div id="booksList">
+            <p></p>
+            <div>
+
+                <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>
             </div>
+            </br>
+
+<!--            <table class="table">-->
+<!--                <thead>-->
+<!--                <tr><b>-->
+<!--                    <td><b>ID</b></td>-->
+<!--                    <td><b>Жанр</b></td>-->
+<!--                    <td><b>Описание</b></td>-->
+
+<!--                    <td></td>-->
+<!--                </b>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td></td>-->
+<!--                    <td>-->
+<!--                        <input name="genre" type="text" id="input_name" placeholder="фильтр">-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <input name="description" type="text" id="input_description" placeholder="фильтр">-->
+<!--                    </td>-->
+
+
+<!--                    <td></td>-->
+<!--                </tr>-->
+
+<!--                </thead>-->
+<!--                <tbody>-->
+
+<!--                <tr ng-repeat="s in productList">-->
+<!--                    <td>{{s.id}}</td>-->
+<!--                    <td>{{s.name}}</td>-->
+<!--                    <td>{{s.description}}</td>-->
+<!--                    <td>-->
+<!--                        <a href="#" ng-click="goToEdit(s.id)">Изменить</a>-->
+<!--                    </td>-->
+<!--                </tbody>-->
+<!--            </table>-->
         </div>
+
+<!--        <div  id="editForm" style="display:none">-->
+<!--            <p></p>-->
+<!--            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку жанров</button>-->
+<!--            </br>-->
+<!--            <form class="edit_form" novalidate ng-submit="saveGenre()">-->
+
+<!--                </br></br>-->
+
+<!--                <p id="genre_id"></p>-->
+<!--                </br>-->
+<!--                <p>Название:-->
+<!--                    <input class="form-control" type="text" id="form_genre" placeholder="Жанр" ng-model="genre.name">-->
+<!--                </p>-->
+<!--                <p>Описание:-->
+<!--                    <input class="form-control" type="text" id="form_description" placeholder="описание"-->
+<!--                           ng-model="genre.description">-->
+<!--                </p>-->
+<!--                <p></p>-->
+<!--                <button type="submit" class="btn btn-primary">Сохранить</button>-->
+
+<!--            </form>-->
+<!--        </div>-->
+        ТУТ БУДУТ КНИЖНЫЕ ПОЛКИ
     </div>
 
-
-    <div style="justify-content: space-around">
-        <p></br></br></br></br></br></p>
-
-        <div style="text-align: center;">
-
-            <h4>Справочник полок и стеллажей</h4>
-        </div>
-    </div>
+</div>
+<script src="../main.js"></script>
+<script src="locations.js"></script>
+</div>
+</div>
 
 </body>
 
