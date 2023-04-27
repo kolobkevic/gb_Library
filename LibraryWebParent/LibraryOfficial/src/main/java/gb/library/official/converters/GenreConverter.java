@@ -10,5 +10,15 @@ public class GenreConverter {
         return new GenreDTO(genre.getId(), genre.getName(), genre.getDescription());
 
     }
+    public Genre dtoToEntity(GenreDTO genreDTO){
+        Genre newGenre =new Genre();
+        if (genreDTO.getId()!=0)
+            newGenre.setId(genreDTO.getId());
+        newGenre.setName(genreDTO.getName());
+        newGenre.setDescription(genreDTO.getDescription());
+        return newGenre;
+
+    }
+
 
 }

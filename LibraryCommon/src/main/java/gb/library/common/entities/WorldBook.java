@@ -1,6 +1,8 @@
 package gb.library.common.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,6 +11,8 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "world_books")
+@Setter
+@Getter
 public class WorldBook extends IdBasedEntity{
     @Column(name = "title", length = 128, nullable = false)
     private String title;

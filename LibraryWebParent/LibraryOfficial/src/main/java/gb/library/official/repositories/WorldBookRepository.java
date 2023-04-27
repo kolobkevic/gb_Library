@@ -1,16 +1,12 @@
 package gb.library.official.repositories;
 
-
-import gb.library.common.entities.Genre;
+import gb.library.common.entities.WorldBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, Integer> , JpaSpecificationExecutor<Genre> {
-
+public interface WorldBookRepository extends JpaRepository<WorldBook, Integer> , JpaSpecificationExecutor<WorldBook> {
 
 }
 

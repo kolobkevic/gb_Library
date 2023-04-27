@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/genres")
 @CrossOrigin
-public class GenreController {
+public class WorldBookController {
     private final GenreService genreService;
     private final GenreConverter converter;
 
