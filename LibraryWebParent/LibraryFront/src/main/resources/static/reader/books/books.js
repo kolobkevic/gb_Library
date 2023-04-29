@@ -20,7 +20,7 @@ angular.module('reader-front').controller('booksController', function ($scope, $
         $http({
             url: 'http://localhost:8070/readers/api/v1/reserved/' + '/add/' // поменять адрес на актуальный
                 + inventory_number,
-            method: 'GET',
+            method: 'POST',
         }).then(function successCallback(response) {
             alert('Книга добавлена в резерв');
             console.log(response);
