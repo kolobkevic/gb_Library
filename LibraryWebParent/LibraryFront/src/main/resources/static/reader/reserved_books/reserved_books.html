@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+
+</head>
+<body>
+<meta charset="UTF-8">
+<div>
+    <h3>Забронированные книги</h3>
+
+    <div ng-controller="reservedBooksController">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../books/books.html">Каталог книг</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="reserved_books.html">Забронированные</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../user_history/user_history.html">История книг</a>
+                    </li>
+                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                        <a class="nav-link" href="../personal_account/personal_account.html">Личный кабинет</a>
+                    </li>
+
+                    <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
+                        <h6 ng-model="user">{{user.username}}</h6>
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row border">
+        <div class="col-7 border">
+            <input name="searchInput" type="text" placeholder="Поиск">
+        </div>
+    </div>
+    <div class="row border">
+        <div class="col-12 border">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Инвентарный номер</td>
+                    <td>Название</td>
+                    <td>Автор</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="b in booksListPage.content">
+                    <td>{{b.inventory_number}}</td>
+                    <td>{{b.title}}</td>
+                    <td>{{b.author}}</td>
+                    <td>
+                        <button class="btn btn-primary" data-ng-click="reserveBook(b.inventory_number)">Забронировать
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-ng-click="reserveBook(b.inventory_number)">Отменить
+                            бронирование
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
