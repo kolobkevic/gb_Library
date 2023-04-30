@@ -20,9 +20,6 @@ body {
 
 .top_2 {
 
-    background: linear-gradient(0deg, rgba(152, 195, 232, 0) 8%, #EBF3FB 31%);
-
-
 }
 
 .top__content {
@@ -32,25 +29,15 @@ body {
 
 }
 
+
 .menu {
     display: flex;
     justify-content: space-between;
     padding-top: 32px;
     padding-bottom: 20px;
-    background: linear-gradient(0deg, #EBF3FB 8.84%, rgba(152, 195, 232, 0) 31.12%);
 }
 
-.menu_2 {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 32px;
-    padding-bottom: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
-
-}
-
-.inactive_item {
+.menu > .inactive_item {
     font-size: 16px;
     line-height: 26px;
     text-align: center;
@@ -62,11 +49,10 @@ body {
 
     padding: 15px 50px;
     display: inline-block;
-
     text-decoration: double;
 }
 
-.active_item {
+.menu > .active_item {
     font-size: 16px;
     line-height: 26px;
     text-align: center;
@@ -81,6 +67,72 @@ body {
     text-decoration: double;
 }
 
+.menu_2 {
+    display: flex;
+    padding-top: 32px;
+    margin-right: -12px;
+    margin-left: -12px;
+    flex-direction: row;
+}
+
+
+
+.menu_2 >.inactive_item {
+    font-size: 16px;
+    line-height: 10px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+        background: #5A98D0;
+    /*box-shadow: 0px 5px 0px rgba(90, 152, 208, 0.3);*/
+
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+
+
+    border:solid 1px #346fa4;
+
+
+    padding: 15px 50px;
+    display: inline;
+    text-decoration: double;
+    position: relative;
+    width: 100%;
+
+
+
+}
+
+.menu_2 > .active_item {
+    font-size: 16px;
+    line-height: 10px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    /*box-shadow: 5px 10px 20px rgba(53, 110, 173, 0.2);*/
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+
+    border-color: #5A98D0;
+    background-color: #ebf3fb;
+    padding: 15px 50px;
+    display: inline;
+    text-decoration: double;
+    position: relative;
+    width: 100%;
+}
+
+.main{
+    /*background-color: #ebf3fb;*/
+    background: linear-gradient(#ebf3fb, #ffffff);
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    min-height: 700px;
+
+
+
+}
 .button_switch {
     font-size: 12px;
     line-height: 26px;
@@ -93,6 +145,7 @@ body {
     border-color: rgba(255, 255, 255, 0);
     padding: 3px 40px;
     display: inline-block;
-
-
+}
+.edit_form{
+    margin-bottom: 30px;
 }
