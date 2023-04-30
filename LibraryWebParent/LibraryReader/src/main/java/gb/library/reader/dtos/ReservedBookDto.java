@@ -16,5 +16,7 @@ public class ReservedBookDto {
 
     private String username;
 
+    private String author;
+
     private Instant createdAt;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/reserved")
+@CrossOrigin
 public class ReservedBookController {
     private final ReservedBooksService reservedBooksService;
     private final ReservedBookConverter converter;

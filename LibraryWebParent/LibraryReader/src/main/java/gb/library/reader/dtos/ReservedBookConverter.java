@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 public class ReservedBookConverter {
     public ReservedBookDto entityToDto(ReservedBook book) {
         return new ReservedBookDto(book.getId(), book.getWorldBook().getTitle(),
-                book.getLibraryBook().getInventoryNumber(), book.getUser().getEmail(), book.getCreatedAt());
+                book.getLibraryBook().getInventoryNumber(), book.getUser().getEmail(),
+                book.getWorldBook().getAuthor().getFirstName() + " " +
+                        book.getWorldBook().getAuthor().getLastName(), book.getCreatedAt());
     }
 
 //    public ReservedBook DtoToEntity(ReservedBookDto bookDto) {
