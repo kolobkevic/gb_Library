@@ -1,10 +1,9 @@
 package gb.library.official.controllers;
 
-import gb.library.common.dtos.GenreDTO;
-import gb.library.common.entities.Genre;
-import gb.library.official.converters.GenreConverter;
-import gb.library.official.services.GenreService;
-import gb.library.official.validators.GenreValidator;
+
+import gb.library.common.dtos.WorldBookDTO;
+import gb.library.official.converters.WorldBookConverter;
+import gb.library.official.services.WorldBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,43 +12,46 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/genres")
+@RequestMapping("/api/v1/worldBook")
 @CrossOrigin
 public class WorldBookController {
-    private final GenreService genreService;
-    private final GenreConverter converter;
+    private final WorldBookService worldBookService;
+    private final WorldBookConverter converter;
 
-    private final GenreValidator validator;
+//    private final WorldBookValidator validator;
 
     @GetMapping
-    public List<GenreDTO> findAll(@RequestParam(required = false, name = "name") String name,
-                               @RequestParam(required = false, name = "description") String description) {
+    public List<WorldBookDTO> findAll(@RequestParam(required = false, name = "title") String title,
+                                      @RequestParam(required = false, name = "author") String author,
+                                      @RequestParam(required = false, name = "genre") String genre,
+                                      @RequestParam(required = false, name = "ageRating") String ageRating,
+                                      @RequestParam(required = false, name = "description") String description) {
 
 
-        return genreService.findAll(name, description).stream().map(converter::entityToDto).toList();
+        return worldBookService.findAll(title, author, genre, ageRating, description).stream().map(converter::entityToDto).toList();
     }
 
     @GetMapping("/{id}")
-    public GenreDTO findById(@PathVariable Integer id) {
-        return converter.entityToDto(genreService.findById(id));
+    public WorldBookDTO findById(@PathVariable Integer id) {
+        return converter.entityToDto(worldBookService.findById(id));
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteAuthor(@PathVariable Integer id) {
-        genreService.deleteById(id);
+    public void delete(@PathVariable Integer id) {
+        worldBookService.deleteById(id);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Genre updateGenre(@RequestBody GenreDTO genreDTO) {
-        validator.validate(genreDTO);
-        return genreService.update(genreDTO);
+    public WorldBookDTO update(@RequestBody WorldBookDTO worldBookDTO) {
+//        validator.validate(worldBookDTO);
+        return converter.entityToDto(worldBookService.update(worldBookDTO));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Genre saveNewGenre(@RequestBody GenreDTO genreDTO) {
-        validator.validate(genreDTO);
-        return genreService.save(converter.dtoToEntity(genreDTO));
+    public WorldBookDTO saveNewGenre(@RequestBody WorldBookDTO worldBookDTO) {
+//        validator.validate(worldBookDTO);
+        return converter.entityToDto(worldBookService.save(converter.dtoToEntity(worldBookDTO)));
     }
 }

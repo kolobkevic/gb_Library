@@ -29,7 +29,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
 
             }
         ).then(function (response) {
-            $scope.productList = response.data;
+            $scope.genreList = response.data;
         });
     };
 

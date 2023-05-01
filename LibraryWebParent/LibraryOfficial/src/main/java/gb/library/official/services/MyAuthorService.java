@@ -9,6 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -67,4 +70,18 @@ public class MyAuthorService implements AuthorService {
         return authorRepository.save(updatedAuthor);
     }
 
+    public List<Author> searchAuthors(String searchString){
+        searchString=searchString.toUpperCase();
+        List<Author> result = new ArrayList<>();
+        String[] splitString = searchString.split(" ");
+        if (splitString.length==2){
+            result.addAll(authorRepository.findByFirstNameAndLastNameLike(splitString[0], splitString[1]));
+            result.addAll(authorRepository.findByFirstNameAndLastNameLike(splitString[1], splitString[0]));
+        }
+        else{
+            result.addAll(authorRepository.findByLastNameLike(splitString[0]));
+            result.addAll(authorRepository.findByFirstNameLike(splitString[0]));
+        }
+        return result;
+    }
 }

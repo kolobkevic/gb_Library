@@ -36,7 +36,6 @@
     </div>
 
 
-
     <div class="container top__content">
         <div class="menu_2">
             <a class="inactive_item" href="authors.html">Авторы</a>
@@ -49,72 +48,57 @@
     <div class="main container">
         <div id="authorsList">
             <p></p>
-            <div>
-
-                <button class="button_switch" ng-click="goToEdit(0)">Добавить автора</button>
-            </div>
             </br>
 
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                <tr><b>-->
-<!--                    <td><b>ID</b></td>-->
-<!--                    <td><b>Жанр</b></td>-->
-<!--                    <td><b>Описание</b></td>-->
-
-<!--                    <td></td>-->
-<!--                </b>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td></td>-->
-<!--                    <td>-->
-<!--                        <input name="genre" type="text" id="input_name" placeholder="фильтр">-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <input name="description" type="text" id="input_description" placeholder="фильтр">-->
-<!--                    </td>-->
+            <table class="table">
+                <thead>
+                <tr><b>
+                    <td><b>Название</b></td>
+                    <td><b>Автор</b></td>
+                    <td><b>Жанр</b></td>
+                    <td><b>Описание</b></td>
 
 
-<!--                    <td></td>-->
-<!--                </tr>-->
+                    <td></td>
+                </b>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="title" type="text" id="input_title" placeholder="фильтр">
+                    </td>
+                    <td>
+                        <input name="author" type="text" id="input_author" placeholder="фильтр">
+                    </td>
+                    <td>
+                        <input name="genre" type="text" id="input_genre" placeholder="фильтр">
+                    </td>
+                    <td>
+                        <input name="description" type="text" id="input_description" placeholder="фильтр">
+                    </td>
+                        <td><select id="selectAge">
+                            <option value=></option>
+                            <option value=G>0+</option>
+                            <option value=PG>?+</option>
+                            <option value=PG13>13+</option>
+                            <option value=R>18+</option>
+                        </select>
+                    </td>
+                </tr>
 
-<!--                </thead>-->
-<!--                <tbody>-->
+                </thead>
+                <tbody>
 
-<!--                <tr ng-repeat="s in productList">-->
-<!--                    <td>{{s.id}}</td>-->
-<!--                    <td>{{s.name}}</td>-->
-<!--                    <td>{{s.description}}</td>-->
-<!--                    <td>-->
-<!--                        <a href="#" ng-click="goToEdit(s.id)">Изменить</a>-->
-<!--                    </td>-->
-<!--                </tbody>-->
-<!--            </table>-->
+                <tr ng-repeat="s in booksList">
+                    <td>{{s.title}}</td>
+                    <td>{{s.authorName}}</td>
+                    <td>{{s.genre.name}}</td>
+                    <td>{{s.description}}</td>
+                    <td>{{s.ageRating}}</td>
+                </tbody>
+            </table>
         </div>
 
-<!--        <div  id="editForm" style="display:none">-->
-<!--            <p></p>-->
-<!--            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку жанров</button>-->
-<!--            </br>-->
-<!--            <form class="edit_form" novalidate ng-submit="saveGenre()">-->
 
-<!--                </br></br>-->
-
-<!--                <p id="genre_id"></p>-->
-<!--                </br>-->
-<!--                <p>Название:-->
-<!--                    <input class="form-control" type="text" id="form_genre" placeholder="Жанр" ng-model="genre.name">-->
-<!--                </p>-->
-<!--                <p>Описание:-->
-<!--                    <input class="form-control" type="text" id="form_description" placeholder="описание"-->
-<!--                           ng-model="genre.description">-->
-<!--                </p>-->
-<!--                <p></p>-->
-<!--                <button type="submit" class="btn btn-primary">Сохранить</button>-->
-
-<!--            </form>-->
-<!--        </div>-->
-        КНИГИ МИРА
     </div>
 
 </div>
