@@ -71,11 +71,7 @@
                     <td>{{b.bookTitle}}</td>
                     <td>{{b.author}}</td>
                     <td>
-                        <button class="btn btn-primary" data-ng-click="reserveBook(b.inventory_number)">Забронировать
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" data-ng-click="reserveBook(b.inventory_number)">Отменить
+                        <button class="btn btn-danger" data-ng-click="unReserveBook(b.id)">Отменить
                             бронирование
                         </button>
                     </td>

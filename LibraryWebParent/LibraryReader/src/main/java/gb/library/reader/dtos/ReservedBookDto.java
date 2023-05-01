@@ -9,14 +9,12 @@ import java.time.Instant;
 @Data
 public class ReservedBookDto {
     private int id;
-
+    private int userId;
+    private int libraryBookId;
+    private int worldBookId;
     private String bookTitle;
-
     private String inventoryNumber;
-
     private String username;
-
     private String author;
-
     private Instant createdAt;
 }

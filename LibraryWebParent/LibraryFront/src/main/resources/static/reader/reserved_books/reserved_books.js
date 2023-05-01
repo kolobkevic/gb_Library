@@ -24,4 +24,16 @@ angular.module('reader-front').controller('reservedBooksController', function ($
     }
 
     $scope.loadReservedBooks();
+
+    $scope.unReserveBook = function (id) {
+        $http({
+            url: contextPath + 'api/v1/reserved/delete/' + id,
+            method: 'DELETE',
+
+        }).then(function successCallback(response) {
+            console.log(response)
+            alert('Броинрование успешно отменено');
+            $scope.loadReservedBooks();
+        });
+    };
 });
