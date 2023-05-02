@@ -1,31 +1,7 @@
 (function () {
     angular
         .module('reader-front', ['ngRoute', 'ngStorage'])
-        .config(config)
         .run(run);
-
-    function config($routeProvider) {
-        $routeProvider
-            .when('/books', {
-                templateUrl: 'books/books.html',
-                controller: 'booksController'
-            })
-            .when('/reserved_books', {
-                templateUrl: 'reserved_books/user_history.html',
-                controller: 'reservedBooksController'
-            })
-            .when('/personal_account', {
-                templateUrl: 'personal_account/personal_account.html',
-                controller: 'personalAccountController'
-            })
-            .when('/orders', {
-                templateUrl: 'orders/orders.html',
-                controller: 'ordersController'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
-    }
 
     function run($rootScope, $http, $localStorage) {
         if ($localStorage.webUser) {
