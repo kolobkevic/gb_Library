@@ -33,10 +33,8 @@ public class GenreService {
         return genreRepository.findAll(specification);
     }
 
-
-
-
     public Genre save(Genre genre) {
+
         return genreRepository.save(genre);
     }
 

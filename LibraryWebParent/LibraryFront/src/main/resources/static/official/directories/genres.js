@@ -29,7 +29,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
 
             }
         ).then(function (response) {
-            $scope.productList = response.data;
+            $scope.genreList = response.data;
         });
     };
 
@@ -44,25 +44,24 @@ angular.module('employee-front').controller('genresController', function ($rootS
         } else {
             document.getElementById("booksList").style.display = 'none';
             document.getElementById("editForm").style.display = 'inline';
+
+            if (id === 0) {
+                document.getElementById("genre_id").innerText = "Добавление нового жанра:";
+            }
+
+            if (id > 0) {
+                document.getElementById("genre_id").innerText = "Редактирование id: " + id;
+                $http({
+                        url: corePath + '/genres/' + id,
+                        method: 'GET'
+                    }
+                ).then(function (response) {
+                    document.getElementById("form_genre").value = response.data.name;
+                    document.getElementById("form_description").value = response.data.description;
+                });
+            }
         }
 
-
-        if (id === 0) {
-            document.getElementById("genre_id").innerText = "Добавление нового жанра:";
-
-        }
-
-        if (id > 0) {
-            document.getElementById("genre_id").innerText = "Редактирование id: " + id;
-            $http({
-                    url: corePath + '/genres/' + id,
-                    method: 'GET'
-                }
-            ).then(function (response) {
-                document.getElementById("form_genre").value = response.data.name;
-                document.getElementById("form_description").value = response.data.description;
-            });
-        }
     }
 
 

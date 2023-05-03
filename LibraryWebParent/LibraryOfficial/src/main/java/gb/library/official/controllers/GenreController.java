@@ -40,18 +40,15 @@ public class GenreController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Genre updateGenre(@RequestBody GenreDTO genreDTO) {
+    public GenreDTO updateGenre(@RequestBody GenreDTO genreDTO) {
         validator.validate(genreDTO);
-        return genreService.update(genreDTO);
+        return converter.entityToDto(genreService.update(genreDTO));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Genre saveNewGenre(@RequestBody GenreDTO genreDTO) {
+    public GenreDTO saveNewGenre(@RequestBody GenreDTO genreDTO) {
         validator.validate(genreDTO);
-        Genre newGenre =new Genre();
-        newGenre.setName(genreDTO.getName());
-        newGenre.setDescription(genreDTO.getDescription());
-        return genreService.save(newGenre);
+        return converter.entityToDto(genreService.save(converter.dtoToEntity(genreDTO)));
     }
 }

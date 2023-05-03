@@ -3,6 +3,8 @@ package gb.library.official.services;
 import gb.library.common.entities.Author;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 
 public interface AuthorService {
     Author findById(Integer id);
@@ -18,4 +20,8 @@ public interface AuthorService {
     void deleteById(Integer id);
 
     Author update(Author author);
+
+
+    List<Author> searchAuthors(String author);
+
 }
