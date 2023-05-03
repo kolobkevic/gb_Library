@@ -5,7 +5,6 @@ import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Author;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class AuthorService implements AbstractDaoService<Author, Integer> {
 
     @Override
     public Author getById(Integer id) throws ObjectInDBNotFoundException {
-        return repository.findById(id).orElseThrow(()-> new ObjectInDBNotFoundException("Запись с id=" + id + " в базе не найдена.", "Author"));
+        return repository.findById(id).orElseThrow(()-> new ObjectInDBNotFoundException("Автор с id=" + id + " в базе не найден.", "Author"));
     }
 
     @Override
@@ -49,7 +48,7 @@ public class AuthorService implements AbstractDaoService<Author, Integer> {
     @Override
     public void delete(Integer id) throws ObjectInDBNotFoundException {
         if (!repository.existsById(id)) {
-            throw new ObjectInDBNotFoundException("Невозможно обновить запись с id=" + id
+            throw new ObjectInDBNotFoundException("Невозможно удалить запись с id=" + id
                                                     + ", т.к. она не найдена в базе.", "Author");
         }
         repository.deleteById(id);

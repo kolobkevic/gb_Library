@@ -3,6 +3,7 @@ package gb.library.common.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +37,10 @@ public class Author extends IdBasedEntity{
     /*
      * TRANSIENT FIELDS
      */
+    @Transient
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
     /*
      * OVERWRITE METHODS
