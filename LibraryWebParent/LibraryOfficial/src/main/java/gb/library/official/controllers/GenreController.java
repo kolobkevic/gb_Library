@@ -18,7 +18,6 @@ import java.util.List;
 public class GenreController {
     private final GenreService genreService;
     private final GenreConverter converter;
-
     private final GenreValidator validator;
 
     @GetMapping

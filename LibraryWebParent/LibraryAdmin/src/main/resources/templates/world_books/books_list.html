@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: page_head('Мировые книги - админка библиотеки', 'none')}">
+</head>
+<body>
+<div class="container-fluid">
+    <div th:insert="~{navigation :: menu}"></div>
+
+    <div>
+        <h2>Справочник "Мировые книги"</h2>
+        <a th:href="@{/world-books/new}" class="fas fa-solid fa-square-plus fa-2x icon-green mr-2"
+           title="Добавить нового"></a>
+    </div>
+
+    <div th:insert="~{fragments :: search_form_and_message}"></div>
+
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="table-dark">
+            <tr>
+                <th class="hideable-column col-1">ID</th>
+                <th th:replace="~{fragments :: column_link('title', 'Название', 'none')}"></th>
+                <th th:replace="~{fragments :: column_link('author', 'Автор', 'none')}"></th>
+                <th th:replace="~{fragments :: column_link('genre', 'Жанр', 'none')}"></th>
+                <th class="col-1">Возрастной рейтинг</th>
+                <th class="col-2">Краткое описание</th>
+                <th class="hideable-column col-1">Добавлен</th>
+                <th class="hideable-column col-1">Обновлён</th>
+                <th class="col-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${entitiesList}">
+                <td class="hideable-column col-1">[[${book.id}]]</td>
+                <td>[[${book.title}]]</td>
+                <td>[[${book.author.fullName}]]</td>
+                <td>[[${book.genre.name}]]</td>
+                <td>[[${book.ageRating}]]</td>
+                <td>[[${book.description}]]</td>
+                <th class="hideable-column col-1">
+                    <div th:replace="~{fragments :: format_time(${book.createdAt})}"></div>
+                </th>
+                <th class="hideable-column col-1">
+                    <div th:replace="~{fragments :: format_time(${book.updatedAt})}"></div>
+                </th>
+                <td class="col-1">
+                    <a th:insert="~{fragments :: entity_edit('/world-books/edit/' + ${book.id})}"></a>
+                    &nbsp;
+                    <a th:insert="~{fragments :: entity_delete('/world-books/delete/' + ${book.id}, ${book.id})}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="less-details">
+        <div th:each="book : ${entitiesList}" class="row m-1 border">
+            <div class="col">
+                <div><h5>[[${book.title}]] [[${book.author.fullName}]]</h5></div>
+                <div class="mt-2">
+                    <a th:insert="~{fragments :: entity_edit('/world-books/edit/' + ${book.id})}"></a>
+                    &nbsp;
+                    <a th:insert="~{fragments :: entity_delete('/world-books/delete/' + ${book.id}, ${book.id})}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{fragments_modal :: modal_confirmation('Подтвердите удаление')}"></div>
+
+    <div th:insert="~{navigation :: pagination}"></div>
+
+    <div th:insert="~{fragments :: footer}"></div>
+</div>
+<script type="text/javascript">
+
+    module_URI = "[[@{/world-books}]]";
+
+    $(document).ready(function (){
+        $(".link-delete").on("click", function (e){
+            e.preventDefault();
+            showDeleteConfirmModal($(this));
+        });
+    });
+
+</script>
+<script th:src="@{/js/common_list.js}"></script>
+</body>
+</html>

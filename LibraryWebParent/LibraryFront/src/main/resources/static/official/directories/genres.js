@@ -44,6 +44,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
         } else {
             document.getElementById("booksList").style.display = 'none';
             document.getElementById("editForm").style.display = 'inline';
+
             if (id === 0) {
                 document.getElementById("genre_id").innerText = "Добавление нового жанра:";
             }
@@ -60,8 +61,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
                 });
             }
         }
-
-
 
     }
 

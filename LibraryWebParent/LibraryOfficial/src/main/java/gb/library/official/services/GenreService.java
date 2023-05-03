@@ -5,7 +5,6 @@ import gb.library.common.entities.Genre;
 import gb.library.official.exceptions.ResourceNotFoundException;
 import gb.library.official.repositories.GenreRepository;
 import gb.library.official.repositories.specifications.GenreSpecification;
-import gb.library.official.validators.GenreValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import java.util.List;
 public class GenreService {
     private final GenreRepository genreRepository;
 
-
     public Genre findById(Integer id) {
         return genreRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Жанр не найде базе, id: " + id));
@@ -25,7 +23,6 @@ public class GenreService {
 
     public List<Genre> findAll(String genre, String description) {
         Specification<Genre> specification = Specification.where(null);
-
 
         if (genre != null && !genre.isBlank())
             specification = specification.and(GenreSpecification.genreLike(genre));
@@ -36,11 +33,7 @@ public class GenreService {
         return genreRepository.findAll(specification);
     }
 
-
-
-
-    public Genre save(Genre genre){
-
+    public Genre save(Genre genre) {
 
         return genreRepository.save(genre);
     }
