@@ -12,9 +12,9 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "world_books")
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class WorldBook extends IdBasedEntity{
     @Column(name = "title", length = 128, nullable = false)
     private String title;

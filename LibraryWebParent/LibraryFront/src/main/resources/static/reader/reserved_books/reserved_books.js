@@ -1,17 +1,17 @@
-angular.module('reader-front').controller('reservedBooksController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8070//reader/books/'; // поменять адрес на актуальный
+angular.module('reader-front').controller('reservedBooksController', function ($scope, $http, $localStorage) {
+    const contextPath = 'http://localhost:8070/reader/';
     let currentPageIndex = 1;
 
-    $scope.loadCurrentBooks = function (pageIndex = 1) {
+    $scope.loadReservedBooks = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
         $http({
-            url: contextPath + 'api/v1/books', // поменять адрес на актуальный
+            // url: contextPath + 'api/v1/reserved' + $localStorage.webUser.username,
+            url: contextPath + 'api/v1/reserved/1',
             method: 'GET',
-            params: {p: pageIndex},
         }).then(function (response) {
             console.log(response);
-            $scope.booksListPage = response.data;
-            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.booksListPage.totalPages);
+            $scope.reservedBooks = response.data;
+            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.reservedBooks.totalPages);
         });
     };
 
@@ -23,5 +23,17 @@ angular.module('reader-front').controller('reservedBooksController', function ($
         return arr;
     }
 
-    $scope.loadCurrentBooks();
+    $scope.loadReservedBooks();
+
+    $scope.unReserveBook = function (id) {
+        $http({
+            url: contextPath + 'api/v1/reserved/delete/' + id,
+            method: 'DELETE',
+
+        }).then(function successCallback(response) {
+            console.log(response)
+            alert('Броинрование успешно отменено');
+            $scope.loadReservedBooks();
+        });
+    };
 });
