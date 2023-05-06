@@ -1,9 +1,8 @@
 package gb.library.official.services;
 
-;
+
 import gb.library.common.dtos.WorldBookDTO;
 import gb.library.common.entities.AgeRating;
-import gb.library.common.entities.Author;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.WorldBook;
 import gb.library.official.exceptions.ResourceNotFoundException;
@@ -91,6 +90,17 @@ public class WorldBookService {
         updatedWorldBook.setAgeRating(worldBookDTO.getAgeRating());
         updatedWorldBook.setDescription(worldBookDTO.getDescription());
         return worldBookRepository.save(updatedWorldBook);
+    }
+
+    public WorldBook update(WorldBook worldBook) {
+        WorldBook updatedBook = worldBookRepository.findById(worldBook.getId()).orElseThrow(
+                () -> new ResourceNotFoundException("Книга не найде базе, id: " + worldBook.getId()));
+        updatedBook.setTitle(worldBook.getTitle());
+        updatedBook.setAuthor(worldBook.getAuthor());
+        updatedBook.setGenre(worldBook.getGenre());
+        updatedBook.setAgeRating(worldBook.getAgeRating());
+        updatedBook.setDescription(worldBook.getDescription());
+        return worldBookRepository.save(updatedBook);
     }
 
     private static List<Integer> removeDuplicates(List<Integer> list) {

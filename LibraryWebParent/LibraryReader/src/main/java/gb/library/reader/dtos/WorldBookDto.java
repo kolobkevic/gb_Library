@@ -9,4 +9,7 @@ public class WorldBookDto {
     private int worldBookId;
     private String author;
     private String title;
+    private String genre;
+    private String ageRating;
+    private String description;
 }

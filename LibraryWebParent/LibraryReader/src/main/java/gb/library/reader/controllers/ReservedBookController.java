@@ -42,12 +42,12 @@ public class ReservedBookController {
 //    }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteFromReserved(@PathVariable int id){
+    public void deleteFromReserved(@PathVariable int id) {
         reservedBooksService.delete(id);
     }
 
     @PostMapping("/create")
-    public ReservedBookDto reserveBook (@RequestBody ReservedBookDto reservedBookDto){
+    public ReservedBookDto reserveBook(@RequestBody ReservedBookDto reservedBookDto) {
         ReservedBook book = reservedBooksService.create(converter.DtoToEntity(reservedBookDto));
         return converter.entityToDto(book);
     }

@@ -49,4 +49,8 @@ public class Author extends IdBasedEntity{
     /*
      * METHODS
      */
+    public void setFullName(String fullName){
+        setFirstName(fullName.split(" ")[0]);
+        setLastName(fullName.split(" ")[1]);
+    }
 }

@@ -67,9 +67,9 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="b in reservedBooks.content">
-                    <td>{{b.inventoryNumber}}</td>
-                    <td>{{b.bookTitle}}</td>
-                    <td>{{b.author}}</td>
+                    <td>{{b.libraryBook.inventoryNumber}}</td>
+                    <td>{{b.worldBook.title}}</td>
+                    <td>{{b.worldBook.author}}</td>
                     <td>
                         <button class="btn btn-danger" data-ng-click="unReserveBook(b.id)">Отменить
                             бронирование
