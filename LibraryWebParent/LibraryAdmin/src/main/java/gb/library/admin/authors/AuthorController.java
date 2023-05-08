@@ -3,7 +3,6 @@ package gb.library.admin.authors;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.admin.utils.paging.PagingAndSortingParam;
 import gb.library.common.entities.Author;
-import gb.library.common.entities.Genre;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

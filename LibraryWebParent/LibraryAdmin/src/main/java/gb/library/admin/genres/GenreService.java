@@ -3,11 +3,11 @@ package gb.library.admin.genres;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Genre;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
@@ -24,8 +24,8 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
     }
 
     @Override
-    public Genre getById(Integer id) throws NoSuchElementException {
-        return repository.findById(id).orElseThrow(); // добавить exception
+    public Genre getById(Integer id) throws ObjectInDBNotFoundException {
+        return repository.findById(id).orElseThrow(() -> new ObjectInDBNotFoundException("Жанр с id=" + id + " в базе не найден.", "Genre"));
     }
 
     @Override
@@ -34,20 +34,24 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
     }
 
     @Override
-    public Genre update(Genre entity) {
-        Genre existedGenre = repository.findById(entity.getId()).orElseThrow(); // добавить exception
+    public Genre update(Genre entity) throws ObjectInDBNotFoundException {
+        Genre existedGenre = repository.findById(entity.getId())
+                                        .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
+                                                + entity.getId()
+                                                + ", т.к. она не найдена в базе.",
+                                                "Genre"));
         existedGenre.setName(entity.getName());
         existedGenre.setDescription(entity.getDescription());
         return repository.save(existedGenre);
     }
 
     @Override
-    public void delete(Integer id) {
-        // добавить exception
-        if (repository.existsById(id)){
-            repository.deleteById(id);
+    public void delete(Integer id) throws ObjectInDBNotFoundException{
+        if (!repository.existsById(id)){
+            throw new ObjectInDBNotFoundException("Невозможно удалить запись с id=" + id
+                                                    + ", т.к. она не найдена в базе.", "Genre");
         }
-
+        repository.deleteById(id);
     }
 
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
