@@ -138,6 +138,25 @@ body {
     padding: 3px 40px;
     display: inline-block;
 }
+
+
+.button_action {
+    font-size: 12px;
+    line-height: 26px;
+    text-align: center;
+    /*letter-spacing: 0.04em;*/
+    line-height: 15px;
+
+    background: #5a99d081;
+    box-shadow: 5px 10px 20px rgba(53, 110, 173, 0.2);
+    border-radius: 3px;
+    border-color: rgba(255, 255, 255, 0);
+    padding: 1px 4px;
+    display: inline-block;
+}
+
+
+
 .edit_form{
     margin-bottom: 30px;
 }

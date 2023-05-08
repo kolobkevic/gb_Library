@@ -36,7 +36,6 @@
     </div>
 
 
-
     <div class="container top__content">
         <div class="menu_2">
             <a class="inactive_item" href="authors.html">Авторы</a>
@@ -47,24 +46,27 @@
     </div>
 
     <div class="main container">
-        <div id="authorsList">
+        <div id="booksList">
             <p></p>
+            <div>
+
+                <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>
+            </div>
 
             </br>
-
             <table class="table">
                 <thead>
                 <tr><b>
+                    <td></td>
                     <td><b>Название</b></td>
                     <td><b>Автор</b></td>
                     <td><b>Жанр</b></td>
                     <td><b>Описание</b></td>
-
-
-                    <td></td>
+                    <td>Возраст</td>
                 </b>
                 </tr>
                 <tr>
+                    <td></td>
                     <td>
                         <input name="title" type="text" id="input_title" placeholder="фильтр">
                     </td>
@@ -77,20 +79,25 @@
                     <td>
                         <input name="description" type="text" id="input_description" placeholder="фильтр">
                     </td>
-                        <td><select id="selectAge">
-                            <option value=></option>
-                            <option value=G>0+</option>
-                            <option value=PG>?+</option>
-                            <option value=PG13>13+</option>
-                            <option value=R>18+</option>
-                        </select>
+                    <td><select id="selectAge">
+                        <option value=></option>
+                        <option value=G>0+</option>
+                        <option value=PG>?+</option>
+                        <option value=PG13>13+</option>
+                        <option value=R>18+</option>
+                    </select>
                     </td>
+
                 </tr>
 
                 </thead>
                 <tbody>
 
                 <tr ng-repeat="s in booksList">
+                    <td>
+                        <button class="button_action" ng-click="addBookToLibrary(s.id)">Добавить в </br>картотеку
+                        </button>
+                    </td>
                     <td>{{s.title}}</td>
                     <td>{{s.authorName}}</td>
                     <td>{{s.genre.name}}</td>
@@ -99,6 +106,77 @@
                 </tbody>
             </table>
         </div>
+
+
+        <div id="editForm" style="display:none">
+            <p></p>
+            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
+            </br>
+            <form class="edit_form" novalidate ng-submit="saveBook()">
+
+                </br></br>
+
+                <p>Название:
+                    <input class="form-control" type="text" id="edit_name" placeholder="" ng-model="newBook.name">
+                </p>
+                <p>Описание:
+                    <input class="form-control" type="text" id="edit_description" placeholder=""
+                           ng-model="newBook.description">
+                </p>
+                <p>Автор:
+                    <select id="selectAuthor">
+                    </select>
+                </p>
+                <p>Жанр:
+                    <select id="selectGenre">
+                    </select>
+                </p>
+                <p>Возрастное ограничение:
+                    <select id="ageRating">
+
+                        <option value=G>0+</option>
+                        <option value=PG>?+</option>
+                        <option value=PG13>13+</option>
+                        <option value=R>18+</option>
+                    </select>
+                </p>
+
+                <p></p>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+
+            </form>
+        </div>
+        <div id="addToLibraryForm" style="display:none">
+            <p></p>
+            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
+            </br>
+            <form class="edit_form" novalidate ng-submit="addLibraryBook()">
+
+                </br></br>
+
+                <h3 id="book_name"></h3>
+                <h5 id="book_author"></h5>
+                <p id="book_id"></p>
+
+                </br>
+                <p>Год издания:
+                    <input class="form-control" type="text" id="addBook_year" placeholder=""
+                           ng-model="book.year">
+                </p>
+                <p>ISBN:
+                    <input class="form-control" type="text" id="addBook_isbn" placeholder="" ng-model="book.isbn">
+                </p>
+                <p>Инвентарный номер:
+                    <input class="form-control" type="text" id="addBook_inventoryNumber" placeholder=""
+                           ng-model="book.inventoryNumber">
+                </p>
+
+                <p></p>
+                <button type="submit" class="btn btn-primary">Добавить в картотеку</button>
+
+            </form>
+        </div>
+
 
     </div>
 

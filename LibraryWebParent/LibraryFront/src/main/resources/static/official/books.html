@@ -38,7 +38,10 @@
         <div class="main_start container" id="booksList">
             <div>
                 <p></p>
-                <button class="button_switch" ng-click="goToEdit(-1)">Добавить книгу</button>
+                <a class="inactive_item" href="directories/world_books.html">
+                    <button class="button_switch">Добавить книгу</button>
+                </a>
+
             </div>
 
 
@@ -91,26 +94,7 @@
             </div>
         </div>
 
-        <div class="container" id="editForm" style="display:none">
-            <p></p>
-            <button class="button_switch" ng-click="goToEdit(-1)">К списку книг</button>
-            <form novalidate ng-submit="registerUser()">
-                <!--    <input class="form-control" type="number" hidden placeholder="ID" ng-model="new_user.id">-->
-                <!--    <p></p>-->
-                <input class="form-control" type="text" placeholder="Имя" ng-model="new_user.username">
-                <p></p>
-                <input class="form-control" type="email" placeholder="email" ng-model="new_user.email">
-                <p></p>
 
-                <input class="form-control" type="password" placeholder="Пароль" ng-model="new_user.password">
-                <p></p>
-                <input class="form-control" type="password" placeholder="Повторите пароль"
-                    ng-model="new_user.password2">
-                <p></p>
-                <button type="submit" class="btn btn-primary">Регистрация</button>
-
-            </form>
-        </div>
         <p></p>
 
 

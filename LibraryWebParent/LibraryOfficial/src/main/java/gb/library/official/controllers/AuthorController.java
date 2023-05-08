@@ -7,11 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 
-import static gb.library.official.services.AuthorService.PAGE_SIZE;
+import java.util.List;
+
+import static gb.library.official.services.MyAuthorService.PAGE_SIZE;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/authors")
+@CrossOrigin
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -29,6 +32,13 @@ public class AuthorController {
         }
         return authorService.findAll(pageIndex, PAGE_SIZE);
     }
+
+    @GetMapping("/all")
+    public List<Author> getAll() {
+        return authorService.searchAuthors("");
+    }
+
+
 
     @GetMapping("/{id}")
     public Author findById(@PathVariable Integer id) {
