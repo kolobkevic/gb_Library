@@ -3,6 +3,7 @@ package gb.library.admin.genres;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.admin.utils.paging.PagingAndSortingParam;
 import gb.library.common.entities.Genre;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.NoSuchElementException;
 
 @Controller
 @RequiredArgsConstructor
@@ -59,7 +59,7 @@ public class GenreController {
             model.addAttribute("pageTitle", "Редактирование жанра (ID=" + id + ")");
 
             return "genres/genre_form";
-        }  catch (NoSuchElementException ex) { //поменять перехват ошибки
+        }  catch (ObjectInDBNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
             return "redirect:/genres";
         }
@@ -70,10 +70,8 @@ public class GenreController {
 
         try {
             genreService.delete(id);
-
             redirectAttributes.addFlashAttribute("message", "Запись успешно удалена");
-
-        } catch (NoSuchElementException ex) {   //поменять перехват ошибки
+        } catch (ObjectInDBNotFoundException ex) {   //поменять перехват ошибки
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }
 
