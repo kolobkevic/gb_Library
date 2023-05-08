@@ -9,7 +9,6 @@ import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.official.services.WorldBookService;
 import gb.library.reader.repositories.ReservedBooksRepository;
 import gb.library.reader.temp.LibraryBookService;
-import gb.library.reader.temp.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -7,6 +7,12 @@ import lombok.Data;
 @Data
 public class UserDto {
     private int userId;
-    private String username;
-    private String fullName;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String password; //временное решение
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

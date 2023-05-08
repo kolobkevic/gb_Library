@@ -16,11 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 
 </head>
-<body>
-<div>
-    <h3>Личный кабинет</h3>
-
-    <div ng-controller="accountController">
+<body ng-app="reader-front">
+<div ng-controller="accountController">
+    <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav nav-pills nav-fill">
@@ -30,16 +28,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../books/books.html">Каталог книг</a>
                     </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <!--                    <li class="nav-item" ng-show="isUserLoggedIn()">-->
+                    <li class="nav-item">
                         <a class="nav-link" href="../reserved_books/reserved_books.html">Забронированные</a>
                     </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <!--                    <li class="nav-item" ng-show="isUserLoggedIn()">-->
+                    <li class="nav-item">
                         <a class="nav-link" href="../book_on_hands/book_on_hands.html">Книги на руках</a>
                     </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <!--                    <li class="nav-item" ng-show="isUserLoggedIn()">-->
+                    <li class="nav-item">
                         <a class="nav-link" href="../user_history/user_history.html">История книг</a>
                     </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <!--                    <li class="nav-item" ng-show="isUserLoggedIn()">-->
+                    <li class="nav-item">
                         <a class="nav-link active" href="personal_account.html">Личный кабинет</a>
                     </li>
 
@@ -52,7 +54,49 @@
         </nav>
     </div>
 
-    <h1>Мой аккаунт</h1>
+    <div class="col-6">
+        <form class="form-floating" novalidate ng-submit="updateUser()" ng-show="userInfo">
+
+            <div class="form-floating">
+                <input ng-model="updated_user.userId" type="text" class="form-control" id="idValue" placeholder="Id"
+                       value={{userInfo.userId}}>
+                <label for="idValue">ID</label>
+                <p></p>
+            </div>
+
+            <div class="form-floating">
+                <input ng-model="updated_user.firstName" type="text" class="form-control" id="firstName"
+                       placeholder="firstName" value={{userInfo.firstName}}>
+                <label for="firstName">Имя</label>
+                <p></p>
+            </div>
+
+            <div class="form-floating">
+                <input ng-model="updated_user.lastName" type="text" class="form-control" id="lastName"
+                       placeholder="lastName" value={{userInfo.lastName}}>
+                <label for="idValue">Фамилия</label>
+                <p></p>
+            </div>
+
+            <div class="form-floating">
+                <input ng-model="updated_user.email" type="email" class="form-control" id="email" placeholder="email"
+                       value={{userInfo.email}}>
+                <label for="idValue">Почта</label>
+                <p></p>
+            </div>
+
+            <div class="form-floating">
+                <input ng-model="updated_user.password" type="text" class="form-control" id="password" placeholder="Id"
+                       value={{userInfo.password}}>
+                <label for="idValue">Пароль</label>
+                <p></p>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        </form>
+    </div>
+
 </div>
+<script src="../index.js"></script>
+<script src="personal_account.js"></script>
 </body>
 </html>

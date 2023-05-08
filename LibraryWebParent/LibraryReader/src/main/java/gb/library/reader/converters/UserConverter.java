@@ -12,13 +12,14 @@ public class UserConverter {
     private final ReservedBooksService service;
 
     public UserDto entityToDto(User user) {
-        return new UserDto(user.getId(), user.getEmail(), user.getFullName());
+        return new UserDto(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPassword());
     }
 
     public User dtoToEntity(UserDto userDto) {
         User user = service.findByUserId(userDto.getUserId());
-        user.setEmail(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
         user.setFullName(userDto.getFullName());
+        user.setPassword(userDto.getPassword());
         return user;
     }
 }
