@@ -1,10 +1,14 @@
-package gb.library.reader.temp;
+package gb.library.reader.repositories;
 
 import gb.library.common.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    User findAllById(Integer id);
+    @Query("select u from User u where u.id = ?1 and u.enabled = true")
+    Optional<User> findById(Integer id);
 }
