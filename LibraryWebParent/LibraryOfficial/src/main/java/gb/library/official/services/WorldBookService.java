@@ -81,17 +81,6 @@ public class WorldBookService {
     }
 
 
-    public WorldBook update(WorldBookDTO worldBookDTO) {
-        WorldBook updatedWorldBook = worldBookRepository.findById(worldBookDTO.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Жанр не найде базе, id: " + worldBookDTO.getId()));
-        updatedWorldBook.setTitle(worldBookDTO.getTitle());
-        updatedWorldBook.setAuthor(worldBookDTO.getAuthor());
-        updatedWorldBook.setGenre(worldBookDTO.getGenre());
-        updatedWorldBook.setAgeRating(worldBookDTO.getAgeRating());
-        updatedWorldBook.setDescription(worldBookDTO.getDescription());
-        return worldBookRepository.save(updatedWorldBook);
-    }
-
     public WorldBook update(WorldBook worldBook) {
         WorldBook updatedBook = worldBookRepository.findById(worldBook.getId()).orElseThrow(
                 () -> new ResourceNotFoundException("Книга не найде базе, id: " + worldBook.getId()));

@@ -45,7 +45,7 @@ public class WorldBookController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public WorldBookDTO update(@RequestBody WorldBookDTO worldBookDTO) {
 //        validator.validate(worldBookDTO);
-        return converter.entityToDto(worldBookService.update(worldBookDTO));
+        return converter.entityToDto(worldBookService.update(converter.dtoToEntity(worldBookDTO)));
     }
 
     @PostMapping
