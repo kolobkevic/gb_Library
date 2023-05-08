@@ -5,7 +5,6 @@ import gb.library.admin.genres.GenreService;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.admin.utils.paging.PagingAndSortingParam;
 import gb.library.common.entities.AgeRating;
-import gb.library.common.entities.Author;
 import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;

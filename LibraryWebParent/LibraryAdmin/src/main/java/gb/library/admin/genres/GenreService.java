@@ -4,6 +4,7 @@ import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Genre;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
     }
 
     @Override
+    @Transactional
     public Genre update(Genre entity) throws ObjectInDBNotFoundException {
         Genre existedGenre = repository.findById(entity.getId())
                                         .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
