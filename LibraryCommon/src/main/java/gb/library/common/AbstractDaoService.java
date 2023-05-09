@@ -17,4 +17,5 @@ public interface AbstractDaoService <E, K>{
     public E update(E entity) throws ObjectInDBNotFoundException;
 
     public void delete(K id) throws ObjectInDBNotFoundException;
+
 }

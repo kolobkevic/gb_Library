@@ -62,7 +62,7 @@ public class StorageService implements AbstractDaoService<Storage, Integer> {
         helper.listEntities(pageNum, STORAGE_PER_PAGE, repository);
     }
 
-    public String checkUnique(int id, String sector, String zone){
+    public String checkUnique(Integer id, String sector, String zone){
         Storage storage = repository.findBySectorAndZone(sector, zone);
 
         if (storage != null){
@@ -71,5 +71,18 @@ public class StorageService implements AbstractDaoService<Storage, Integer> {
             }
         }
         return "OK";
+    }
+
+    public void save(Storage storage) {
+        if (storage.getId() == null) {
+            create(storage);
+        } else {
+            update(storage);
+        }
+    }
+
+    @Transactional
+    public void updateAvailableStatus(Integer id, boolean available) {
+        repository.updateAvailableStatus(id, available);
     }
 }

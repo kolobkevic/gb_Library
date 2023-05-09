@@ -60,7 +60,7 @@ public class WorldBooksController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editAuthor(@PathVariable(name = "id") Integer id, Model model,
+    public String editWorldBook(@PathVariable(name = "id") Integer id, Model model,
                              RedirectAttributes redirectAttributes){
         try {
             WorldBook book = service.getById(id);
@@ -78,7 +78,7 @@ public class WorldBooksController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteWorldBook(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
 
         try {
             service.delete(id);
