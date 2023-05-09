@@ -93,6 +93,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
             ).then(function (response) {
 
                 let selectForm = document.getElementById('selectAuthor');
+                selectForm.options.length = 0;
 
                 for (const responseElement of response.data) {
                     let opt = document.createElement('option');
@@ -109,6 +110,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
                 }
             ).then(function (response) {
                 let selectForm = document.getElementById('selectGenre');
+                selectForm.options.length = 0;
 
                 for (const responseElement of response.data) {
                     let opt = document.createElement('option');
@@ -119,7 +121,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
                 // document.getElementById("selectAuthor").value = response.data.name;
                 // document.getElementById("form_description").value = response.data.description;
             });
-
 
 
             //
@@ -146,18 +147,39 @@ angular.module('employee-front').controller('genresController', function ($rootS
         if ($scope.newBook == null) {
             if (($scope.editId === 0)) {
                 alert('Форма не заполнена');
-            }
-            else {
+            } else {
                 $scope.goToEdit(-10);
             }
             return;
         }
         if ($scope.editId === 0) {
-            $scope.newBook.name = document.getElementById("edit_name").value;
-            $scope.newBook.description = document.getElementById("edit_description").value;
-            $scope.newBook.description = document.getElementById("edit_description").value;
+            // $scope.newBook.name = document.getElementById("edit_name").value;
+            // $scope.newBook.description = document.getElementById("edit_description").value;
+            // $scope.newBook.author.id = document.getElementById("selectAuthor").value;
+            // $scope.newBook.genre.id = document.getElementById("selectGenre").value;
+            // $scope.newBook.ageRating = document.getElementById("ageRating").value;
 
-            $http.post(corePath + '/worldBook', $scope.newBook)
+            // $http.post(corePath + '/worldBook', $scope.newBook)
+            $http({
+                    url: corePath + '/worldBook',
+                    method: 'POST',
+                    data: {
+                        id: 0,
+                        title: document.getElementById("edit_name").value,
+                        description: document.getElementById("edit_description").value,
+                        author:
+                            {
+                                id: document.getElementById("selectAuthor").value,
+                        },
+                        genre:{
+                            id: document.getElementById("selectGenre").value
+                        },
+
+                        ageRating: document.getElementById("selectAgeRating").value
+                    },
+                    json:false
+                }
+            )
                 .then(function successCallback(response) {
                     $scope.newBook = null;
                     alert('Книга успешно добавлена');
@@ -195,7 +217,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
         //
         // }
     }
-
 
 
     $scope.loadWorldBooks();
