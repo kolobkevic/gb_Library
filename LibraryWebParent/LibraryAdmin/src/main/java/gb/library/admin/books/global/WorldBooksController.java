@@ -5,7 +5,6 @@ import gb.library.admin.genres.GenreService;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.admin.utils.paging.PagingAndSortingParam;
 import gb.library.common.entities.AgeRating;
-import gb.library.common.entities.Author;
 import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +60,7 @@ public class WorldBooksController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editAuthor(@PathVariable(name = "id") Integer id, Model model,
+    public String editWorldBook(@PathVariable(name = "id") Integer id, Model model,
                              RedirectAttributes redirectAttributes){
         try {
             WorldBook book = service.getById(id);
@@ -79,7 +78,7 @@ public class WorldBooksController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteWorldBook(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
 
         try {
             service.delete(id);

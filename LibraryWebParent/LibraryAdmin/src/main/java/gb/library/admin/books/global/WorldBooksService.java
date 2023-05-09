@@ -5,6 +5,7 @@ import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Author;
 import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,7 @@ public class WorldBooksService implements AbstractDaoService<WorldBook, Integer>
     }
 
     @Override
+    @Transactional
     public WorldBook update(WorldBook entity) throws ObjectInDBNotFoundException {
         WorldBook existedBook = repository.findById(entity.getId())
                 .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
@@ -62,7 +64,6 @@ public class WorldBooksService implements AbstractDaoService<WorldBook, Integer>
 
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
         helper.listEntities(pageNum, WORLD_BOOKS_PER_PAGE, repository);
-
     }
 
     public String checkUnique(Integer id, String title, Author author) {

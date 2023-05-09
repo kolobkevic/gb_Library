@@ -54,6 +54,13 @@
               th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
     </th>
 
+    <div th:fragment="entity_status(enabled, entityURL)" th:remove="tag">
+        <a th:if="${enabled == true}" class="fa-solid fa-toggle-on fa-2x icon-green"
+           th:href="@{${entityURL} + '/enabled/false' }" th:title="'Отключить доступность'"></a>
+        <a th:if="${enabled != true}" class="fa-solid fa-toggle-off fa-2x icon-red"
+           th:href="@{${entityURL} + '/enabled/true'}" th:title="'Сделать доступным'"></a>
+    </div>
+
 
     <a th:fragment="entity_edit(editURL)" class="fas fa-edit fa-2x icon-green"
        th:href="@{${editURL}}" th:title="'Редактировать запись'"></a>

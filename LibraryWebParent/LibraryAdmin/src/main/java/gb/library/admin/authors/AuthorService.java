@@ -4,6 +4,7 @@ import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Author;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ public class AuthorService implements AbstractDaoService<Author, Integer> {
     }
 
     @Override
+    @Transactional
     public Author update(Author entity) throws ObjectInDBNotFoundException{
         Author existedAuthor = repository.findById(entity.getId())
                                         .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="

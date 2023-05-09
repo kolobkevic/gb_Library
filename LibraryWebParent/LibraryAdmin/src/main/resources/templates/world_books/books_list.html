@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments :: page_head('Мировые книги - админка библиотеки', 'none')}">
+<head th:replace="~{fragments :: page_head('Мировые книги - админка библиотеки', 'none')}">
 </head>
 <body>
 <div class="container-fluid">
-    <div th:insert="~{navigation :: menu}"></div>
+    <div th:replace="~{navigation :: menu}"></div>
 
     <div>
         <h2>Справочник "Мировые книги"</h2>
@@ -13,7 +13,7 @@
            title="Добавить нового"></a>
     </div>
 
-    <div th:insert="~{fragments :: search_form_and_message}"></div>
+    <div th:replace="~{fragments :: search_form_and_message}"></div>
 
 
     <div class="full-details">
