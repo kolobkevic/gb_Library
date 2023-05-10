@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query("select u from User u where u.id = ?1 and u.enabled = true")
+    @Query("select u from User u where u.id = ?1")
     Optional<User> findById(Integer id);
 }
