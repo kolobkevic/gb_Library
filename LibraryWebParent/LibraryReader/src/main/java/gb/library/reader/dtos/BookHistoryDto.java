@@ -7,11 +7,12 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class BookOnHandsDto {
+public class BookHistoryDto {
     private int bookOnHandsId;
     private LibraryBookDto libraryBook;
     private UserDto user;
     private WorldBookDto worldBook;
     private LocalDate takenAt;
     private LocalDate dateOfReturn;
+    private boolean isReturned;
 }

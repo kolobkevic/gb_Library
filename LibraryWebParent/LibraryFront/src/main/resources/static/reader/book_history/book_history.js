@@ -1,15 +1,13 @@
-angular.module('reader-front').controller('bookOnHandsController', function ($scope, $http, $localStorage) {
+angular.module('reader-front').controller('bookHistoryController', function ($scope, $http) {
     const contextPath = 'http://localhost:8070/reader/'; // поменять адрес на актуальный
     let currentPageIndex = 1;
 
-    $scope.loadBookOnHands = function (pageIndex = 1) {
+    $scope.loadBookHistory = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
-        let unReturned = true;
         $http({
             // url: contextPath + 'api/v1/book_on_hands' + $localStorage.webUser.username,
             url: contextPath + 'api/v1/book_history/3', // поменять адрес на актуальный
             method: 'GET',
-            params: {unReturned: unReturned}
         }).then(function (response) {
             console.log(response);
             $scope.booksOnHandsPage = response.data;
@@ -30,5 +28,12 @@ angular.module('reader-front').controller('bookOnHandsController', function ($sc
         return date + 30;
     }
 
-    $scope.loadBookOnHands();
+    $scope.checkReturned = function (isReturned){
+        if (isReturned){
+            return "Да";
+        }
+        else return "Нет";
+    }
+
+    $scope.loadBookHistory();
 });

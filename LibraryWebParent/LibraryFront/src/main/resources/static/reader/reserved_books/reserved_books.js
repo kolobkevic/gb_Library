@@ -6,7 +6,7 @@ angular.module('reader-front').controller('reservedBooksController', function ($
         currentPageIndex = pageIndex;
         $http({
             // url: contextPath + 'api/v1/reserved' + $localStorage.webUser.username,
-            url: contextPath + 'api/v1/reserved/1',
+            url: contextPath + 'api/v1/reserved/3',
             method: 'GET',
         }).then(function (response) {
             console.log(response);
