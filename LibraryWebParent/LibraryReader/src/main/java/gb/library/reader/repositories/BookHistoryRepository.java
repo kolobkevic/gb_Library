@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-@Repository("readerBookOnHandsRepository")
-public interface BookOnHandsRepository extends JpaRepository<BookOnHands, Integer> {
+@Repository("readerBookHistoryRepository")
+public interface BookHistoryRepository extends JpaRepository<BookOnHands, Integer> {
     @Query("select b from BookOnHands b where b.user.id = ?1 and b.returned = false ")
-    Page<BookOnHands> findAllByUserId(Integer userId, Pageable pageable);
+    Page<BookOnHands> findUnreturnedByUserId(Integer userId, Pageable pageable);
+
+    @Query("select b from BookOnHands b where b.user.id = ?1")
+    Page<BookOnHands> findBooksByUserId(Integer userId, Pageable pageable);
 }

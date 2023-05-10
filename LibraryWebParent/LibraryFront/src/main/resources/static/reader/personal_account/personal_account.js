@@ -4,7 +4,7 @@ angular.module('reader-front').controller('accountController', function ($scope,
     $scope.loadUserInformation = function () {
         $http({
             // url: contextPath + 'api/v1/book_on_hands' + $localStorage.webUser.username,
-            url: contextPath + 'api/v1/users/1', // поменять адрес на актуальный
+            url: contextPath + 'api/v1/users/3', // поменять адрес на актуальный
             method: 'GET',
         }).then(function (response) {
             console.log(response);

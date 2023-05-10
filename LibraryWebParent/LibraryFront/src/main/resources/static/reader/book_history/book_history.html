@@ -16,11 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 
 </head>
-<body>
-<meta charset="UTF-8">
-<div>
-    <h3>История</h3>
-    <div ng-controller="userHistoryController">
+<body ng-app="reader-front">
+<div ng-controller="bookHistoryController">
+    <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav nav-pills nav-fill">
@@ -33,11 +31,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../reserved_books/reserved_books.html">Забронированные</a>
                     </li>
-                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                    <!--                    <li class="nav-item" ng-show="isUserLoggedIn()">-->
+                    <li class="nav-item">
                         <a class="nav-link" href="../book_on_hands/book_on_hands.html">Книги на руках</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="user_history.html">История книг</a>
+                        <a class="nav-link active" href="book_history.html">История книг</a>
                     </li>
                     <li class="nav-item" ng-show="isUserLoggedIn()">
                         <a class="nav-link" href="../personal_account/personal_account.html">Личный кабинет</a>
@@ -51,7 +50,38 @@
             </div>
         </nav>
     </div>
-    <h1>Моя история книг</h1>
+    <div class="row border">
+        <div class="col-7 border">
+            <input name="searchInput" type="text" placeholder="Поиск">
+        </div>
+    </div>
+    <div class="row border">
+        <div class="col-12 border">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Инвентарный номер</td>
+                    <td>Название</td>
+                    <td>Автор</td>
+                    <td>Взята</td>
+                    <td>Сдана</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="b in booksOnHandsPage.content">
+                    <td>{{b.libraryBook.inventoryNumber}}</td>
+                    <td>{{b.worldBook.title}}</td>
+                    <td>{{b.worldBook.author}}</td>
+                    <td>{{b.takenAt}}</td>
+                    <td>{{checkReturned(b.returned)}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+<script src="../index.js"></script>
+<script src="book_history.js"></script>
 </body>
 </html>
