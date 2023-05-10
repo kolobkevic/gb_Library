@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 
-import static gb.library.official.services.MyAuthorService.PAGE_SIZE;
+import static gb.library.official.services.AuthorService.PAGE_SIZE;
 
 @RestController
 @RequiredArgsConstructor
