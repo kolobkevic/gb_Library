@@ -64,6 +64,9 @@ public class AuthorService {
     }
 
     public List<Author> searchAuthors(String searchString) {
+        if (searchString.isBlank()){
+            return authorRepository.findAll();
+        }
         searchString = searchString.toUpperCase();
         List<Author> result = new ArrayList<>();
         String[] splitString = searchString.split(" ");
@@ -74,6 +77,7 @@ public class AuthorService {
             result.addAll(authorRepository.findByLastNameLike(splitString[0]));
             result.addAll(authorRepository.findByFirstNameLike(splitString[0]));
         }
+        //todo: удаление дубликатов id
         return result;
     }
 }

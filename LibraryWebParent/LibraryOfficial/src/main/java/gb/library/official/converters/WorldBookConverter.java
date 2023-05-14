@@ -1,8 +1,6 @@
 package gb.library.official.converters;
 
-import gb.library.common.dtos.GenreDTO;
 import gb.library.common.dtos.WorldBookDTO;
-import gb.library.common.entities.Genre;
 import gb.library.common.entities.WorldBook;
 import org.springframework.stereotype.Component;
 

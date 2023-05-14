@@ -20,7 +20,7 @@
 </head>
 
 <body ng-app="employee-front">
-<div ng-controller="genresController" style="  display: flex;
+<div ng-controller="locationsController" style="  display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     height: 100%;">
@@ -34,7 +34,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="container top__content">
@@ -55,66 +54,30 @@
             </div>
             </br>
 
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                <tr><b>-->
-<!--                    <td><b>ID</b></td>-->
-<!--                    <td><b>Жанр</b></td>-->
-<!--                    <td><b>Описание</b></td>-->
 
-<!--                    <td></td>-->
-<!--                </b>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td></td>-->
-<!--                    <td>-->
-<!--                        <input name="genre" type="text" id="input_name" placeholder="фильтр">-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <input name="description" type="text" id="input_description" placeholder="фильтр">-->
-<!--                    </td>-->
+            <table class="table">
+                <thead>
+                <tr><b>
+                    <td><b>Зона</b></td>
+                    <td><b>Доступность</b></td>
+                </b>
+                </tr>
 
+                </thead>
+                <tbody ng-repeat="zone in zoneList">
 
-<!--                    <td></td>-->
-<!--                </tr>-->
-
-<!--                </thead>-->
-<!--                <tbody>-->
-
-<!--                <tr ng-repeat="s in productList">-->
-<!--                    <td>{{s.id}}</td>-->
-<!--                    <td>{{s.name}}</td>-->
-<!--                    <td>{{s.description}}</td>-->
-<!--                    <td>-->
-<!--                        <a href="#" ng-click="goToEdit(s.id)">Изменить</a>-->
-<!--                    </td>-->
-<!--                </tbody>-->
-<!--            </table>-->
+                <tr>
+                    <td style="text-align: center"><b>{{zone.zone}}</b></td>
+                </tr>
+                <tr ng-repeat="sec in zone.sectors">
+                    <td>{{sec.sector}}</td>
+                    <td>{{sec.isAvailable}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
-<!--        <div  id="editForm" style="display:none">-->
-<!--            <p></p>-->
-<!--            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку жанров</button>-->
-<!--            </br>-->
-<!--            <form class="edit_form" novalidate ng-submit="saveGenre()">-->
 
-<!--                </br></br>-->
-
-<!--                <p id="genre_id"></p>-->
-<!--                </br>-->
-<!--                <p>Название:-->
-<!--                    <input class="form-control" type="text" id="form_genre" placeholder="Жанр" ng-model="genre.name">-->
-<!--                </p>-->
-<!--                <p>Описание:-->
-<!--                    <input class="form-control" type="text" id="form_description" placeholder="описание"-->
-<!--                           ng-model="genre.description">-->
-<!--                </p>-->
-<!--                <p></p>-->
-<!--                <button type="submit" class="btn btn-primary">Сохранить</button>-->
-
-<!--            </form>-->
-<!--        </div>-->
-        ТУТ БУДУТ КНИЖНЫЕ ПОЛКИ
     </div>
 
 </div>

@@ -69,8 +69,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
     }
 
     $scope.addLibraryBook = function (id) {
-
-
     }
 
 
@@ -86,42 +84,42 @@ angular.module('employee-front').controller('genresController', function ($rootS
             document.getElementById("editForm").style.display = 'inline';
             document.getElementById("addToLibraryForm").style.display = 'none';
 
-            $http({
-                    url: corePath + '/authors/all',
-                    method: 'GET'
-                }
-            ).then(function (response) {
+            if (document.getElementById('selectAuthor').options.length === 0) {
+                $http({
+                        url: corePath + '/authors/all',
+                        method: 'GET'
+                    }
+                ).then(function (response) {
 
-                let selectForm = document.getElementById('selectAuthor');
-                selectForm.options.length = 0;
+                    let selectForm = document.getElementById('selectAuthor');
+                    for (const responseElement of response.data) {
+                        let opt = document.createElement('option');
+                        opt.innerHTML = responseElement.firstName + " " + responseElement.lastName;
+                        opt.value = responseElement.id;
+                        selectForm.appendChild(opt);
+                    }
+                    // document.getElementById("selectAuthor").value = response.data.name;
+                    // document.getElementById("form_description").value = response.data.description;
+                });
+            }
+            if (document.getElementById('selectGenre').options.length === 0) {
+                $http({
+                        url: corePath + '/genres',
+                        method: 'GET'
+                    }
+                ).then(function (response) {
+                    let selectForm = document.getElementById('selectGenre');
 
-                for (const responseElement of response.data) {
-                    let opt = document.createElement('option');
-                    opt.innerHTML = responseElement.firstName + " " + responseElement.lastName;
-                    opt.value = responseElement.id;
-                    selectForm.appendChild(opt);
-                }
-                // document.getElementById("selectAuthor").value = response.data.name;
-                // document.getElementById("form_description").value = response.data.description;
-            });
-            $http({
-                    url: corePath + '/genres',
-                    method: 'GET'
-                }
-            ).then(function (response) {
-                let selectForm = document.getElementById('selectGenre');
-                selectForm.options.length = 0;
-
-                for (const responseElement of response.data) {
-                    let opt = document.createElement('option');
-                    opt.innerHTML = responseElement.name;
-                    opt.value = responseElement.id;
-                    selectForm.appendChild(opt);
-                }
-                // document.getElementById("selectAuthor").value = response.data.name;
-                // document.getElementById("form_description").value = response.data.description;
-            });
-
+                    for (const responseElement of response.data) {
+                        let opt = document.createElement('option');
+                        opt.innerHTML = responseElement.name;
+                        opt.value = responseElement.id;
+                        selectForm.appendChild(opt);
+                    }
+                    // document.getElementById("selectAuthor").value = response.data.name;
+                    // document.getElementById("form_description").value = response.data.description;
+                });
+            }
 
             //
             // if (id === 0) {
@@ -153,13 +151,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
             return;
         }
         if ($scope.editId === 0) {
-            // $scope.newBook.name = document.getElementById("edit_name").value;
-            // $scope.newBook.description = document.getElementById("edit_description").value;
-            // $scope.newBook.author.id = document.getElementById("selectAuthor").value;
-            // $scope.newBook.genre.id = document.getElementById("selectGenre").value;
-            // $scope.newBook.ageRating = document.getElementById("ageRating").value;
-
-            // $http.post(corePath + '/worldBook', $scope.newBook)
             $http({
                     url: corePath + '/worldBook',
                     method: 'POST',
@@ -170,14 +161,14 @@ angular.module('employee-front').controller('genresController', function ($rootS
                         author:
                             {
                                 id: document.getElementById("selectAuthor").value,
-                        },
-                        genre:{
+                            },
+                        genre: {
                             id: document.getElementById("selectGenre").value
                         },
 
                         ageRating: document.getElementById("selectAgeRating").value
                     },
-                    json:false
+                    json: false
                 }
             )
                 .then(function successCallback(response) {
