@@ -31,7 +31,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
     };
     $selectZone.onchange = function () {
         console.log($scope.zoneList[1])
-
         let zoneIndex = document.getElementById('selectZone').value;
         let selectForm = document.getElementById('selectSector');
         selectForm.options.length = 0;
