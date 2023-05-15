@@ -37,10 +37,12 @@ angular.module('employee-front').controller('genresController', function ($rootS
 
         if (zoneIndex >= 0) {
             for (const sector of $scope.zoneList[zoneIndex].sectors) {
-                let opt = document.createElement('option');
-                opt.innerHTML = sector.sector;
-                opt.value = sector.id;
-                selectForm.appendChild(opt);
+                if (sector.isAvailable) {
+                    let opt = document.createElement('option');
+                    opt.innerHTML = sector.sector;
+                    opt.value = sector.id;
+                    selectForm.appendChild(opt);
+                }
             }
         }
     };
@@ -81,34 +83,88 @@ angular.module('employee-front').controller('genresController', function ($rootS
             document.getElementById("book_name").innerText = response.data.title;
             document.getElementById("book_author").innerText = response.data.author.firstName + " " + response.data.author.lastName;
             document.getElementById("book_id").innerText = "(worldBookId=" + response.data.id + ")";
+            $scope.worldBookId = response.data.id;
         });
 
-        $http({
-                url: corePath + '/storage/zones',
-                method: 'GET',
-
-            }
-        ).then(function (response) {
-            let selectForm = document.getElementById('selectZone');
-            let opt = document.createElement('option');
-            opt.innerHTML = "";
-            opt.value = -1;
-            selectForm.appendChild(opt);
-
-            let index = 0;
-            for (const responseElement of response.data) {
+        if ($selectZone.options.length === 0) {
+            $http({
+                    url: corePath + '/storage/zones',
+                    method: 'GET',
+                }
+            ).then(function (response) {
                 let opt = document.createElement('option');
-                opt.innerHTML = responseElement.zone;
-                opt.value = index;
-                selectForm.appendChild(opt);
-                index++;
-            }
+                opt.innerHTML = "";
+                opt.value = -1;
+                $selectZone.appendChild(opt);
 
-            $scope.zoneList = response.data;
-        });
+                let index = 0;
+                for (const responseElement of response.data) {
+                    let opt = document.createElement('option');
+                    opt.innerHTML = responseElement.zone;
+                    opt.value = index;
+                    $selectZone.appendChild(opt);
+                    index++;
+                }
+
+                $scope.zoneList = response.data;
+            });
+        }
     }
 
-    $scope.addLibraryBook = function (id) {
+    $scope.addLibraryBook = function () {
+
+        if (document.getElementById('addBook_publisher').value === ""){
+            alert('Заполните издателя');
+            return;
+        }
+        if (document.getElementById('addBook_isbn').value === ""){
+            alert('Заполните ISBN');
+            return;
+        }
+        if (document.getElementById('addBook_inventoryNumber').value === ""){
+            alert('Заполните Инвентарный номер');
+            return;
+        }
+        if (document.getElementById('selectSector').value === ""){
+            alert('Выберите место хранения книги');
+            return;
+        }
+
+        $http({
+                url: corePath + '/libraryBook',
+                method: 'POST',
+                data: {
+                    worldBook:
+                        {
+                            id: $scope.worldBookId
+                        },
+                    publisher: document.getElementById("addBook_publisher").value,
+                    isbn: document.getElementById("addBook_isbn").value,
+                    inventoryNumber: document.getElementById("addBook_inventoryNumber").value,
+                    available: true,
+                    placedAt: {
+                        id: document.getElementById('selectSector').value
+                    }
+                },
+                json: false
+            }
+        )
+            .then(function successCallback(response) {
+                $scope.newBook = null;
+                alert('Книга успешно добавлена');
+                $scope.goToEdit(-10);
+            }, function failureCallback(response) {
+                console.log(response);
+                alert(response.data.message);
+            }).catch(function (err) {
+            console.log(err);
+            if (err.status === 401) {
+                alert("Пожалуйста, авторизуйтесь");
+                $scope.clearUser();
+            } else alert(err.data.message)
+        });
+
+
     }
 
 
