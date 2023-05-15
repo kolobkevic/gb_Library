@@ -1,21 +1,26 @@
 package gb.library.official.converters;
 
+import gb.library.common.dtos.AddLibraryBookDTO;
 import gb.library.common.dtos.LibraryBookDTO;
+import gb.library.common.dtos.StorageDTO;
 import gb.library.common.entities.LibraryBook;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LibraryBookConverter {
+
     public LibraryBookDTO entityToDto(LibraryBook libraryBook){
         return new LibraryBookDTO(libraryBook.getWorldBook(),
                 libraryBook.getPublisher(),
                 libraryBook.getIsbn(),
                 libraryBook.getInventoryNumber(),
                 libraryBook.isAvailable(),
-                libraryBook.getPlacedAt());
+                new StorageDTO(libraryBook.getPlacedAt().getZone(), libraryBook.getPlacedAt().getSector() )
+
+        );
 
     }
-    public LibraryBook dtoToEntity(LibraryBookDTO libraryBookDTO){
+    public LibraryBook dtoToEntity(AddLibraryBookDTO libraryBookDTO){
         LibraryBook libraryBook =new LibraryBook();
 
         libraryBook.setWorldBook(libraryBookDTO.getWorldBook());

@@ -3,10 +3,13 @@ package gb.library.official.services;
 
 
 import gb.library.common.entities.LibraryBook;
+import gb.library.official.converters.LibraryBookConverter;
 import gb.library.official.exceptions.ResourceNotFoundException;
 import gb.library.official.repositories.GenreRepository;
 import gb.library.official.repositories.LibraryBookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +22,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LibraryBookService {
     private final LibraryBookRepository libraryBookRepository;
-    private final AuthorService authorService;
-    private final GenreService genreService;
-    private final GenreRepository genreRepository;
+
+    private final LibraryBookConverter libraryBookConverter;
 
 
     public LibraryBook findById(Integer id) {
@@ -30,10 +32,10 @@ public class LibraryBookService {
     }
 
 //    public List<LibraryBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
-    public List<LibraryBook> findAll() {
+    public Page<LibraryBook> findAll() {
 //
 //
-//        Specification<LibraryBook> specification = Specification.where(null);
+        Specification<LibraryBook> specification = Specification.where(null);
 //
 //        if (title != null && !title.isBlank())
 //            specification = specification.and(LibraryBookSpecification.titleLike(title));
@@ -69,7 +71,10 @@ public class LibraryBookService {
 //
 //
 //        return libraryBookRepository.findAll(specification);
-        return libraryBookRepository.findAll();
+
+//        return productRepository.findAll(    PageRequest.of(page - 1, 10)).map((product)->productConverter.entityToDto(product));
+
+        return libraryBookRepository.findAll(specification, PageRequest.of(0, 20));
     }
 
 

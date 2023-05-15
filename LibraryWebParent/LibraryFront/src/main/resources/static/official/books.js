@@ -1,7 +1,6 @@
-
 angular.module('employee-front').controller('booksController', function ($rootScope, $scope, $http, $location, $localStorage) {
 
-    const corePath = 'http://' + window.location.hostname + ':3001/employee/api/v1';
+    const corePath = 'http://' + window.location.hostname + ':8060/official/api/v1';
     $scope.currentPage = 1;
     $scope.isEdit = false;
 
@@ -9,6 +8,40 @@ angular.module('employee-front').controller('booksController', function ($rootSc
     $input2 = document.getElementById('input_max-id');
     $input3 = document.getElementById('input_title-id');
     $input4 = document.getElementById('current_page-id');
+
+
+    $http({
+            url: corePath + '/authors/all',
+            method: 'GET'
+        }
+    ).then(function (response) {
+
+        let selectForm = document.getElementById('selectAuthor');
+        for (const responseElement of response.data) {
+            let opt = document.createElement('option');
+            opt.innerHTML = responseElement.firstName + " " + responseElement.lastName;
+            opt.value = responseElement.id;
+            selectForm.appendChild(opt);
+        }
+        // document.getElementById("selectAuthor").value = response.data.name;
+        // document.getElementById("form_description").value = response.data.description;
+    });
+    $http({
+            url: corePath + '/genres',
+            method: 'GET'
+        }
+    ).then(function (response) {
+        let selectForm = document.getElementById('selectGenre');
+
+        for (const responseElement of response.data) {
+            let opt = document.createElement('option');
+            opt.innerHTML = responseElement.name;
+            opt.value = responseElement.id;
+            selectForm.appendChild(opt);
+        }
+        // document.getElementById("selectAuthor").value = response.data.name;
+        // document.getElementById("form_description").value = response.data.description;
+    });
 
 
     // $input.onchange = function () {
@@ -33,7 +66,7 @@ angular.module('employee-front').controller('booksController', function ($rootSc
     // };
 
 
-    $scope.loadProducts = function () {
+    $scope.loadBooks = function () {
         if ($scope.currentPage < 1) {
             $scope.currentPage = 1;
         }
@@ -41,19 +74,19 @@ angular.module('employee-front').controller('booksController', function ($rootSc
             $scope.currentPage = $scope.pagesCount;
         }
         $http({
-            url: corePath + '/products',
-            method: 'GET',
-            params: {
-                // minPrice: document.getElementById("input_min-id").value,
-                // maxPrice: document.getElementById("input_max-id").value,
-                // partName: document.getElementById("input_title-id").value,
-                partName: document.getElementById("input_title-id").value,
-                // active: !($rootScope.hasUserRole('ADMIN') || $rootScope.hasUserRole('MANAGER')),
-                page: $scope.currentPage
+                url: corePath + '/libraryBook',
+                method: 'GET',
+                params: {
+                    // minPrice: document.getElementById("input_min-id").value,
+                    // maxPrice: document.getElementById("input_max-id").value,
+                    // partName: document.getElementById("input_title-id").value,
+                    partName: document.getElementById("input_title-id").value,
+                    // active: !($rootScope.hasUserRole('ADMIN') || $rootScope.hasUserRole('MANAGER')),
+                    page: $scope.currentPage
+                }
             }
-        }
         ).then(function (response) {
-            $scope.productList = response.data.content;
+            $scope.booksList = response.data.content;
             $scope.pagesCount = response.data.totalPages;
             $scope.currentPage = response.data.pageable.pageNumber + 1;
             document.getElementById("current_page-id").value = $scope.currentPage;
@@ -68,15 +101,11 @@ angular.module('employee-front').controller('booksController', function ($rootSc
     //     return arr;
     // }
 
-    $scope.navToEditProductPage = function (productId) {
-        $location.path('/edit_product/' + productId);
-    }
 
     $scope.goToPage = function (page) {
         // document.getElementById("error_text").style.visibility = 'hidden';
-        console.log("2312321")
         $scope.currentPage = page;
-        $scope.loadProducts();
+        $scope.loadBooks();
     };
 
     $scope.goToEdit = function (id) {
@@ -86,13 +115,11 @@ angular.module('employee-front').controller('booksController', function ($rootSc
             document.getElementById("booksList").style.display = 'none';
             document.getElementById("editForm").style.display = 'inline';
             console.log("редактор");
-        }
-        else {
+        } else {
             document.getElementById("booksList").style.display = 'inline';
             document.getElementById("editForm").style.display = 'none';
             console.log("список");
         }
-
 
 
         // if (!$scope.new_user.username) {
@@ -121,7 +148,5 @@ angular.module('employee-front').controller('booksController', function ($rootSc
     }
 
 
-
-
-    $scope.loadProducts();
+    $scope.loadBooks();
 });

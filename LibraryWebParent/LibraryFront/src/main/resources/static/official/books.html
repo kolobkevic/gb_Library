@@ -44,39 +44,33 @@
 
             </div>
 
-
-
+<!--            <div style="position: relative">-->
             <table class="table">
                 <thead>
                     <tr>
-                        <td></td>
+
                         <td>
                             <input name="id" type="text" id="input_title-id" placeholder="фильтр">
                         </td>
-                        <td>фильтр по автору</td>
-                        <td>фильтр по жанру</td>
                         <td>
-                            <!--                галочка в наличии-->
+                            <select id="selectAuthor">
+                                <option value="">Автор</option>
+                            </select>
                         </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>ID книги</td>
-                        <td>Название</td>
-                        <td>Автор</td>
-                        <td>Жанры</td>
-                        <td>Доступное количество</td>
-                        <td></td>
+                        <td><select id="selectGenre">
+                            <option value="">Жанр</option>
+                        </select></td>
+
                     </tr>
                 </thead>
                 <tbody>
 
-                    <tr ng-repeat="s in productList">
-                        <td>{{s.id}}</td>
-                        <td><a href="/app/product/{{s.id}}/info">{{s.title}}</a></td>
-                        <td>{{s.author}}р.</td>
-                        <td>{{s.genres}}р.</td>
-                        <td>{{s.free_count}}р.</td>
+                    <tr ng-repeat="s in booksList">
+
+                        <td><a href="/app/product/{{s.id}}/info">{{s.worldBook.title}}</a></td>
+                        <td>{{s.worldBook.author.fullName}}</td>
+                        <td>{{s.worldBook.genre.name}}</td>
+
                         <!--                        <td>-->
                         <!--                            <a class="nav-link" style="margin: 0; padding: 0" href="#!/edit_product/{{s.id}}">-->
                         <!--                                <button class="btn btn-primary">Изменить</button>-->
@@ -92,6 +86,7 @@
                         <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
                         из {{pagesCount}}
             </div>
+<!--            </div>-->
         </div>
 
 
