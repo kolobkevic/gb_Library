@@ -44,6 +44,10 @@ public class WorldBook extends IdBasedEntity{
     /*
      * TRANSIENT FIELDS
      */
+    @Transient
+    public String getPublicTitle(){
+        return "\"" + title + "\" - " + author.getFullName();
+    }
 
     /*
      * OVERWRITE METHODS
