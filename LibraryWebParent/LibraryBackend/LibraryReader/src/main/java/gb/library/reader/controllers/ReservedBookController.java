@@ -6,7 +6,6 @@ import gb.library.reader.dtos.ReservedBookDto;
 import gb.library.reader.services.ReservedBooksService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

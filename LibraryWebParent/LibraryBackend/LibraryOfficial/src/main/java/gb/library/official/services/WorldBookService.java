@@ -1,7 +1,6 @@
 package gb.library.official.services;
 
 
-import gb.library.common.dtos.WorldBookDTO;
 import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.WorldBook;
@@ -9,7 +8,6 @@ import gb.library.official.exceptions.ResourceNotFoundException;
 import gb.library.official.repositories.GenreRepository;
 import gb.library.official.repositories.WorldBookRepository;
 import gb.library.official.repositories.specifications.WorldBookSpecification;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -42,7 +40,7 @@ public class WorldBookService {
             specification = specification.and(WorldBookSpecification.descriptionLike(description));
 
         if (author != null && !author.isBlank()) {
-            List<Integer> ids = authorService.searchAuthors(author).stream().map(author1 -> author1.getId()).toList();
+            List<Integer> ids = authorService.searchAuthors(author).stream().map(IdBasedEntity::getId).toList();
             ids = removeDuplicates(ids);
             specification = specification.and(WorldBookSpecification.authorIdIs(ids));
         }
@@ -94,7 +92,6 @@ public class WorldBookService {
 
     private static List<Integer> removeDuplicates(List<Integer> list) {
         Set<Integer> set = new HashSet<>(list);
-        List<Integer> newlist = new ArrayList<>(set);
-        return newlist;
+        return new ArrayList<>(set);
     }
 }

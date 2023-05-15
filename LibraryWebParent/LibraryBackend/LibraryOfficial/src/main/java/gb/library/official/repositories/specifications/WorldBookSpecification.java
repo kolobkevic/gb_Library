@@ -2,13 +2,10 @@ package gb.library.official.repositories.specifications;
 
 import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.WorldBook;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class WorldBookSpecification {
@@ -35,8 +32,7 @@ public class WorldBookSpecification {
                 Predicate pred = criteriaBuilder.or(criteriaBuilder.equal(root.get("author"), id.toString()));
                 predicates.add(pred);
             }
-            Predicate finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[0]));
-            return finalPredicate;
+            return criteriaBuilder.or(predicates.toArray(new Predicate[0]));
         };
     }
 
@@ -47,8 +43,7 @@ public class WorldBookSpecification {
                 Predicate pred = criteriaBuilder.or(criteriaBuilder.equal(root.get("genre"), id.toString()));
                 predicates.add(pred);
             }
-            Predicate finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[0]));
-            return finalPredicate;
+            return criteriaBuilder.or(predicates.toArray(new Predicate[0]));
         };
     }
 

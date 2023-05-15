@@ -1,7 +1,6 @@
 package gb.library.official.controllers;
 
 import gb.library.common.dtos.GenreDTO;
-import gb.library.common.entities.Genre;
 import gb.library.official.converters.GenreConverter;
 import gb.library.official.services.GenreService;
 import gb.library.official.validators.GenreValidator;
