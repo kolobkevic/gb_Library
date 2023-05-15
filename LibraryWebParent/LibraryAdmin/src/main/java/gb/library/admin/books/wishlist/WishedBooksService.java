@@ -2,15 +2,12 @@ package gb.library.admin.books.wishlist;
 
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
-import gb.library.common.entities.Author;
 import gb.library.common.entities.BooksWishlist;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -34,20 +31,12 @@ public class WishedBooksService implements AbstractDaoService<BooksWishlist, Int
 
     @Override
     public BooksWishlist create(BooksWishlist entity) {
-        return repository.save(entity);
+        return null;
     }
 
     @Override
-    @Transactional
     public BooksWishlist update(BooksWishlist entity) throws ObjectInDBNotFoundException {
-        BooksWishlist existedBook = repository.findById(entity.getId())
-                .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
-                        + entity.getId()
-                        + ", т.к. она не найдена в базе.",
-                        "Wished book"));
-        existedBook.setBook(entity.getBook());
-        existedBook.setUser(entity.getUser());
-        return repository.save(existedBook);
+        return null;
     }
 
     @Override
@@ -61,16 +50,5 @@ public class WishedBooksService implements AbstractDaoService<BooksWishlist, Int
 
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
         helper.listEntities(pageNum, WISHED_BOOKS_PER_PAGE, repository);
-    }
-
-    public String checkUnique(Integer id, String title, Author author) {
-        BooksWishlist book = repository.findByTitleAndAuthor(title, author);
-
-        if (book != null) {
-            if (!Objects.equals(book.getId(), id)) {
-                return "Duplicate";
-            }
-        }
-        return "OK";
     }
 }

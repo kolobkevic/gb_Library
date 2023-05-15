@@ -17,5 +17,4 @@ public interface WishedBooksRepository extends SearchRepository<BooksWishlist, I
     @Query("select b from BooksWishlist b where b.book.title = ?1 and b.book.author = ?2")
     BooksWishlist findByTitleAndAuthor(String title, Author author);
 
-    BooksWishlist save(BooksWishlist wishedBook);
 }
