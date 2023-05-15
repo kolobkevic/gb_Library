@@ -55,11 +55,12 @@
             </br>
 
 
-            <table class="table">
+            <table class="table" style="width: fit-content">
                 <thead>
                 <tr><b>
-                    <td><b>Зона</b></td>
-                    <td><b>Доступность</b></td>
+                    <td style="text-align: center"><b>Зона</b></td>
+                    <td style="text-align: center"><b>Сектор</b></td>
+                    <td style="text-align: center"><b>Доступность</b></td>
                 </b>
                 </tr>
 
@@ -67,11 +68,12 @@
                 <tbody ng-repeat="zone in zoneList">
 
                 <tr>
-                    <td style="text-align: center"><b>{{zone.zone}}</b></td>
+                    <td> <b>{{zone.zone}}</b></td>
                 </tr>
                 <tr ng-repeat="sec in zone.sectors">
-                    <td>{{sec.sector}}</td>
-                    <td>{{sec.isAvailable}}</td>
+                    <td></td>
+                    <td style="text-align: center">{{sec.sector}}</td>
+                    <td style="text-align: center">{{sec.isAvailable}}</td>
                 </tr>
                 </tbody>
             </table>

@@ -49,7 +49,7 @@ public class StorageService {
                 sectors=new ArrayList<>();
                 zones.put(storage.getZone(), sectors);
             }
-            sectors.add(new Sector(storage.getSector(),storage.isAvailable()));
+            sectors.add(new Sector(storage.getId(), storage.getSector(),storage.isAvailable()));
         }
 
         List<Zone> zonesList = new ArrayList();
@@ -67,6 +67,7 @@ public class StorageService {
     }
     @AllArgsConstructor
     public class Sector{
+        public int id;
         public String sector;
         public Boolean isAvailable;
 
