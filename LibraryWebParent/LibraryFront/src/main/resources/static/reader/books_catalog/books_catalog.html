@@ -19,104 +19,170 @@
 </head>
 <body ng-app="reader-front">
 <div ng-controller="booksCatalogController">
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav nav-pills nav-fill">
-                    <li class="nav-item">
-                        <a class="nav-link">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="books_catalog.html">Каталог книг</a>
-                    </li>
-                    <li class="nav-item" ng-show="!isUserLoggedIn()">
-                        <div class="input-group input-group-sm" style="padding: 4px;">
-                            <div class="dropdown" ng-submit="tryToAuth()">
-                                <button type="button" class="btn btn-primary dropdown-toggle"
-                                        data-bs-toggle="dropdown" aria-expanded="true"
-                                        data-bs-auto-close="outside">
-                                    Войти
-                                </button>
-                                <form class="dropdown-menu p-4">
-                                    <div class="mb-3">
-                                        <label for="exampleDropdownFormEmail2" class="form-label">Почтовый
-                                            адрес</label>
-                                        <input type="email" class="form-control" id="exampleDropdownFormEmail2"
-                                               placeholder="email@example.ru" ng-model="user.username">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleDropdownFormPassword2"
-                                               class="form-label">Пароль</label>
-                                        <input type="password" class="form-control"
-                                               id="exampleDropdownFormPassword2" placeholder="Пароль"
-                                               ng-model="user.password">
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                                            <label class="form-check-label" for="dropdownCheck2">
-                                                Запомнить меня
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Войти</button>
-                                    <button type="button" class="btn btn-primary">Регистрация</button>
-                                </form>
+
+    <header>
+        <div class="container text-right">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav" style="padding-left: 40px;">
+                        <li class="nav-item">
+                            <a class="nav-link" style="font-size: medium; padding-left: 15px;" href="#!/">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" style="font-size: medium; padding-left: 15px;" href="#!/books_catalog">Каталог книг</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href=".">Забронированные</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Книги на руках</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">История книг</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Личный кабинет</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container text-left">
+            <h3 style="padding-top: 30px; padding-bottom: 30px">Каталог книг</h3>
+        </div>
+    </header>
+
+    <div class="container text-left">
+        <div class="row">
+            <div class="col">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseOne">
+                                Жанры
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value=""
+                                               id="genreCheckbox_all" checked name="bookGenre">
+                                        <label class="form-check-label" for="genreCheckbox_all">Все</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="Роман"
+                                               id="genreCheckbox_1" name="bookGenre">
+                                        <label class="form-check-label" for="genreCheckbox_1">Роман</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="Приключение"
+                                               id="genreCheckbox_2" name="bookGenre">
+                                        <label class="form-check-label" for="genreCheckbox_2">Приключение</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="Детектив"
+                                               id="genreCheckbox_3" name="bookGenre">
+                                        <label class="form-check-label" for="genreCheckbox_3">Детектив</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="Фантастика"
+                                               id="genreCheckbox_4" name="bookGenre">
+                                        <label class="form-check-label" for="genreCheckbox_4">Фантастика</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" value="Комедия"
+                                               id="genreCheckbox_5" name="bookGenre">
+                                        <label class="form-check-label" for="genreCheckbox_5">Комедия</label>
+                                    </li>
+                                </ul>
                             </div>
-
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseTwo">
+                                Возрастной рейтинг
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" name="ageRate" value=""
+                                               id="ageCheckbox_G" checked>
+                                        <label class="form-check-label" for="ageCheckbox_G">G (для всех)</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" name="ageRate" value="PG"
+                                               id="ageCheckbox_PG">
+                                        <label class="form-check-label" for="ageCheckbox_PG">PG (9+)</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" name="ageRate" value="PG-13"
+                                               id="ageCheckbox_PG13">
+                                        <label class="form-check-label" for="ageCheckbox_PG13">PG-13 (13+)</label>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <input class="form-check-input me-1" type="radio" name="ageRate" value="R"
+                                               id="ageCheckbox_R">
+                                        <label class="form-check-label" for="ageCheckbox_R">R (17+)</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding-top: 10px; display: flex; justify-content: center; align-items: center;">
+                        <button id="useFilterBtn" class="btn btn-primary" ng-click="submitCheckBox()">Применить</button>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </div>
-
-    <div class="container text-sm-center">
-        <p></p>
-        <h3>Каталог книг</h3>
-        <p></p>
-        <form novalidate ng-submit="searchBook()">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" ng-model="search_book.searchText">
-                <button class="btn btn-primary" type="submit" id="button-addon2">Поиск</button>
+            <div class="col-9">
+                <form novalidate ng-submit="loadBooksCatalogPage()">
+                    <div class="input-group mb-3">
+                        <input id="search_field" type="text" style="padding-right: 100px" class="form-control"
+                               aria-label="Recipient's username"
+                               aria-describedby="button-addon2" ng-model="filter.search_text">
+                        <button class="btn btn-primary" type="submit" id="button-addon2">Поиск</button>
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Автор</td>
+                        <td>Название</td>
+                        <td>Жанр</td>
+                        <td>Возрастной рейтинг</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="b in booksCatalog.content">
+                        <td><a href="" style="color: black; text-decoration:none">{{b.author}}</a></td>
+                        <td>{{b.title}}</td>
+                        <td>{{b.genre}}</td>
+                        <td>{{b.ageRating}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav style="padding-top: 20px" aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item" ng-repeat="pageIndex in pagesNav">
+                            <button class="page-link" ng-click="loadBooksCatalogPage(pageIndex)">{{pageIndex}}</button>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </form>
-        <p></p>
-    </div>
-
-
-    <div class="container text-center">
-        <div class="col">
-            <table class="table">
-                <thead>
-                <tr>
-                    <td>Автор</td>
-                    <td>Название</td>
-                    <td>Жанр</td>
-                    <td>Возрастной рейтинг</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="b in booksCatalog.content">
-                    <td>{{b.author}}</td>
-                    <td>{{b.title}}</td>
-                    <td>{{b.genre}}</td>
-                    <td>{{b.ageRating}}</td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
-    <div class="container">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item" ng-repeat="pageIndex in paginationArray">
-                    <button class="page-link" ng-click="loadBooksCatalogPage(pageIndex)">{{pageIndex}}</button>
-                </li>
-            </ul>
-        </nav>
-    </div>
 </div>
+<footer class="container" style="padding-top: 150px">
+    <hr>
+    <p>&copy;Все права защищены</p>
+</footer>
 
 </body>
 </html>
