@@ -36,12 +36,12 @@
             <tr th:each="book : ${entitiesList}">
                 <td class="hideable-column col-1">[[${book.id}]]</td>
                 <td>[[${book.worldBook.publicTitle}]]</td>
-                <td>[[${book.author.fullName}]]</td>
+                <td>[[${book.worldBook.author.fullName}]]</td>
                 <td>[[${book.publisher}]]</td>
                 <td class="hideable-column col-1">[[${book.isbn}]]</td>
                 <td class="hideable-column col-1">[[${book.inventoryNumber}]]</td>
                 <td>
-                    <div th:replace="fragments :: entity_status(${book.available}, '/library-books/'+${book.id} )"></div>
+                    <div th:replace="~{fragments :: entity_status(${book.available}, '/library-books/'+${book.id} )}"></div>
                 </td>
                 <th class="hideable-column col-1">
                     <div th:replace="~{fragments :: format_time(${book.createdAt})}"></div>

@@ -4,10 +4,12 @@ import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -24,22 +26,40 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
 
     @Override
     public LibraryBook getById(Integer id) throws ObjectInDBNotFoundException {
-        return null;
+        return repository.findById(id)
+                .orElseThrow(() -> new ObjectInDBNotFoundException("Запись с id=" + id + " в базе не найдена.",
+                        "Library books"));
     }
 
     @Override
     public LibraryBook create(LibraryBook entity) {
-        return null;
+        return repository.save(entity);
     }
 
     @Override
+    @Transactional
     public LibraryBook update(LibraryBook entity) throws ObjectInDBNotFoundException {
-        return null;
+        LibraryBook existedBook = repository.findById(entity.getId())
+                .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
+                        + entity.getId()
+                        + ", т.к. она не найдена в базе.",
+                        "Library book"));
+        existedBook.setWorldBook(entity.getWorldBook());
+        existedBook.setIsbn(entity.getIsbn());
+        existedBook.setAvailable(entity.isAvailable());
+        existedBook.setPublisher(entity.getPublisher());
+        existedBook.setPlacedAt(entity.getPlacedAt());
+
+        return repository.save(existedBook);
     }
 
     @Override
     public void delete(Integer id) throws ObjectInDBNotFoundException {
-
+        if (!repository.existsById(id)) {
+            throw new ObjectInDBNotFoundException("Невозможно удалить запись с id=" + id
+                    + ", т.к. она не найдена в базе.", "Library book");
+        }
+        repository.deleteById(id);
     }
 
     public void listByPage(int pageNum, PagingAndSortingHelper helper) {
@@ -52,5 +72,21 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
         } else {
             update(book);
         }
+    }
+
+    public String checkUnique(Integer id, String invNumber) {
+        LibraryBook book = repository.findByInventoryNumber(invNumber);
+
+        if (book != null) {
+            if (!Objects.equals(book.getId(), id)) {
+                return "Duplicate";
+            }
+        }
+        return "OK";
+    }
+
+    @Transactional
+    public void updateAvailableStatus(Integer id, boolean available) {
+        repository.updateAvailableStatus(id, available);
     }
 }

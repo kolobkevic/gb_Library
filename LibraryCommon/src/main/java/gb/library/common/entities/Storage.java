@@ -35,4 +35,24 @@ public class Storage extends IdBasedEntity{
     @UpdateTimestamp
     private Instant updatedAt;
 
+    /*
+     * CONSTRUCTORS
+     */
+
+    /*
+     * TRANSIENT FIELDS
+     */
+    @Transient
+    public String getDescription(){
+        return zone + " / " + sector + (available ? "" : " (не используется)");
+    }
+
+    /*
+     * OVERWRITE METHODS
+     */
+
+    /*
+     * METHODS
+     */
+
 }

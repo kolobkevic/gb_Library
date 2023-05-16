@@ -35,7 +35,7 @@
         <td>[[${storage.zone}]]</td>
         <td>[[${storage.sector}]]</td>
         <td>
-          <div th:replace="fragments :: entity_status(${storage.available}, '/storages/'+${storage.id} )"></div>
+          <div th:replace="~{fragments :: entity_status(${storage.available}, '/storages/'+${storage.id} )}"></div>
         </td>
         <th class="hideable-column col-1">
           <div th:replace="~{fragments :: format_time(${storage.createdAt})}"></div>

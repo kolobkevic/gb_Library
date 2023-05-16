@@ -4,6 +4,7 @@ import gb.library.admin.utils.paging.SearchRepository;
 import gb.library.common.entities.LibraryBook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,10 @@ public interface LibraryBooksRepository extends SearchRepository<LibraryBook, In
             + " OR lb.worldBook.title LIKE %?1% OR lb.worldBook.author.firstName LIKE %?1%"
             + " OR lb.worldBook.author.lastName LIKE %?1% OR lb.worldBook.genre.name LIKE %?1%")
     Page<LibraryBook> findAll(String keyword, Pageable pageable);
+
+    LibraryBook findByInventoryNumber(String inventoryNumber);
+
+    @Modifying
+    @Query("UPDATE LibraryBook lb SET lb.available = ?2 WHERE lb.id = ?1")
+    void updateAvailableStatus(Integer id, boolean available);
 }
