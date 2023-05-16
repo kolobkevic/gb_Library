@@ -66,9 +66,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
             $scope.booksList = response.data;
             for (const responseElement of $scope.booksList) {
                 responseElement.authorName = responseElement.author.firstName + " " + responseElement.author.lastName;
-
             }
-
         });
     };
     $scope.addBookToLibrary = function (id) {

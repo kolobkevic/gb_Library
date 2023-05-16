@@ -2,11 +2,17 @@ package gb.library.official.services;
 
 
 
+import gb.library.common.entities.AgeRating;
+import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.LibraryBook;
+import gb.library.common.entities.WorldBook;
 import gb.library.official.converters.LibraryBookConverter;
 import gb.library.official.exceptions.ResourceNotFoundException;
 import gb.library.official.repositories.GenreRepository;
 import gb.library.official.repositories.LibraryBookRepository;
+import gb.library.official.repositories.WorldBookRepository;
+import gb.library.official.repositories.specifications.LibraryBookSpecification;
+import gb.library.official.repositories.specifications.WorldBookSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +29,13 @@ import java.util.Set;
 public class LibraryBookService {
     private final LibraryBookRepository libraryBookRepository;
 
-    private final LibraryBookConverter libraryBookConverter;
+    private final AuthorService authorService;
+
+    private final GenreRepository genreRepository;
+
+    private final WorldBookRepository worldBookRepository;
+
+
 
 
     public LibraryBook findById(Integer id) {
@@ -32,49 +44,49 @@ public class LibraryBookService {
     }
 
 //    public List<LibraryBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
-    public Page<LibraryBook> findAll() {
-//
-//
-        Specification<LibraryBook> specification = Specification.where(null);
-//
-//        if (title != null && !title.isBlank())
-//            specification = specification.and(LibraryBookSpecification.titleLike(title));
-//
-//        if (description != null && !description.isBlank())
-//            specification = specification.and(LibraryBookSpecification.descriptionLike(description));
-//
-//        if (author != null && !author.isBlank()) {
-//            List<Integer> ids = authorService.searchAuthors(author).stream().map(author1 -> author1.getId()).toList();
-//            ids = removeDuplicates(ids);
-//            specification = specification.and(LibraryBookpecification.authorIdIs(ids));
-//        }
-//
-//        if (genre != null && !genre.isBlank()) {
-//            List<Integer> genreIDs = genreRepository.findByGenre(genre).stream().map(IdBasedEntity::getId).toList();
-//            specification = specification.and(LibraryBookSpecification.genreIdIs(genreIDs));
-//        }
-//
-//
-//        Specification<WorldBook> specificationAgeRating = Specification.where(null);
-//        if (ageRatingString != null && !ageRatingString.isBlank()) {
-//            AgeRating ageRatingValue = AgeRating.valueOf(ageRatingString);
-//            specificationAgeRating = Specification.where(WorldBookSpecification.ageRatingIs(ageRatingValue));
-//            AgeRating[] allAgeRatings = AgeRating.values();
-//            for (AgeRating rating : allAgeRatings) {
-//                if (rating.ordinal() < ageRatingValue.ordinal()) {
-//                    specificationAgeRating = specificationAgeRating.or(WorldBookSpecification.ageRatingIs(rating));
-//                }
-//            }
-//        }
-//
-//        specification = specification.and(specificationAgeRating);
-//
-//
-//        return libraryBookRepository.findAll(specification);
+    public Page<LibraryBook> findAll(Integer page, Integer pageSize, String title, String author, String genre, String ageRatingString, String description) {
+        Specification<WorldBook> worldBookSpecification = Specification.where(null);
 
-//        return productRepository.findAll(    PageRequest.of(page - 1, 10)).map((product)->productConverter.entityToDto(product));
+        if (title != null && !title.isBlank())
+            worldBookSpecification = worldBookSpecification.and(WorldBookSpecification.titleLike(title));
 
-        return libraryBookRepository.findAll(specification, PageRequest.of(0, 20));
+        if (description != null && !description.isBlank())
+            worldBookSpecification = worldBookSpecification.and(WorldBookSpecification.descriptionLike(description));
+
+        if (author != null && !author.isBlank()) {
+            List<Integer> ids = authorService.searchAuthors(author).stream().map(author1 -> author1.getId()).toList();
+            ids = removeDuplicates(ids);
+            worldBookSpecification = worldBookSpecification.and(WorldBookSpecification.authorIdIs(ids));
+        }
+
+        if (genre != null && !genre.isBlank()) {
+            List<Integer> genreIDs = genreRepository.findByGenre(genre).stream().map(IdBasedEntity::getId).toList();
+            worldBookSpecification = worldBookSpecification.and(WorldBookSpecification.genreIdIs(genreIDs));
+        }
+
+
+        Specification<WorldBook> specificationAgeRating = Specification.where(null);
+        if (ageRatingString != null && !ageRatingString.isBlank()) {
+            AgeRating ageRatingValue = AgeRating.valueOf(ageRatingString);
+            specificationAgeRating = Specification.where(WorldBookSpecification.ageRatingIs(ageRatingValue));
+            AgeRating[] allAgeRatings = AgeRating.values();
+            for (AgeRating rating : allAgeRatings) {
+                if (rating.ordinal() < ageRatingValue.ordinal()) {
+                    specificationAgeRating = specificationAgeRating.or(WorldBookSpecification.ageRatingIs(rating));
+                }
+            }
+        }
+
+        worldBookSpecification = worldBookSpecification.and(specificationAgeRating);
+
+
+        Specification<LibraryBook> libraryBookSpecification = Specification.where(null);
+        if (!(title+ author+genre+ ageRatingString+ description).isBlank()){
+
+            libraryBookSpecification=libraryBookSpecification.and(LibraryBookSpecification.worldBooksIdIs(worldBookRepository.findAll(worldBookSpecification).stream().map(worldBook -> worldBook.getId()).toList()));
+        }
+
+        return libraryBookRepository.findAll(libraryBookSpecification, PageRequest.of(page-1, pageSize));
     }
 
 
@@ -97,5 +109,10 @@ public class LibraryBookService {
 //        updatedBook.setDescription(libraryBook.getDescription());
         //todo: update
         return libraryBookRepository.save(updatedBook);
+    }
+    private static List<Integer> removeDuplicates(List<Integer> list) {
+        Set<Integer> set = new HashSet<>(list);
+        List<Integer> newlist = new ArrayList<>(set);
+        return newlist;
     }
 }

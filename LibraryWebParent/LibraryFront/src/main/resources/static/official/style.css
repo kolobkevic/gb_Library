@@ -92,10 +92,10 @@ body {
 
 
 .menu_2 > .active_item {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 10px;
     text-align: center;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.1em;
     /*box-shadow: 5px 10px 20px rgba(53, 110, 173, 0.2);*/
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
