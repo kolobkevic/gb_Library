@@ -82,7 +82,7 @@ public class WorldBooksController {
 
         try {
             service.delete(id);
-            redirectAttributes.addFlashAttribute("message", "Запись успешно удалена");
+            redirectAttributes.addFlashAttribute("message", "Запись с ID=" + id + " успешно удалена");
         } catch (ObjectInDBNotFoundException ex) {
             redirectAttributes.addFlashAttribute("message", ex.getMessage());
         }

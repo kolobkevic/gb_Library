@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: page_head('Мировые книги - админка библиотеки', 'none')}">
+<head th:replace="~{fragments :: page_head('Библиотечные книги - админка библиотеки', 'none')}">
 </head>
 <body>
 <div class="container-fluid">
     <div th:replace="~{navigation :: menu}"></div>
 
     <div>
-        <h2>Справочник "Мировые книги"</h2>
-        <a th:href="@{/world-books/new}" class="fas fa-solid fa-square-plus fa-2x icon-green mr-2"
+        <h2>Справочник "Библиотечные книги"</h2>
+        <a th:href="@{/library-books/new}" class="fas fa-solid fa-square-plus fa-2x icon-green mr-2"
            title="Добавить новую"></a>
     </div>
 
@@ -21,11 +21,12 @@
             <thead class="table-dark">
             <tr>
                 <th class="hideable-column col-1">ID</th>
-                <th th:replace="~{fragments :: column_link('title', 'Название', 'none')}"></th>
+                <th th:replace="~{fragments :: column_link('book', 'Книга', 'none')}"></th>
                 <th th:replace="~{fragments :: column_link('author', 'Автор', 'none')}"></th>
-                <th th:replace="~{fragments :: column_link('genre', 'Жанр', 'none')}"></th>
-                <th class="col-1">Возрастной рейтинг</th>
-                <th class="col-2">Краткое описание</th>
+                <th th:replace="~{fragments :: column_link('publisher', 'Издатель', 'none')}"></th>
+                <th class="hideable-column col-1">ISBN</th>
+                <th class="hideable-column col-1">Инвентарный номер</th>
+                <th class="col-1">Доступна</th>
                 <th class="hideable-column col-1">Добавлен</th>
                 <th class="hideable-column col-1">Обновлён</th>
                 <th class="col-1"></th>
@@ -34,11 +35,14 @@
             <tbody>
             <tr th:each="book : ${entitiesList}">
                 <td class="hideable-column col-1">[[${book.id}]]</td>
-                <td>[[${book.title}]]</td>
-                <td>[[${book.author.fullName}]]</td>
-                <td>[[${book.genre.name}]]</td>
-                <td>[[${book.ageRating}]]</td>
-                <td>[[${book.description}]]</td>
+                <td>[[${book.worldBook.publicTitle}]]</td>
+                <td>[[${book.worldBook.author.fullName}]]</td>
+                <td>[[${book.publisher}]]</td>
+                <td class="hideable-column col-1">[[${book.isbn}]]</td>
+                <td class="hideable-column col-1">[[${book.inventoryNumber}]]</td>
+                <td>
+                    <div th:replace="~{fragments :: entity_status(${book.available}, '/library-books/'+${book.id} )}"></div>
+                </td>
                 <th class="hideable-column col-1">
                     <div th:replace="~{fragments :: format_time(${book.createdAt})}"></div>
                 </th>
@@ -46,9 +50,9 @@
                     <div th:replace="~{fragments :: format_time(${book.updatedAt})}"></div>
                 </th>
                 <td class="col-1">
-                    <a th:insert="~{fragments :: entity_edit('/world-books/edit/' + ${book.id})}"></a>
+                    <a th:insert="~{fragments :: entity_edit('/library-books/edit/' + ${book.id})}"></a>
                     &nbsp;
-                    <a th:insert="~{fragments :: entity_delete('/world-books/delete/' + ${book.id}, ${book.id})}"></a>
+                    <a th:insert="~{fragments :: entity_delete('/library-books/delete/' + ${book.id}, ${book.id})}"></a>
                 </td>
             </tr>
             </tbody>
@@ -57,11 +61,12 @@
     <div class="less-details">
         <div th:each="book : ${entitiesList}" class="row m-1 border">
             <div class="col">
-                <div><h5>[[${book.title}]] [[${book.author.fullName}]]</h5></div>
+                <div><h5>[[${book.worldBook.publicTitle}]] [[${book.inventoryNumber}]]</h5></div>
+                <div>[[${book.publisher}]] | [[${book.inventoryNumber}]]</div>
                 <div class="mt-2">
-                    <a th:insert="~{fragments :: entity_edit('/world-books/edit/' + ${book.id})}"></a>
+                    <a th:insert="~{fragments :: entity_edit('/library-books/edit/' + ${book.id})}"></a>
                     &nbsp;
-                    <a th:insert="~{fragments :: entity_delete('/world-books/delete/' + ${book.id}, ${book.id})}"></a>
+                    <a th:insert="~{fragments :: entity_delete('/library-books/delete/' + ${book.id}, ${book.id})}"></a>
                 </div>
             </div>
         </div>
@@ -75,7 +80,7 @@
 </div>
 <script type="text/javascript">
 
-    module_URI = "[[@{/world-books}]]";
+    module_URI = "[[@{/library-books}]]";
 
     $(document).ready(function (){
         $(".link-delete").on("click", function (e){
