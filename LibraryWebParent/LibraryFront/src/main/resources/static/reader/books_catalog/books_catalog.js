@@ -3,37 +3,52 @@ angular.module('reader-front', []).controller('booksCatalogController', function
     let defaultPage = 1;
     let currentPage = 1;
 
-    $scope.generatePagesIndexes = function (startPage, endPage) {
+    $scope.generatePagesIndexes = function (totalPages) {
         let arr = [];
-        for (let i = startPage; i < endPage + 1; i++) {
-            arr.push(i);
+        for (let i = 0; i < totalPages; i++) {
+            arr.push(i + 1);
         }
-        return arr;
+        $scope.pagesNav = arr;
     }
 
-    $scope.loadBooksCatalogPage = function (pageIndex) {
+    $scope.loadBooksCatalogPage = function (pageIndex = 1) {
+
         $http({
             url: contextPath,
             method: 'GET',
             params: {
-                p: pageIndex
+                p: pageIndex,
+                search_text: $scope.filter ? $scope.filter.search_text : null,
+                genre: $scope.bookGenre
+                // age_rate: $scope.ageRate
             }
         }).then(function (response) {
             currentPage = pageIndex;
             console.log(response);
             $scope.booksCatalog = response.data;
             console.log($scope.booksCatalog);
-            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.booksCatalog.totalPages);
+            $scope.generatePagesIndexes($scope.booksCatalog.totalPages);
         });
     }
 
-    $scope.searchBook = function () {
-        if ($scope.search_book == null) {
-            alert('Поле поиска пусто!');
-        } else {
-            alert($scope.search_book.searchText);
+    $scope.submitCheckBox = function () {
+        let radioGenres = document.getElementsByName("bookGenre");
+        let ageRates = document.getElementsByName("ageRate");
+
+        for (let i = 0; i < radioGenres.length; i++) {
+            if (radioGenres[i].checked) {
+                $scope.bookGenre = radioGenres[i].value;
+            }
         }
+
+        // for (let i = 0; i < ageRates.length; i++) {
+        //     if (ageRates[i].checked) {
+        //         $scope.ageRate = ageRates[i].value;
+        //     }
+        // }
+
+        $scope.loadBooksCatalogPage();
     }
 
-    $scope.loadBooksCatalogPage(defaultPage);
+    $scope.loadBooksCatalogPage();
 });
