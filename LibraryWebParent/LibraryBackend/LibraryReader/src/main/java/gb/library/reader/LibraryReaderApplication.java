@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EntityScan({"gb.library.common"})
+@ComponentScan({"gb.library.backend"})
 @ComponentScan({"gb.library.official"})
 @ComponentScan(basePackages = "gb.library.reader")
 public class LibraryReaderApplication {
