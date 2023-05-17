@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="style.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
@@ -21,106 +21,102 @@
 </head>
 
 <body ng-app="employee-front">
-    <div ng-controller="booksController" style="  display: flex;
+<div ng-controller="booksController" style="  display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     height: 100%;">
-        <div class="top">
-            <div class="container top__content">
-                <div class="menu">
-                    <a class="active_item" href="books.html">Каталог книг</a>
-                    <a class="inactive_item" href="readers.html">Читатели</a>
-                    <a class="inactive_item" href="orders.html">Заказы/бронь</a>
-                    <a class="inactive_item" href="directories.html">Справочники</a>
-                </div>
+    <div class="top">
+        <div class="container top__content">
+            <div class="menu">
+                <a class="active_item" href="books.html">Каталог книг</a>
+                <a class="inactive_item" href="readers.html">Читатели</a>
+                <a class="inactive_item" href="orders.html">Заказы/бронь</a>
+                <a class="inactive_item" href="directories.html">Справочники</a>
             </div>
         </div>
-        <div class="main_start container" id="booksList">
-            <div>
-                <p></p>
-                <button class="button_switch" ng-click="goToEdit(-1)">Добавить книгу</button>
-            </div>
-
-
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input name="id" type="text" id="input_title-id" placeholder="фильтр">
-                        </td>
-                        <td>фильтр по автору</td>
-                        <td>фильтр по жанру</td>
-                        <td>
-                            <!--                галочка в наличии-->
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>ID книги</td>
-                        <td>Название</td>
-                        <td>Автор</td>
-                        <td>Жанры</td>
-                        <td>Доступное количество</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr ng-repeat="s in productList">
-                        <td>{{s.id}}</td>
-                        <td><a href="/app/product/{{s.id}}/info">{{s.title}}</a></td>
-                        <td>{{s.author}}р.</td>
-                        <td>{{s.genres}}р.</td>
-                        <td>{{s.free_count}}р.</td>
-                        <!--                        <td>-->
-                        <!--                            <a class="nav-link" style="margin: 0; padding: 0" href="#!/edit_product/{{s.id}}">-->
-                        <!--                                <button class="btn btn-primary">Изменить</button>-->
-                        <!--                            </a>-->
-                        <!--                        </td>-->
-                </tbody>
-            </table>
-            <div style="margin-left: 300px">
-                Страница
-                <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
-                    < </button>
-                        <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
-                        <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
-                        из {{pagesCount}}
-            </div>
-        </div>
-
-        <div class="container" id="editForm" style="display:none">
+    </div>
+    <div class="main_start container" id="booksList">
+        <div>
             <p></p>
-            <button class="button_switch" ng-click="goToEdit(-1)">К списку книг</button>
-            <form novalidate ng-submit="registerUser()">
-                <!--    <input class="form-control" type="number" hidden placeholder="ID" ng-model="new_user.id">-->
-                <!--    <p></p>-->
-                <input class="form-control" type="text" placeholder="Имя" ng-model="new_user.username">
-                <p></p>
-                <input class="form-control" type="email" placeholder="email" ng-model="new_user.email">
-                <p></p>
+            <p>
+                <a class="inactive_item" href="directories/world_books.html">
+                    <button class="button_switch">Добавить книгу (из мировой библиотеки)</button>
+                </a>
+            </p>
 
-                <input class="form-control" type="password" placeholder="Пароль" ng-model="new_user.password">
-                <p></p>
-                <input class="form-control" type="password" placeholder="Повторите пароль"
-                    ng-model="new_user.password2">
-                <p></p>
-                <button type="submit" class="btn btn-primary">Регистрация</button>
-
-            </form>
         </div>
-        <p></p>
 
+        <table class="table">
+            <thead>
 
+            <tr>
 
+                <td>
+                    <input name="title" type="text" id="input_title" placeholder="">
+                </td>
+                <td>
+                    <input name="author" type="text" id="input_author" placeholder="">
+                </td>
+                <td>
+                    <input name="genre" type="text" id="input_genre" placeholder="">
+                </td>
+                <td>
+                    <input name="description" type="text" id="input_description" placeholder="">
+                </td>
+                <td><select id="selectAge">
+                    <option value=>all</option>
+                    <option value=G>0+</option>
+                    <option value=PG>?+</option>
+                    <option value=PG13>13+</option>
+                    <option value=R>18+</option>
+                </select>
+                </td>
 
+            </tr>
+            <tr>
+                <td><b>Название</b></td>
+                <td><b>Автор</b></td>
+                <td><b>Жанр</b></td>
+                <td><b>Описание</b></td>
+                <td><b>Возраст</b></td>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="s in booksList">
+            <tr ng-repeat="s in booksList">
+
+                <td><a href="/app/product/{{s.id}}/info">{{s.worldBook.title}}</a></td>
+                <td>{{s.worldBook.author.fullName}}</td>
+                <td>{{s.worldBook.genre.name}}</td>
+
+                <td>{{s.worldBook.description}}</td>
+                <td>{{s.worldBook.ageRating}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="margin-left: 300px">
+            Страница
+            <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
+                <
+            </button>
+            <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+            <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
+            из {{pagesCount}}
+        </div>
+        <!--            </div>-->
     </div>
-    <script src="main.js"></script>
-    <script src="books.js"></script>
-    </div>
-    </div>
+
+
+    <p></p>
+
+
+</div>
+<script src="main.js"></script>
+<script src="books.js"></script>
+</div>
+</div>
 
 </body>
 
