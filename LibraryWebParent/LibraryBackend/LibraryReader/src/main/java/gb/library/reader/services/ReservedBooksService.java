@@ -8,7 +8,7 @@ import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.official.services.WorldBookService;
 import gb.library.reader.repositories.ReservedBooksRepository;
-import gb.library.reader.temp.LibraryBookService;
+import gb.library.reader.temp.LibraryBookTempService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ReservedBooksService implements AbstractDaoService<ReservedBook, Integer> {
     private final ReservedBooksRepository repository;
     private final UserService userService;
-    private final LibraryBookService libraryBookService;
+    private final LibraryBookTempService libraryBookService;
     private final WorldBookService worldBookService;
 
     @Override

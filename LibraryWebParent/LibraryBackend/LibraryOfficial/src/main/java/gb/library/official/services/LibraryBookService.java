@@ -6,7 +6,6 @@ import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.WorldBook;
-import gb.library.official.converters.LibraryBookConverter;
 import gb.library.official.exceptions.ResourceNotFoundException;
 import gb.library.official.repositories.GenreRepository;
 import gb.library.official.repositories.LibraryBookRepository;
