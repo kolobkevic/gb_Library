@@ -1,8 +1,6 @@
 package gb.library.common.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +17,9 @@ public class Role extends IdBasedEntity{
     private String name;
     @Column(length = 150, nullable = false)
     private String description;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_type", length = 8, nullable = false)
+    private RoleType roleType;
 
 
     @Override
