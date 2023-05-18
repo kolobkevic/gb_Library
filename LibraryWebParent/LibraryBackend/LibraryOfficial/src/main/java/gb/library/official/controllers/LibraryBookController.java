@@ -1,10 +1,9 @@
 package gb.library.official.controllers;
 
 
-import gb.library.common.dtos.AddLibraryBookDTO;
 import gb.library.common.dtos.LibraryBookDTO;
 import gb.library.common.entities.LibraryBook;
-import gb.library.official.converters.LibraryBookConverter;
+import gb.library.backend.converters.LibraryBookConverter;
 import gb.library.official.services.LibraryBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -50,14 +49,14 @@ public class LibraryBookController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public LibraryBookDTO update(@RequestBody AddLibraryBookDTO libraryBook) {
+    public LibraryBookDTO update(@RequestBody LibraryBookDTO libraryBook) {
 //        validator.validate(libraryBook);
         return converter.entityToDto(libraryBookService.update(converter.dtoToEntity(libraryBook)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LibraryBookDTO saveNewGenre(@RequestBody AddLibraryBookDTO libraryBook) {
+    public LibraryBookDTO saveNewGenre(@RequestBody LibraryBookDTO libraryBook) {
 //        validator.validate(libraryBook);
         return converter.entityToDto(libraryBookService.save(converter.dtoToEntity(libraryBook)));
     }

@@ -1,13 +1,13 @@
 package gb.library.official.services;
 
 
+import gb.library.backend.services.WorldBookCommonService;
 import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.WorldBook;
-import gb.library.official.exceptions.ResourceNotFoundException;
-import gb.library.official.repositories.GenreRepository;
-import gb.library.official.repositories.WorldBookRepository;
-import gb.library.official.repositories.specifications.WorldBookSpecification;
+import gb.library.backend.repositories.GenreRepository;
+import gb.library.backend.repositories.WorldBookRepository;
+import gb.library.backend.specifications.WorldBookSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,14 @@ public class WorldBookService {
     private final AuthorService authorService;
     private final GenreService genreService;
     private final GenreRepository genreRepository;
+    private final WorldBookCommonService worldBookCommonService;
 
 
     public WorldBook findById(Integer id) {
-        return worldBookRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Книга не найде базе, id: " + id));
+        return worldBookCommonService.findById(id);
     }
 
     public List<WorldBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
-
 
         Specification<WorldBook> specification = Specification.where(null);
 
@@ -80,14 +79,8 @@ public class WorldBookService {
 
 
     public WorldBook update(WorldBook worldBook) {
-        WorldBook updatedBook = worldBookRepository.findById(worldBook.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Книга не найде базе, id: " + worldBook.getId()));
-        updatedBook.setTitle(worldBook.getTitle());
-        updatedBook.setAuthor(worldBook.getAuthor());
-        updatedBook.setGenre(worldBook.getGenre());
-        updatedBook.setAgeRating(worldBook.getAgeRating());
-        updatedBook.setDescription(worldBook.getDescription());
-        return worldBookRepository.save(updatedBook);
+
+        return worldBookCommonService.update(worldBook);
     }
 
     private static List<Integer> removeDuplicates(List<Integer> list) {

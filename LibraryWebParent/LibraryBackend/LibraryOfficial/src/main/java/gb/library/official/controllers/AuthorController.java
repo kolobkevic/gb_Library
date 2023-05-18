@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static gb.library.official.services.AuthorService.PAGE_SIZE;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,12 +24,12 @@ public class AuthorController {
                                 @RequestParam(required = false, name = "lastName") String lastName) {
 
         if (firstName != null && !firstName.isBlank()) {
-            return authorService.findByFirstName(pageIndex, PAGE_SIZE, firstName);
+            return authorService.findByFirstName(pageIndex, firstName);
         }
         if (lastName != null && !lastName.isBlank()) {
-            return authorService.findByLastName(pageIndex, PAGE_SIZE, lastName);
+            return authorService.findByLastName(pageIndex, lastName);
         }
-        return authorService.findAll(pageIndex, PAGE_SIZE);
+        return authorService.findAll(pageIndex);
     }
 
     @GetMapping("/all")

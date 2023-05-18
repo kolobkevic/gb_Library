@@ -1,10 +1,10 @@
 package gb.library.reader.controllers;
 
 
+import gb.library.backend.converters.WorldBookConverter;
+import gb.library.backend.specifications.WorldBookSpecification;
+import gb.library.common.dtos.WorldBookDTO;
 import gb.library.common.entities.WorldBook;
-import gb.library.reader.converters.WorldBookConverter;
-import gb.library.reader.dtos.WorldBookDto;
-import gb.library.reader.repositories.specifications.WorldBookSpecification;
 import gb.library.reader.services.BooksCatalogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ public class BooksCatalogController {
     private final WorldBookConverter worldBookConverter;
 
     @GetMapping
-    public Page<WorldBookDto> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) Integer pageIndex,
+    public Page<WorldBookDTO> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) Integer pageIndex,
                                       @RequestParam(name = "page_size", defaultValue = "10", required = false) Integer pageSize,
                                       @RequestParam(name = "search_text", required = false) String searchText,
                                       @RequestParam(name = "genre", required = false) String bookGenre,

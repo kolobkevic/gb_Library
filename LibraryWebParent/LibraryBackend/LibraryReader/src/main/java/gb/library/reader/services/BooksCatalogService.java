@@ -2,7 +2,7 @@ package gb.library.reader.services;
 
 
 import gb.library.common.entities.WorldBook;
-import gb.library.reader.repositories.BooksCatalogRepository;
+import gb.library.backend.repositories.BooksCatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

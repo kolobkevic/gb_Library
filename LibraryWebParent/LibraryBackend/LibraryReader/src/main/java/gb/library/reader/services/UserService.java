@@ -2,7 +2,7 @@ package gb.library.reader.services;
 
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
-import gb.library.reader.repositories.UserRepository;
+import gb.library.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

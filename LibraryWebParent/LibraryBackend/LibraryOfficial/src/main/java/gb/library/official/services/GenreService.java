@@ -1,12 +1,11 @@
 package gb.library.official.services;
 
+import gb.library.backend.services.GenreCommonService;
 import gb.library.common.dtos.GenreDTO;
 import gb.library.common.entities.Genre;
-import gb.library.official.exceptions.ResourceNotFoundException;
-import gb.library.official.repositories.GenreRepository;
-import gb.library.official.repositories.specifications.GenreSpecification;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import gb.library.backend.repositories.GenreRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GenreService {
     private final GenreRepository genreRepository;
+    private final GenreCommonService genreCommonService;
 
     public Genre findById(Integer id) {
-        return genreRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Жанр не найде базе, id: " + id));
+        return genreCommonService.findById(id);
     }
 
     public List<Genre> findAll(String genre, String description) {
-        Specification<Genre> specification = Specification.where(null);
-
-        if (genre != null && !genre.isBlank())
-            specification = specification.and(GenreSpecification.genreLike(genre));
-
-        if (description != null && !description.isBlank()) {
-            specification = specification.and(GenreSpecification.descriptionLike(description));
-        }
-        return genreRepository.findAll(specification);
+        return genreCommonService.findAll(genre, description);
     }
 
     public Genre save(Genre genre) {
@@ -45,7 +36,7 @@ public class GenreService {
 
     public Genre update(GenreDTO genreDTO) {
         Genre updatedGenre = genreRepository.findById(genreDTO.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Жанр не найде базе, id: " + genreDTO.getId()));
+                () -> new ObjectInDBNotFoundException("Жанр не найде базе, id: " + genreDTO.getId(), "Genre"));
         updatedGenre.setName(genreDTO.getName());
         updatedGenre.setDescription(genreDTO.getDescription());
         return genreRepository.save(updatedGenre);
