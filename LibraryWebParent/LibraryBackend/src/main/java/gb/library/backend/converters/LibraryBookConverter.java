@@ -22,7 +22,7 @@ public class LibraryBookConverter {
                 libraryBook.getIsbn(),
                 libraryBook.getInventoryNumber(),
                 libraryBook.isAvailable(),
-                new StorageDTO(libraryBook.getPlacedAt().getZone(), libraryBook.getPlacedAt().getSector())
+                new StorageDTO(libraryBook.getPlacedAt().getId(), libraryBook.getPlacedAt().getZone(), libraryBook.getPlacedAt().getSector())
 
         );
 
@@ -38,7 +38,7 @@ public class LibraryBookConverter {
         libraryBook.setIsbn(libraryBookDTO.getIsbn());
         libraryBook.setInventoryNumber(libraryBookDTO.getInventoryNumber());
         libraryBook.setAvailable(libraryBookDTO.isAvailable());
-        libraryBook.setPlacedAt(storageService.findBySectorAndZone(libraryBookDTO.getPlacedAt().getSector(), libraryBookDTO.getPlacedAt().getZone()));
+        libraryBook.setPlacedAt(storageService.findById((libraryBookDTO.getPlacedAt().getId())));
         return libraryBook;
 
     }
