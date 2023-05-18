@@ -1,7 +1,7 @@
 package gb.library.reader.services;
 
 import gb.library.common.entities.BookOnHands;
-import gb.library.reader.repositories.BookHistoryRepository;
+import gb.library.backend.repositories.BookHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

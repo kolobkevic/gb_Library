@@ -6,12 +6,12 @@ import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.WorldBook;
-import gb.library.official.exceptions.ResourceNotFoundException;
-import gb.library.official.repositories.GenreRepository;
-import gb.library.official.repositories.LibraryBookRepository;
-import gb.library.official.repositories.WorldBookRepository;
-import gb.library.official.repositories.specifications.LibraryBookSpecification;
-import gb.library.official.repositories.specifications.WorldBookSpecification;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import gb.library.backend.repositories.GenreRepository;
+import gb.library.backend.repositories.LibraryBookRepository;
+import gb.library.backend.repositories.WorldBookRepository;
+import gb.library.backend.specifications.LibraryBookSpecification;
+import gb.library.backend.specifications.WorldBookSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,7 +39,7 @@ public class LibraryBookService {
 
     public LibraryBook findById(Integer id) {
         return libraryBookRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Книга не найде базе, id: " + id));
+                () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + id, "Library Book"));
     }
 
 //    public List<LibraryBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
@@ -53,7 +53,7 @@ public class LibraryBookService {
             worldBookSpecification = worldBookSpecification.and(WorldBookSpecification.descriptionLike(description));
 
         if (author != null && !author.isBlank()) {
-            List<Integer> ids = authorService.searchAuthors(author).stream().map(author1 -> author1.getId()).toList();
+            List<Integer> ids = authorService.searchAuthors(author).stream().map(IdBasedEntity::getId).toList();
             ids = removeDuplicates(ids);
             worldBookSpecification = worldBookSpecification.and(WorldBookSpecification.authorIdIs(ids));
         }
@@ -82,7 +82,11 @@ public class LibraryBookService {
         Specification<LibraryBook> libraryBookSpecification = Specification.where(null);
         if (!(title+ author+genre+ ageRatingString+ description).isBlank()){
 
-            libraryBookSpecification=libraryBookSpecification.and(LibraryBookSpecification.worldBooksIdIs(worldBookRepository.findAll(worldBookSpecification).stream().map(worldBook -> worldBook.getId()).toList()));
+            libraryBookSpecification = libraryBookSpecification
+                                                .and(LibraryBookSpecification.worldBooksIdIs(worldBookRepository.findAll(worldBookSpecification)
+                                                                                                                .stream()
+                                                                                                                .map(IdBasedEntity::getId)
+                                                                                                                .toList()));
         }
 
         return libraryBookRepository.findAll(libraryBookSpecification, PageRequest.of(page-1, pageSize));
@@ -100,7 +104,7 @@ public class LibraryBookService {
 
     public LibraryBook update(LibraryBook libraryBook) {
         LibraryBook updatedBook = libraryBookRepository.findById(libraryBook.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Книга не найде базе, id: " + libraryBook.getId()));
+                () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + libraryBook.getId(), "Library Book"));
 //        updatedBook.setTitle(libraryBook.getTitle());
 //        updatedBook.setAuthor(libraryBook.getAuthor());
 //        updatedBook.setGenre(libraryBook.getGenre());
@@ -111,7 +115,6 @@ public class LibraryBookService {
     }
     private static List<Integer> removeDuplicates(List<Integer> list) {
         Set<Integer> set = new HashSet<>(list);
-        List<Integer> newlist = new ArrayList<>(set);
-        return newlist;
+        return new ArrayList<>(set);
     }
 }

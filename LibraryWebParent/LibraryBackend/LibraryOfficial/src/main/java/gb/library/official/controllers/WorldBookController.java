@@ -2,7 +2,7 @@ package gb.library.official.controllers;
 
 
 import gb.library.common.dtos.WorldBookDTO;
-import gb.library.official.converters.WorldBookConverter;
+import gb.library.backend.converters.WorldBookConverter;
 import gb.library.official.services.WorldBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

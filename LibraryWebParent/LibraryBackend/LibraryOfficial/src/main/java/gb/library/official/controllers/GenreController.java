@@ -1,7 +1,7 @@
 package gb.library.official.controllers;
 
 import gb.library.common.dtos.GenreDTO;
-import gb.library.official.converters.GenreConverter;
+import gb.library.backend.converters.GenreConverter;
 import gb.library.official.services.GenreService;
 import gb.library.official.validators.GenreValidator;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class GenreController {
     @GetMapping
     public List<GenreDTO> findAll(@RequestParam(required = false, name = "name") String name,
                                @RequestParam(required = false, name = "description") String description) {
-
+        System.out.println("incoming request");
 
         return genreService.findAll(name, description).stream().map(converter::entityToDto).toList();
     }

@@ -1,5 +1,7 @@
 package gb.library.official.exceptions;
 
+import gb.library.backend.exceptions.AppError;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.common.exceptions.ValidateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +13,10 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler
-    public ResponseEntity<AppError> catchResourceNotFoundException(ResourceNotFoundException e) {
-        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
+    public ResponseEntity<AppError> catchObjectNotFoundException(ObjectInDBNotFoundException e) {
+        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage(), e.getEntityName()),
+                                    HttpStatus.NOT_FOUND);
     }
-
 
 
     @ExceptionHandler

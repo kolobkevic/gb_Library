@@ -1,8 +1,8 @@
 package gb.library.official.services;
 
+import gb.library.backend.services.AuthorCommonService;
 import gb.library.common.entities.Author;
-import gb.library.common.exceptions.ObjectInDBNotFoundException;
-import gb.library.official.repositories.AuthorRepository;
+import gb.library.backend.repositories.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,33 +17,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorService {
     private final AuthorRepository authorRepository;
+    private final AuthorCommonService authorCommonService;
 
     public static final int PAGE_SIZE = 10;
 
     public Author findById(Integer id) {
-        return authorRepository.findById(id).orElseThrow(() ->
-                new ObjectInDBNotFoundException("Автор не найден в базе", "Author"));
+        return authorCommonService.findById(id);
     }
 
-    public Page<Author> findAll(int pageIndex, int pageSize) {
+    public Page<Author> findAll(int pageIndex) {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
-        return authorRepository.findAll(PageRequest.of(pageIndex - 1, pageSize));
+        //return authorRepository.findAll(PageRequest.of(pageIndex - 1, pageSize));
+        return authorCommonService.findAll(pageIndex, PAGE_SIZE);
     }
 
-    public Page<Author> findByFirstName(int pageIndex, int pageSize, String firstName) {
+    public Page<Author> findByFirstName(int pageIndex, String firstName) {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
-        return authorRepository.findAllByFirstName(PageRequest.of(pageIndex - 1, pageSize), firstName);
+        return authorRepository.findAllByFirstName(PageRequest.of(pageIndex - 1, PAGE_SIZE), firstName);
     }
 
-    public Page<Author> findByLastName(int pageIndex, int pageSize, String lastName) {
+    public Page<Author> findByLastName(int pageIndex, String lastName) {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
-        return authorRepository.findAllByLastName(PageRequest.of(pageIndex - 1, pageSize), lastName);
+        return authorRepository.findAllByLastName(PageRequest.of(pageIndex - 1, PAGE_SIZE), lastName);
     }
 
     public Author save(Author author) {
@@ -56,11 +57,7 @@ public class AuthorService {
 
     @Transactional
     public Author update(Author author) {
-        Author updatedAuthor = authorRepository.findById(author.getId()).orElseThrow(
-                () -> new ObjectInDBNotFoundException("Автор не найден в базе, id: " + author.getId(), "Author"));
-        updatedAuthor.setFirstName(author.getFirstName());
-        updatedAuthor.setLastName(author.getLastName());
-        return authorRepository.save(updatedAuthor);
+        return authorCommonService.update(author);
     }
 
     public List<Author> searchAuthors(String searchString) {
