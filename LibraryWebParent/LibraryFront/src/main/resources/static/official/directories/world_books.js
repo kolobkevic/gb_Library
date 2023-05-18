@@ -132,7 +132,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
                 url: corePath + '/libraryBook',
                 method: 'POST',
                 data: {
-                    worldBook:
+                    worldBookDTO:
                         {
                             id: $scope.worldBookId
                         },

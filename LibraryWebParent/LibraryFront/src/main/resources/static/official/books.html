@@ -87,12 +87,12 @@
             <tr ng-repeat="s in booksList">
             <tr ng-repeat="s in booksList">
 
-                <td><a href="/app/product/{{s.id}}/info">{{s.worldBook.title}}</a></td>
-                <td>{{s.worldBook.author.fullName}}</td>
-                <td>{{s.worldBook.genre.name}}</td>
+                <td><a href="/app/product/{{s.id}}/info">{{s.worldBookDTO.title}}</a></td>
+                <td>{{s.worldBookDTO.author.fullName}}</td>
+                <td>{{s.worldBookDTO.genre.name}}</td>
 
-                <td>{{s.worldBook.description}}</td>
-                <td>{{s.worldBook.ageRating}}</td>
+                <td>{{s.worldBookDTO.description}}</td>
+                <td>{{s.worldBookDTO.ageRating}}</td>
             </tr>
             </tbody>
         </table>
