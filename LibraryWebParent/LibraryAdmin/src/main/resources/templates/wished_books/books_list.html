@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: page_head('Список избранных книг - админка библиотеки', 'none')}">
+</head>
+<body>
+<div class="container-fluid">
+    <div th:replace="~{navigation :: menu}"></div>
+
+    <div th:replace="~{fragments :: search_form_and_message}"></div>
+
+
+    <div class="full-details">
+        <table class="table table-bordered table-striped table-hover table-responsive-xl">
+            <thead class="table-dark">
+            <tr>
+                <th class="hideable-column col-1">ID</th>
+                <th th:replace="~{fragments :: column_link('book.title', 'Название', 'none')}"></th>
+                <th th:replace="~{fragments :: column_link('book.author', 'Автор', 'none')}"></th>
+                <th th:replace="~{fragments :: column_link('book.genre', 'Жанр', 'none')}"></th>
+                <th th:replace="~{fragments :: column_link('user.lastName', 'Пользователь', 'none')}"></th>
+                <th class="col-1">Возрастной рейтинг</th>
+                <th class="col-2">Краткое описание</th>
+                <th class="col-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${entitiesList}">
+                <td class="hideable-column col-1">[[${book.id}]]</td>
+                <td>[[${book.book.title}]]</td>
+                <td>[[${book.book.author.fullName}]]</td>
+                <td>[[${book.book.genre.name}]]</td>
+                <td>[[${book.user.fullName}]]</td>
+                <td>[[${book.book.ageRating}]]</td>
+                <td>[[${book.book.description}]]</td>
+                <td class="col-1">
+                    <a th:insert="~{fragments :: entity_delete('/wished-books/delete/' + ${book.id}, ${book.id})}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="less-details">
+        <div th:each="book : ${entitiesList}" class="row m-1 border">
+            <div class="col">
+                <div><h5>[[${book.book.title}]] [[${book.book.author.fullName}]]</h5></div>
+                <div class="mt-2">
+                    <a th:insert="~{fragments :: entity_delete('/wished-books/delete/' + ${book.id}, ${book.id})}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{fragments_modal :: modal_confirmation('Подтвердите удаление')}"></div>
+
+    <div th:insert="~{navigation :: pagination}"></div>
+
+    <div th:insert="~{fragments :: footer}"></div>
+</div>
+<script type="text/javascript">
+
+    module_URI = "[[@{/wished-books}]]";
+
+    $(document).ready(function () {
+        $(".link-delete").on("click", function (e) {
+            e.preventDefault();
+            showDeleteConfirmModal($(this));
+        });
+    });
+
+</script>
+<script th:src="@{/js/common_list.js}"></script>
+</body>
+</html>

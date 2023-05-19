@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-</head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: page_head('Home page - Library Admin', 'none')}"></head>
+
 <body>
-    <h1>
-        WELCOME TO ADMINS PAGE
-    </h1>
+    <div class="container-fluid">
+
+        <div th:insert="~{navigation :: menu}"></div>
+
+        <h1>
+            WELCOME TO ADMINS PAGE
+        </h1>
+
+        <div th:insert="~{fragments :: footer}"></div>
+
+    </div>
 </body>
 </html>

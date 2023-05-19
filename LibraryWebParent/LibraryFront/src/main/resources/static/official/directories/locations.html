@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+</head>
+
+<body ng-app="employee-front">
+<div ng-controller="locationsController" style="  display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;">
+    <div class="top">
+        <div class="container top__content">
+            <div class="menu">
+                <a class="inactive_item" href="../books.html">Каталог книг</a>
+                <a class="inactive_item" href="../readers.html">Читатели</a>
+                <a class="inactive_item" href="../orders.html">Заказы/бронь</a>
+                <a class="active_item" href="../directories.html">Справочники</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container top__content">
+        <div class="menu_2">
+            <a class="inactive_item" href="authors.html">Авторы</a>
+            <a class="inactive_item" href="genres.html">Жанры</a>
+            <a class="active_item" href="locations.html">Книжные полки</a>
+            <a class="inactive_item" href="world_books.html">Книги мира</a>
+        </div>
+    </div>
+
+    <div class="main container">
+        <div id="booksList">
+            <p></p>
+            <div>
+
+<!--                <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>-->
+            </div>
+            </br>
+
+
+            <table class="table" style="width: fit-content">
+                <thead>
+                <tr><b>
+                    <td style="text-align: center"><b>Зона</b></td>
+                    <td style="text-align: center"><b>Сектор</b></td>
+                    <td style="text-align: center"><b>Доступность</b></td>
+                </b>
+                </tr>
+
+                </thead>
+                <tbody ng-repeat="zone in zoneList">
+
+                <tr>
+                    <td> <b>{{zone.zone}}</b></td>
+                </tr>
+                <tr ng-repeat="sec in zone.sectors">
+                    <td></td>
+                    <td style="text-align: center">{{sec.sector}}</td>
+                    <td style="text-align: center">{{sec.isAvailable}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+<script src="../main.js"></script>
+<script src="locations.js"></script>
+</div>
+</div>
+
+</body>
+
+</html>

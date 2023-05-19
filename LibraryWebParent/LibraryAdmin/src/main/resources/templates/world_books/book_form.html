@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: page_head(${pageTitle}, 'none')}"></head>
+<body>
+<div class="container-fluid">
+  <div th:insert="~{navigation :: menu}"></div>
+
+  <div>
+    <h2>Справочник "Мировые книги"  | [[${pageTitle}]]</h2>
+  </div>
+
+  <form th:action="@{/world-books/save}" method="post" style="max-width: 500px; margin: 0 auto"
+        enctype="multipart/form-data"
+        th:object="${book}"
+        onsubmit="return checkBookUnique(this);">
+
+    <input type="hidden" th:field="*{id}">
+
+    <div class="border border-secondary rounded p-3">
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Название:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" th:field="*{title}"
+                 required minlength="2" maxlength="128"/>
+        </div>
+      </div>
+      <div class="form-group row mt-2">
+        <label class="col-sm-4 col-form-label">Автор:</label>
+        <div class="col-sm-8">
+          <select th:field="*{author}" class="form-control" required>
+            <th:block th:each="auth : ${authorsList}">
+                <option th:value="${auth.id}">[[${auth.fullName}]]</option>
+            </th:block>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row mt-2">
+        <label class="col-sm-4 col-form-label">Жанр:</label>
+        <div class="col-sm-8">
+          <select th:field="*{genre}" class="form-control" required>
+            <th:block th:each="genr : ${genresList}">
+              <option th:value="${genr.id}">[[${genr.name}]]</option>
+            </th:block>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row mt-2">
+        <label class="col-sm-4 col-form-label">Рейтинг:</label>
+        <div class="col-sm-8">
+          <select th:field="*{ageRating}" class="form-control" required>
+            <th:block th:each="rating : ${ratingsList}">
+              <option th:value="${rating.name}">[[${rating.name}]]</option>
+            </th:block>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row mt-2">
+        <label class="col-sm-4 col-form-label">Описание:</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" th:field="*{description}" rows="5" maxlength="250">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <input type="submit" value="Save" class="btn btn-primary m-3"/>
+        <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel"/>
+      </div>
+
+    </div>
+
+  </form>
+
+  <div th:insert="~{fragments_modal :: modal_dialog}"></div>
+
+  <div th:insert="~{fragments :: footer}"></div>
+</div>
+
+<script type="text/javascript">
+
+  module_URI = "[[@{/world-books}]]";
+
+  function checkBookUnique(form){
+    let bId           = $("#id").val();
+    let bTitle    = $("#title").val();
+    let bAuthor     = $("#author").val();
+
+    let csrfValue   = $("input[name='_csrf']").val();
+    let uri = "[[@{/world-books/check_unique}]]";
+
+    let params = {id: bId, title: bTitle, author: bAuthor, _csrf: csrfValue};
+    console.log(params);
+    $.post(uri, params, function (response){
+      if (response === "OK") {
+        form.submit();
+      } else if (response === "Duplicate") {
+        showWarningModal("Уже существует книга данного автор с таким же названием");
+      } else {
+        showErrorModal("Неизвестный ответ от сервера");
+      }
+    }).fail(function (){
+              showErrorModal("Ошибка соединения с сервером.");
+            }
+    );
+    return false;
+  }
+</script>
+<script th:src="@{/js/common_form.js}"></script>
+</body>
+</html>

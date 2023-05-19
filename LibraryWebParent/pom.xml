@@ -18,8 +18,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>LibraryAdmin</module>
-		<module>LibraryOfficial</module>
-		<module>LibraryReader</module>
+		<module>LibraryBackend</module>
 		<module>LibraryFront</module>
 	</modules>
 

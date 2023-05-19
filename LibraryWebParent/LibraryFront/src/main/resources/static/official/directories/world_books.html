@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+</head>
+
+<body ng-app="employee-front">
+<div ng-controller="genresController" style="  display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;">
+    <div class="top">
+        <div class="container top__content">
+            <div class="menu">
+                <a class="inactive_item" href="../books.html">Каталог книг</a>
+                <a class="inactive_item" href="../readers.html">Читатели</a>
+                <a class="inactive_item" href="../orders.html">Заказы/бронь</a>
+                <a class="active_item" href="../directories.html">Справочники</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container top__content">
+        <div class="menu_2">
+            <a class="inactive_item" href="authors.html">Авторы</a>
+            <a class="inactive_item" href="genres.html">Жанры</a>
+            <a class="inactive_item" href="locations.html">Книжные полки</a>
+            <a class="active_item" href="world_books.html">Книги мира</a>
+        </div>
+    </div>
+
+    <div class="main container">
+        <div id="booksList">
+            <p></p>
+            <div>
+
+                <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>
+            </div>
+
+            </br>
+            <table class="table">
+                <thead>
+                <tr><b>
+                    <td></td>
+                    <td><b>Название</b></td>
+                    <td><b>Автор</b></td>
+                    <td><b>Жанр</b></td>
+                    <td><b>Описание</b></td>
+                    <td>Возраст</td>
+                </b>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input name="title" type="text" id="input_title" placeholder="фильтр">
+                    </td>
+                    <td>
+                        <input name="author" type="text" id="input_author" placeholder="фильтр">
+                    </td>
+                    <td>
+                        <input name="genre" type="text" id="input_genre" placeholder="фильтр">
+                    </td>
+                    <td>
+                        <input name="description" type="text" id="input_description" placeholder="фильтр">
+                    </td>
+                    <td><select id="selectAge">
+                        <option value=>all</option>
+                        <option value=G>0+</option>
+                        <option value=PG>?+</option>
+                        <option value=PG13>13+</option>
+                        <option value=R>18+</option>
+                    </select>
+                    </td>
+
+                </tr>
+
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="s in booksList">
+                    <td>
+                        <button class="button_action" ng-click="addBookToLibrary(s.id)">Добавить в </br>картотеку
+                        </button>
+                    </td>
+                    <td>{{s.title}}</td>
+                    <td>{{s.authorName}}</td>
+                    <td>{{s.genre.name}}</td>
+                    <td>{{s.description}}</td>
+                    <td>{{s.ageRating}}</td>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="editForm" style="display:none">
+            <p></p>
+            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
+            </br>
+            <form class="edit_form" novalidate ng-submit="saveBook()">
+
+                </br></br>
+
+                <p>Название:
+                    <input class="form-control" type="text" id="edit_name" placeholder="" ng-model="newBook.name">
+                </p>
+                <p>Описание:
+                    <input class="form-control" type="text" id="edit_description" placeholder=""
+                           ng-model="newBook.description">
+                </p>
+                <p>Автор:
+                    <select id="selectAuthor">
+                    </select>
+                </p>
+                <p>Жанр:
+                    <select id="selectGenre">
+                    </select>
+                </p>
+                <p>Возрастное ограничение:
+                    <select id="selectAgeRating">
+                        <option value=G>0+</option>
+                        <option value=PG>?+</option>
+                        <option value=PG13>13+</option>
+                        <option value=R>18+</option>
+                    </select>
+                </p>
+
+                <p></p>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+
+            </form>
+        </div>
+        <div id="addToLibraryForm" style="display:none">
+            <p></p>
+            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
+            </br>
+            <form class="edit_form" novalidate ng-submit="addLibraryBook()">
+
+                </br></br>
+
+                <h3 id="book_name"></h3>
+                <h5 id="book_author"></h5>
+                <p id="book_id"></p>
+
+                </br>
+                <p>Издатель:
+                    <input class="form-control" type="text" id="addBook_publisher" placeholder=""
+                           ng-model="book.publisher">
+                </p>
+                <p>ISBN:
+                    <input class="form-control" type="text" id="addBook_isbn" placeholder="" ng-model="book.isbn">
+                </p>
+                <p>Инвентарный номер:
+                    <input class="form-control" type="text" id="addBook_inventoryNumber" placeholder=""
+                           ng-model="book.inventoryNumber">
+                </p>
+
+                <p>Расположение:</p>
+                <p> Зона:
+                    <select id="selectZone">
+                    </select>
+                 Сектор:
+                    <select id="selectSector">
+                    </select>
+                </p>
+                <p></p>
+                <button type="submit" class="btn btn-primary">Добавить в картотеку</button>
+
+            </form>
+        </div>
+
+
+    </div>
+
+</div>
+<script src="../main.js"></script>
+<script src="world_books.js"></script>
+</div>
+</div>
+
+</body>
+
+</html>
