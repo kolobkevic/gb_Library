@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface StorageRepository extends SearchRepository<Storage, Integer> {
 
     @Query("SELECT st FROM Storage st WHERE st.sector LIKE %?1% or st.zone LIKE %?1%")
-    Page<Storage> findAll(String keyword, Pageable pageable);
+    Page<Storage> getAllWithFilter(String keyword, Pageable pageable);
 
     Storage save(Storage storage);
 

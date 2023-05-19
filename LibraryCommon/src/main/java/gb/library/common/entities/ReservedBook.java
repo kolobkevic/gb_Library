@@ -15,21 +15,15 @@ import java.time.Instant;
 @Getter
 @Setter
 public class ReservedBook extends IdBasedEntity{
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "world_book_id", nullable = false)
     private WorldBook worldBook;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "library_book_id")
     private LibraryBook libraryBook;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
 
 }

@@ -23,13 +23,6 @@ public class Author extends IdBasedEntity{
     @Column(name = "last_name", nullable = false, length = 60)
     private String lastName;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
-
     /*
      * CONSTRUCTORS
      */

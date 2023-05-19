@@ -26,13 +26,7 @@ public class User extends IdBasedEntity{
     @Column(length = 64) //длина закодированного пароля равна 64
     private String password;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
-
+    @Column
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)

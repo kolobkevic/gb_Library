@@ -25,12 +25,12 @@ public class LibraryBooksController {
     private final StorageService storageService;
 
     @GetMapping("")
-    public String listFirstPage(){
+    public String showFirstPage(){
         return "redirect:/library-books/page/1?sortField=worldBook&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(moduleURL = "/library-books") PagingAndSortingHelper helper,
+    public String showPage(@PagingAndSortingParam(moduleURL = "/library-books") PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum){
         lbService.listByPage(pageNum, helper);
 

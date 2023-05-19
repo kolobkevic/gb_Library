@@ -18,12 +18,12 @@ public class WishedBooksController {
     private final WishedBooksService service;
 
     @GetMapping("")
-    public String listFirstPage() {
+    public String showFirstPage() {
         return "redirect:/wished-books/page/1?sortField=book.title&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(moduleURL = "/wished-books") PagingAndSortingHelper helper,
+    public String showPage(@PagingAndSortingParam(moduleURL = "/wished-books") PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum) {
 
         service.listByPage(pageNum, helper);

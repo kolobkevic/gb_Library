@@ -16,7 +16,7 @@ public interface LibraryBooksRepository extends SearchRepository<LibraryBook, In
     @Query("SELECT lb FROM LibraryBook lb WHERE lb.inventoryNumber LIKE %?1% OR lb.publisher LIKE %?1%"
             + " OR lb.worldBook.title LIKE %?1% OR lb.worldBook.author.firstName LIKE %?1%"
             + " OR lb.worldBook.author.lastName LIKE %?1% OR lb.worldBook.genre.name LIKE %?1%")
-    Page<LibraryBook> findAll(String keyword, Pageable pageable);
+    Page<LibraryBook> getAllWithFilter(String keyword, Pageable pageable);
 
     LibraryBook findByInventoryNumber(String inventoryNumber);
 
