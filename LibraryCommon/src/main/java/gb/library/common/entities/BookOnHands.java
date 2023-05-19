@@ -16,22 +16,16 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class BookOnHands extends IdBasedEntity{
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private LibraryBook book;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @Column(name = "taken_at", nullable = false)
     private LocalDate takenAt;
+    @Column
     private boolean returned;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     /*
      * CONSTRUCTORS

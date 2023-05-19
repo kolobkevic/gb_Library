@@ -24,12 +24,12 @@ public class StorageController {
     private final StorageService service;
 
     @GetMapping("")
-    public String listFirstPage() {
+    public String showFirstPage() {
         return "redirect:/storages/page/1?sortField=zone&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(moduleURL = "/storages")PagingAndSortingHelper helper,
+    public String showPage(@PagingAndSortingParam(moduleURL = "/storages")PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum){
         service.listByPage(pageNum, helper);
 

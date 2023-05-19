@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @NoRepositoryBean
 public interface SearchRepository<T, ID> extends PagingAndSortingRepository<T, ID> {
-    public Page<T> findAll(String keyword, Pageable pageable);
+    public Page<T> getAllWithFilter(String keyword, Pageable pageable);
 
     Optional<T> findById(Integer id);
 

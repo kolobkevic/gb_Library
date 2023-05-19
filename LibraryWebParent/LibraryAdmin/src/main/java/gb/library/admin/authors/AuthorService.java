@@ -1,5 +1,6 @@
 package gb.library.admin.authors;
 
+import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Author;
@@ -35,7 +36,6 @@ public class AuthorService implements AbstractDaoService<Author, Integer> {
     }
 
     @Override
-    @Transactional
     public Author update(Author entity) throws ObjectInDBNotFoundException{
         Author existedAuthor = repository.findById(entity.getId())
                                         .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
@@ -56,6 +56,7 @@ public class AuthorService implements AbstractDaoService<Author, Integer> {
         repository.deleteById(id);
     }
 
+    @Transactional
     public void save(Author author) {
         if (author.getId() == null) {
             create(author);
@@ -72,11 +73,6 @@ public class AuthorService implements AbstractDaoService<Author, Integer> {
 
         Author author = repository.findByFirstNameAndLastName(firstName, lastName);
 
-        if (author != null){
-            if (!Objects.equals(author.getId(), id)) {
-                return "Duplicate";
-            }
-        }
-        return "OK";
+        return CheckUniqueResponseStatusHelper.getCheckStatus(author, id);
     }
 }

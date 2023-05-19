@@ -22,18 +22,11 @@ public class Storage extends IdBasedEntity{
     private String sector;
     //шкаф
     //private String closet;
-
+    @Column
     private boolean available;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "placedAt")   //вот тут вопросик правильно ли
     private List<LibraryBook> booksList;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     /*
      * CONSTRUCTORS

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface AuthorRepository extends SearchRepository<Author, Integer> {
 
     @Query("SELECT a FROM Author a WHERE a.firstName LIKE %?1% OR a.lastName LIKE %?1%")
-    Page<Author> findAll(String keyword, Pageable pageable);
+    Page<Author> getAllWithFilter(String keyword, Pageable pageable);
 
     Author save(Author author);
 

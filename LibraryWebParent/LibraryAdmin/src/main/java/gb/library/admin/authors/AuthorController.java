@@ -22,13 +22,13 @@ public class AuthorController {
     private final AuthorService service;
 
     @GetMapping("")
-    public String listFirstPage() {
+    public String showFirstPage() {
         return "redirect:/authors/page/1?sortField=lastName&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(moduleURL = "/authors")PagingAndSortingHelper helper,
-                             @PathVariable(name = "pageNum") int pageNum) {
+    public String showPage(@PagingAndSortingParam(moduleURL = "/authors")PagingAndSortingHelper helper,
+                           @PathVariable(name = "pageNum") int pageNum) {
         service.listByPage(pageNum, helper);
 
         return "authors/authors_list";

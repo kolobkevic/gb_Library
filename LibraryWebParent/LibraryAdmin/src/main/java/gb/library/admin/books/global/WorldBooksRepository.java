@@ -15,7 +15,7 @@ public interface WorldBooksRepository extends SearchRepository<WorldBook, Intege
 
     @Query("SELECT wb FROM WorldBook wb WHERE wb.title LIKE %?1% or wb.author.firstName LIKE %?1%"
             + " OR wb.author.lastName LIKE %?1% OR wb.genre.name LIKE %?1%")
-    Page<WorldBook> findAll(String keyword, Pageable pageable);
+    Page<WorldBook> getAllWithFilter(String keyword, Pageable pageable);
 
     WorldBook save(WorldBook worldBook);
 

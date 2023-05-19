@@ -22,12 +22,12 @@ public class GenreController {
     private final GenreService genreService;
 
     @GetMapping("")
-    public String listFirstPage() {
+    public String showFirstPage() {
         return "redirect:/genres/page/1?sortField=name&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(moduleURL = "/genres")PagingAndSortingHelper helper,
+    public String showPage(@PagingAndSortingParam(moduleURL = "/genres")PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum) {
         genreService.listByPage(pageNum, helper);
 

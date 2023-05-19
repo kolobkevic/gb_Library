@@ -1,5 +1,6 @@
 package gb.library.admin.genres;
 
+import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Genre;
@@ -35,7 +36,6 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
     }
 
     @Override
-    @Transactional
     public Genre update(Genre entity) throws ObjectInDBNotFoundException {
         Genre existedGenre = repository.findById(entity.getId())
                                         .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
@@ -61,16 +61,12 @@ public class GenreService implements AbstractDaoService<Genre, Integer> {
     }
 
     public String checkUnique(Integer id, String name) {
-
         Genre genre = repository.findByName(name);
-        if (genre != null) {
-            if (!Objects.equals(genre.getId(), id)) {
-                return "Duplicate";
-            }
-        }
-        return "OK";
+
+        return CheckUniqueResponseStatusHelper.getCheckStatus(genre, id);
     }
 
+    @Transactional
     public void save(Genre genre) {
         if (genre.getId() == null) {
             create(genre);
