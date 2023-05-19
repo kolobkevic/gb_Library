@@ -50,7 +50,7 @@ public class WorldBookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public WorldBookDTO saveNewGenre(@RequestBody WorldBookDTO worldBookDTO) {
+    public WorldBookDTO saveNewBook(@RequestBody WorldBookDTO worldBookDTO) {
 //        validator.validate(worldBookDTO);
         return converter.entityToDto(worldBookService.save(converter.dtoToEntity(worldBookDTO)));
     }

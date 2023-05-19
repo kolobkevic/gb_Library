@@ -64,9 +64,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
             }
         ).then(function (response) {
             $scope.booksList = response.data;
-            for (const responseElement of $scope.booksList) {
-                responseElement.authorName = responseElement.author.firstName + " " + responseElement.author.lastName;
-            }
         });
     };
     $scope.addBookToLibrary = function (id) {
@@ -79,7 +76,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
             }
         ).then(function (response) {
             document.getElementById("book_name").innerText = response.data.title;
-            document.getElementById("book_author").innerText = response.data.author.firstName + " " + response.data.author.lastName;
+            document.getElementById("book_author").innerText = response.data.authorDTO.firstName + " " + response.data.authorDTO.lastName;
             document.getElementById("book_id").innerText = "(worldBookId=" + response.data.id + ")";
             $scope.worldBookId = response.data.id;
         });
@@ -132,7 +129,7 @@ angular.module('employee-front').controller('genresController', function ($rootS
                 url: corePath + '/libraryBook',
                 method: 'POST',
                 data: {
-                    worldBook:
+                    worldBookDTO:
                         {
                             id: $scope.worldBookId
                         },
@@ -252,11 +249,11 @@ angular.module('employee-front').controller('genresController', function ($rootS
                         id: 0,
                         title: document.getElementById("edit_name").value,
                         description: document.getElementById("edit_description").value,
-                        author:
+                        authorDTO:
                             {
                                 id: document.getElementById("selectAuthor").value,
                             },
-                        genre: {
+                        genreDTO: {
                             id: document.getElementById("selectGenre").value
                         },
 

@@ -56,8 +56,9 @@ public class LibraryBookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LibraryBookDTO saveNewGenre(@RequestBody LibraryBookDTO libraryBook) {
+    public LibraryBookDTO saveNewLibraryBook(@RequestBody LibraryBookDTO libraryBook) {
 //        validator.validate(libraryBook);
+
         return converter.entityToDto(libraryBookService.save(converter.dtoToEntity(libraryBook)));
     }
 }

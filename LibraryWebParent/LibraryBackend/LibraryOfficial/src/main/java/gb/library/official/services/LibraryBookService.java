@@ -1,7 +1,6 @@
 package gb.library.official.services;
 
 
-
 import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.LibraryBook;
@@ -12,12 +11,16 @@ import gb.library.backend.repositories.LibraryBookRepository;
 import gb.library.backend.repositories.WorldBookRepository;
 import gb.library.backend.specifications.LibraryBookSpecification;
 import gb.library.backend.specifications.WorldBookSpecification;
+import gb.library.common.exceptions.ValidateException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLDataException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,14 +38,12 @@ public class LibraryBookService {
     private final WorldBookRepository worldBookRepository;
 
 
-
-
     public LibraryBook findById(Integer id) {
         return libraryBookRepository.findById(id).orElseThrow(
                 () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + id, "Library Book"));
     }
 
-//    public List<LibraryBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
+    //    public List<LibraryBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
     public Page<LibraryBook> findAll(Integer page, Integer pageSize, String title, String author, String genre, String ageRatingString, String description) {
         Specification<WorldBook> worldBookSpecification = Specification.where(null);
 
@@ -80,21 +81,30 @@ public class LibraryBookService {
 
 
         Specification<LibraryBook> libraryBookSpecification = Specification.where(null);
-        if (!(title+ author+genre+ ageRatingString+ description).isBlank()){
+        if (!(title + author + genre + ageRatingString + description).isBlank()) {
 
             libraryBookSpecification = libraryBookSpecification
-                                                .and(LibraryBookSpecification.worldBooksIdIs(worldBookRepository.findAll(worldBookSpecification)
-                                                                                                                .stream()
-                                                                                                                .map(IdBasedEntity::getId)
-                                                                                                                .toList()));
+                    .and(LibraryBookSpecification.worldBooksIdIs(worldBookRepository.findAll(worldBookSpecification)
+                            .stream()
+                            .map(IdBasedEntity::getId)
+                            .toList()));
         }
 
-        return libraryBookRepository.findAll(libraryBookSpecification, PageRequest.of(page-1, pageSize));
+        return libraryBookRepository.findAll(libraryBookSpecification, PageRequest.of(page - 1, pageSize));
     }
 
 
     public LibraryBook save(LibraryBook libraryBook) {
-        return libraryBookRepository.save(libraryBook);
+        LibraryBook lb = null;
+        try {
+            lb = libraryBookRepository.save(libraryBook);
+        } catch (Exception e) {
+            String err = e.getCause().getCause().toString();
+            if (err.contains("Duplicate entry") && err.contains(libraryBook.getInventoryNumber()))
+                throw new RuntimeException("Инвентарный номер: " +libraryBook.getInventoryNumber()+ " уже существует" );
+        }
+
+        return lb;
     }
 
     public void deleteById(Integer id) {
@@ -113,6 +123,7 @@ public class LibraryBookService {
         //todo: update
         return libraryBookRepository.save(updatedBook);
     }
+
     private static List<Integer> removeDuplicates(List<Integer> list) {
         Set<Integer> set = new HashSet<>(list);
         return new ArrayList<>(set);
