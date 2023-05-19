@@ -4,7 +4,6 @@ import gb.library.backend.services.StorageCommonService;
 import gb.library.backend.services.WorldBookCommonService;
 import gb.library.common.dtos.LibraryBookDTO;
 import gb.library.common.dtos.StorageDTO;
-import gb.library.common.dtos.WorldBookDTO;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.WorldBook;
 import lombok.RequiredArgsConstructor;
