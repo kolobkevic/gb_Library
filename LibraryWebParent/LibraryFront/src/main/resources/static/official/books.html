@@ -88,8 +88,8 @@
             <tr ng-repeat="s in booksList">
 
                 <td><a href="/app/product/{{s.id}}/info">{{s.worldBookDTO.title}}</a></td>
-                <td>{{s.worldBookDTO.author.fullName}}</td>
-                <td>{{s.worldBookDTO.genre.name}}</td>
+                <td>{{s.worldBookDTO.authorDTO.firstName}} {{s.worldBookDTO.authorDTO.lastName}}</td>
+                <td>{{s.worldBookDTO.genreDTO.name}}</td>
 
                 <td>{{s.worldBookDTO.description}}</td>
                 <td>{{s.worldBookDTO.ageRating}}</td>
