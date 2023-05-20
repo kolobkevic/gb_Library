@@ -45,6 +45,7 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
                         "Library book"));
         existedBook.setWorldBook(entity.getWorldBook());
         existedBook.setIsbn(entity.getIsbn());
+        existedBook.setInventoryNumber(entity.getInventoryNumber());
         existedBook.setAvailable(entity.isAvailable());
         existedBook.setPublisher(entity.getPublisher());
         existedBook.setPlacedAt(entity.getPlacedAt());

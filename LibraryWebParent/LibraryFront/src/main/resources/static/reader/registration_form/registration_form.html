@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Зарезервированные книги</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+
+</head>
+<body ng-app="reader-front">
+<div ng-controller="registrationController">
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../books/books.html">Каталог книг</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../reserved_books/reserved_books.html">Забронированные</a>
+                    </li>
+                    <!--                    <li class="nav-item" ng-show="isUserLoggedIn()">-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="../book_on_hands/book_on_hands.html">Книги на руках</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../book_history/book_history.html">История книг</a>
+                    </li>
+                    <li class="nav-item" ng-show="isUserLoggedIn()">
+                        <a class="nav-link" href="../personal_account/personal_account.html">Личный кабинет</a>
+                    </li>
+
+                    <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
+                        <h6 ng-model="user">{{user.username}}</h6>
+                        <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="col-3">
+            <p></p>
+            <h3>Регистрация</h3>
+            <form ng-submit="registerUser()">
+                <input class="form-control" type="text" placeholder="Имя" ng-model="new_user.firstName"
+                       required minlength="2">
+                <p></p>
+                <input class="form-control" type="text" placeholder="Фамилия" ng-model="new_user.lastName"
+                       required minlength="2">
+                <p></p>
+                <input class="form-control" type="email" placeholder="E-mail" ng-model="new_user.email"
+                       required minlength="6">
+                <p></p>
+                <input id="password" class="form-control" type="password" placeholder="Пароль"
+                       ng-model="new_user.password" required minlength="6">
+                <p></p>
+                <input class="form-control" type="password" placeholder="Потдвердите пароль" ng-model="confirmPassword">
+                <p></p>
+                <button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../index.js"></script>
+<script src="registration_form.js"></script>
+</body>
+</html>
