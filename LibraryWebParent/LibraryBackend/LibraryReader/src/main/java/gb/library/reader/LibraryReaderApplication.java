@@ -15,5 +15,4 @@ public class LibraryReaderApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LibraryReaderApplication.class, args);
 	}
-
 }

@@ -3,4 +3,3 @@ server:
   servlet:
     context-path: /library
 
-
