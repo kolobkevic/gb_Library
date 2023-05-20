@@ -19,6 +19,11 @@ public class UserController {
         return userConverter.entityToDto(userService.findById(userId));
     }
 
+    @PostMapping("/create")
+    public UserReaderDto create(@RequestBody UserReaderDto userDto){
+        return userConverter.entityToDto(userService.create(userConverter.dtoToEntity(userDto)));
+    }
+
     @PutMapping
     public UserReaderDto update(@RequestBody UserReaderDto userDto) {
         return userConverter.entityToDto(userService.update(userConverter.dtoToEntity(userDto)));
