@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class TestAuthorService {
+public class AuthorServiceTest {
 
     @Autowired
     private AuthorService authorService;
