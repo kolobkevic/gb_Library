@@ -2,6 +2,7 @@ package gb.library.reader.services;
 
 import gb.library.backend.services.RoleService;
 import gb.library.common.entities.RegistrationType;
+import gb.library.common.entities.RoleType;
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.UserRepository;
@@ -16,7 +17,7 @@ public class UserService {
     private final UserRepository repository;
     private final RoleService roleService;
 
-    private static final String USER_ROLE_NAME = "USER";
+    private static final RoleType USER_ROLE = RoleType.USER;
 
     public User findById(int id) {
         return repository.findById(id).orElseThrow(() ->
@@ -39,7 +40,7 @@ public class UserService {
 
     public User create(User user, RegistrationType type){
         user.setRegistrationType(type);
-        user.setRoles(Set.of(roleService.getUserRoleByName(USER_ROLE_NAME)));
+        user.setRoles(Set.of(roleService.getUserRoleByRoleType(USER_ROLE)));
         return repository.save(user);
     }
 
