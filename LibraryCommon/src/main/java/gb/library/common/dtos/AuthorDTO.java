@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class StorageDTO {
-    private Integer id;
-    private String zone;
-    private String sector;
+public class AuthorDTO {
+    private int id;
+    private String firstName;
+    private String lastName;
 }
