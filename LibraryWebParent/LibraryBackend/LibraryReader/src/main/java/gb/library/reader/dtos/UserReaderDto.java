@@ -1,5 +1,6 @@
 package gb.library.reader.dtos;
 
+import gb.library.common.entities.RegistrationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

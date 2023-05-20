@@ -18,7 +18,7 @@ public class Role extends IdBasedEntity{
     @Column(length = 150, nullable = false)
     private String description;
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_type", length = 8, nullable = false)
+    @Column(name = "role_type", length = 10, nullable = false)
     private RoleType roleType;
 
 }
