@@ -1,6 +1,5 @@
 package gb.library.reader.repositories;
 
-import gb.library.common.entities.WorldBook;
 import gb.library.reader.services.BooksCatalogService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
