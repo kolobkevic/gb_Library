@@ -15,28 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class ReservedBookController {
     private final ReservedBooksService reservedBooksService;
     private final ReservedBookConverter converter;
-    private final static String PAGE_INDEX_DEFAULT = "1";   // не нужно, просто в сервисе проверку сделать pageSize < 1
 
     @GetMapping("/{userId}")
-    public Page<ReservedBookReaderDto> findAll(@RequestParam(defaultValue = PAGE_INDEX_DEFAULT, name = "page") int pageIndex,
+    public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "page") int pageIndex,
                                                @PathVariable int userId) {
         return reservedBooksService.getAllPageable(userId, pageIndex).map(converter::entityToDto);
     }
-
-//    @GetMapping("/{userId}/sorted") // TODO Доделать сортировку
-//    public Page<ReservedBookDto> findAllSorted(@RequestParam(defaultValue = PAGE_INDEX_DEFAULT, name = "page") int pageIndex,
-//                                               @RequestParam(defaultValue = PAGE_SIZE_DEFAULT, name = "size") int pageSize,
-//                                               @RequestParam(defaultValue = "title, asc") String[] sort,
-//                                               @PathVariable int userId) {
-//
-//        if (sort[0].contains(",")) {
-//            return reservedBooksService.getAllPageable(userId, pageIndex, pageSize, Sort.Direction.ASC, sort)
-//                    .map(converter::entityToDto);
-//        } else {
-//            return reservedBooksService.getAllPageable(userId, pageIndex, pageSize, Sort.Direction.DESC, sort)
-//                    .map(converter::entityToDto);
-//        }
-//    }
 
     @DeleteMapping("/delete/{id}")
     public void deleteFromReserved(@PathVariable int id) {
