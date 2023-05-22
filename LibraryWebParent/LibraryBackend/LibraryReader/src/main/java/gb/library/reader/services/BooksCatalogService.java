@@ -4,7 +4,7 @@ package gb.library.reader.services;
 import gb.library.backend.specifications.WorldBookSpecification;
 import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.WorldBook;
-import gb.library.backend.repositories.BooksCatalogRepository;
+import gb.library.backend.repositories.WorldBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BooksCatalogService {
-    private final BooksCatalogRepository booksCatalogRepository;
+    private final WorldBookRepository booksCatalogRepository;
 
     public Page<WorldBook> findAll(Integer pageIndex, Integer pageSize, String searchText, List<String> chosenGenres, List<String> chosenAgeRatings) {
 
