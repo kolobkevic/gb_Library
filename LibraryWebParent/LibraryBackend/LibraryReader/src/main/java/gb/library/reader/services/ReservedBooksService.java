@@ -1,11 +1,8 @@
 package gb.library.reader.services;
 
-import gb.library.backend.services.WorldBookCommonService;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.ReservedBook;
-import gb.library.common.entities.User;
-import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.ReservedBooksRepository;
 import lombok.RequiredArgsConstructor;
