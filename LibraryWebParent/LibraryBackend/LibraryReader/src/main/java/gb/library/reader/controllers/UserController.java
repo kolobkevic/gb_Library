@@ -4,8 +4,12 @@ import gb.library.common.entities.RegistrationType;
 import gb.library.reader.converters.UserConverter;
 import gb.library.reader.dtos.UserReaderDto;
 import gb.library.reader.services.UserService;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
 
 @RestController("readerUserController")
 @CrossOrigin
@@ -21,8 +25,9 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public UserReaderDto create(@RequestBody UserReaderDto userDto){
-        return userConverter.entityToDto(userService.create(userConverter.dtoToEntity(userDto), RegistrationType.MANUAL));
+    public UserReaderDto create(@RequestBody UserReaderDto userDto, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        return userConverter
+                .entityToDto(userService.create(userConverter.dtoToEntity(userDto), RegistrationType.MANUAL, request));
     }
 
     @PutMapping
