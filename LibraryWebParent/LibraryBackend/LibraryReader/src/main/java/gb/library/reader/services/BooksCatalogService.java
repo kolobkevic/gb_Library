@@ -1,10 +1,11 @@
 package gb.library.reader.services;
 
 
+import gb.library.backend.repositories.WorldBookRepository;
 import gb.library.backend.specifications.WorldBookSpecification;
 import gb.library.common.entities.AgeRating;
 import gb.library.common.entities.WorldBook;
-import gb.library.backend.repositories.BooksCatalogRepository;
+import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,11 +13,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BooksCatalogService {
-    private final BooksCatalogRepository booksCatalogRepository;
+    private final WorldBookRepository worldBookRepository;
 
     public Page<WorldBook> findAll(Integer pageIndex, Integer pageSize, String searchText, List<String> chosenGenres, List<String> chosenAgeRatings) {
 
@@ -42,6 +44,11 @@ public class BooksCatalogService {
 
         searchSpecification = searchSpecification.and(genreSpecification);
         searchSpecification = searchSpecification.and(ageRatingSpecification);
-        return booksCatalogRepository.findAll(searchSpecification, PageRequest.of(pageIndex, pageSize));
+        return worldBookRepository.findAll(searchSpecification, PageRequest.of(pageIndex, pageSize));
+    }
+
+    public WorldBook findById(Integer id) {
+        return worldBookRepository.findById(id).orElseThrow(() ->
+                new ObjectInDBNotFoundException(String.format("Книга с id(%d) не найдена", id), "WorldBook"));
     }
 }
