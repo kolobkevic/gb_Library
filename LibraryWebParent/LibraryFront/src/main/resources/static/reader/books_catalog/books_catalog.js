@@ -1,5 +1,6 @@
 angular.module('reader-front', []).controller('booksCatalogController', function ($scope, $http) {
     let contextPath = 'http://localhost:8070/reader/api/v1/books_catalog';
+    let booksWishlistPath = 'http://localhost:8070/reader/api/v1/wishlist';
     let genresPath = 'http://localhost:8070/reader/api/v1/genres';
     let currentPage = 1;
 
@@ -12,7 +13,6 @@ angular.module('reader-front', []).controller('booksCatalogController', function
     }
 
     $scope.loadBooksCatalogPage = function (pageIndex = 1) {
-
         $http({
             url: contextPath,
             method: 'GET',
@@ -41,19 +41,19 @@ angular.module('reader-front', []).controller('booksCatalogController', function
 
     $scope.submitCheckBox = function () {
         console.log('Кнопка нажата');
-        let radioGenres = document.getElementsByName("bookGenre");
+        let genres = document.getElementsByName("bookGenre");
         let ageRates = document.getElementsByName("ageRate");
 
-        console.log(radioGenres);
+        console.log(genres);
 
         $scope.chosenGenresOut = [];
         $scope.chosenAgeRatings = [];
 
-        for (let i = 0; i < radioGenres.length; i++) {
-            if (radioGenres[i].checked) {
-                console.log(radioGenres[i].value + ' is checked');
-                if (radioGenres[i].value == 'Все') continue;
-                $scope.chosenGenresOut.push(radioGenres[i].value);
+        for (let i = 0; i < genres.length; i++) {
+            if (genres[i].checked) {
+                console.log(genres[i].value + ' is checked');
+                if (genres[i].value == 'Все') continue;
+                $scope.chosenGenresOut.push(genres[i].value);
             }
         }
 
@@ -69,6 +69,21 @@ angular.module('reader-front', []).controller('booksCatalogController', function
         console.log($scope.chosenAgeRatings);
         $scope.loadBooksCatalogPage();
     }
+
+    // Скорректировать после добавления аутентификации
+    $scope.addToBooksWishlist = function (bookId) {
+        $http.get(booksWishlistPath + '/1/add/' + bookId)
+            .then(function (response) {
+                console.log(bookId);
+                let button = document.getElementById(bookId);
+                button.textContent = 'Добавлено';
+                button.disabled = 'true';
+                console.log('Книга успешно добавлена в список');
+               //TODO
+            });
+    }
+
+
 
     $scope.loadBooksCatalogPage();
     $scope.loadGenres();
