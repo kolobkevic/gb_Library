@@ -2,14 +2,12 @@ package gb.library.reader.converters;
 
 import gb.library.common.entities.User;
 import gb.library.reader.dtos.UserReaderDto;
-import gb.library.reader.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component("readerUserConverter")
 @RequiredArgsConstructor
 public class UserConverter {
-    private final UserService userService;
 
     public UserReaderDto entityToDto(User user) {
         return new UserReaderDto(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPassword());
