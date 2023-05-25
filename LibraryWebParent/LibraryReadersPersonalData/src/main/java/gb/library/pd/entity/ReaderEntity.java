@@ -25,8 +25,5 @@ public class ReaderEntity {
     @Embedded
     private ContactInfo contactInfo;
 
-    @Column(name = "address")
-    private String address;
 
-    // TODO: Добавить паспортные данные?
 }

@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>LibraryReaders</artifactId>
+	<artifactId>LibraryReadersPersonalData</artifactId>
 	<name>LibraryReaders</name>
 	<description>Microservice for working with personal data of readers</description>
 

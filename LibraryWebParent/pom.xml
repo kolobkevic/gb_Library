@@ -20,7 +20,7 @@
 		<module>LibraryAdmin</module>
 		<module>LibraryBackend</module>
 		<module>LibraryFront</module>
-		<module>LibraryReaders</module>
+		<module>LibraryReadersPersonalData</module>
 	</modules>
 
 	<properties>
