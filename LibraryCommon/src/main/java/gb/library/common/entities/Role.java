@@ -20,4 +20,8 @@ public class Role extends IdBasedEntity{
     @Column(name = "role_type", length = 10, nullable = false)
     private RoleType roleType;
 
+    @Override
+    public String toString() {
+        return "{ " + name + "/" + roleType + " }";
+    }
 }
