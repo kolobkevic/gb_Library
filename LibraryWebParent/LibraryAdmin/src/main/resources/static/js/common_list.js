@@ -9,3 +9,7 @@ function showDeleteConfirmModal(link){
     let myModal = new bootstrap.Modal(document.getElementById("confirmModal"));
     myModal.show();
 }
+
+function clearFilter(URI){
+    window.location = URI;
+}

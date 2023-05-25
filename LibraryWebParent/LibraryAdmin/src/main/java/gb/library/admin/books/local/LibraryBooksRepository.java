@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
+
 @Repository
 public interface LibraryBooksRepository extends SearchRepository<LibraryBook, Integer> {
 
@@ -21,6 +23,6 @@ public interface LibraryBooksRepository extends SearchRepository<LibraryBook, In
     LibraryBook findByInventoryNumber(String inventoryNumber);
 
     @Modifying
-    @Query("UPDATE LibraryBook lb SET lb.available = ?2 WHERE lb.id = ?1")
-    void updateAvailableStatus(Integer id, boolean available);
+    @Query("UPDATE LibraryBook lb SET lb.available = ?2, lb.updatedAt = ?3 WHERE lb.id = ?1")
+    void updateAvailableStatus(Integer id, boolean available, Instant dateTime);
 }

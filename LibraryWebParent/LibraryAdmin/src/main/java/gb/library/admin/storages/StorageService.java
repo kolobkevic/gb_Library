@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -78,6 +79,6 @@ public class StorageService implements AbstractDaoService<Storage, Integer> {
 
     @Transactional
     public void updateAvailableStatus(Integer id, boolean available) {
-        repository.updateAvailableStatus(id, available);
+        repository.updateAvailableStatus(id, available, Instant.now());
     }
 }

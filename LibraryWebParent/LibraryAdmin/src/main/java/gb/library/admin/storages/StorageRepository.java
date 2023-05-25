@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
+
 
 @Repository
 public interface StorageRepository extends SearchRepository<Storage, Integer> {
@@ -20,6 +22,6 @@ public interface StorageRepository extends SearchRepository<Storage, Integer> {
     Storage findBySectorAndZone(String sector, String zone);
 
     @Modifying
-    @Query("UPDATE Storage st SET st.available = ?2 WHERE st.id = ?1")
-    public void updateAvailableStatus(Integer id, boolean available);
+    @Query("UPDATE Storage st SET st.available = ?2, st.updatedAt = ?3 WHERE st.id = ?1")
+    public void updateAvailableStatus(Integer id, boolean available, Instant dateTime);
 }
