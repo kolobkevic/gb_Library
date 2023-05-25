@@ -107,20 +107,20 @@
         <nav>
             <ul class="pagination justify-content-center flex-wrap">
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a th:insert="~{fragments :: page_link(1, 'First')}"></a>
+                    <a th:insert="~{navigation :: page_link(1, 'В начало')}"></a>
                 </li>
                 <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-                    <a th:insert="~{fragments :: page_link(${currentPage} -1, 'Previous')}"></a>
+                    <a th:insert="~{navigation :: page_link(${currentPage} -1, 'Назад')}"></a>
                 </li>
                 <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"
                     th:each="i : ${#numbers.sequence(1, totalPages)}">
-                    <a th:insert="~{fragments :: page_link(${i}, ${i})}"></a>
+                    <a th:insert="~{navigation :: page_link(${i}, ${i})}"></a>
                 </li>
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:insert="~{fragments :: page_link(${currentPage} +1, 'Next')}"></a>
+                    <a th:insert="~{navigation :: page_link(${currentPage} +1, 'Вперёд')}"></a>
                 </li>
                 <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
-                    <a th:insert="~{fragments :: page_link(${totalPages}, 'Last')}"></a>
+                    <a th:insert="~{navigation :: page_link(${totalPages}, 'В конец')}"></a>
                 </li>
             </ul>
         </nav>
