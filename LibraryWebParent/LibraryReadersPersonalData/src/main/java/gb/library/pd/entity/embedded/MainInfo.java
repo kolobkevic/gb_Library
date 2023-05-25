@@ -23,8 +23,7 @@ public class MainInfo {
     @Column(name = "address")
     private String address;
 
-    // TODO: Добавить паспортные данные в код
-//    @Column(name = "passport")
-//    private String passport;
+    @Column(name = "passport")
+    private String passport;
 
 }
