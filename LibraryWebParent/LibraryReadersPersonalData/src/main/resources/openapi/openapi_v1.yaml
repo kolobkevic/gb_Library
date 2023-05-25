@@ -1,0 +1,329 @@
+openapi: "3.0.3"
+
+info:
+  version: 1.0.1
+  title: Микросервис персональных данных читателей
+  description: Микросервис предназначен для управления персональными данными читателей библиотеки
+
+servers:
+  - url: http://localhost:48884/api/v1
+
+tags:
+  - name: reader
+    description: Управление персональными данными читателей
+
+paths:
+  /reader:
+    get:
+      operationId: listOfReaders
+      summary: Получить список читателей (ФИО и даты рождения)
+      tags:
+        - reader
+      parameters:
+        - $ref: "#/components/parameters/offsetParameter"
+        - $ref: "#/components/parameters/limitParameter"
+      responses:
+        '200':
+          description: Список читателей (ФИО и даты рождения)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ReaderInfoResponse"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      operationId: addNewReader
+      summary: Зарегистрировать основные данные о новом читателе
+      tags:
+        - reader
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReaderPostRequest'
+      responses:
+        '201':
+          description: Добавлены данные читателя
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReaderResponse"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+  /reader/{readerId}:
+    parameters:
+      - $ref: "#/components/parameters/readerId"
+    
+    get:
+      operationId: getReaderById
+      summary: Получить информацию о читателе
+      tags:
+        - reader
+      responses:
+        '200':
+          description: Полная информация о читателе
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReaderResponse"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    patch:
+      operationId: updateReader
+      summary: Обновить информацию о читателе
+      description: |
+        Обновлению подлежат только те поля, которые указаны в теле запроса.
+        Например, если в теле запроса указать {"phone1": "8-924-123-45-67"}, то будет обновлено
+        только поле "phone1".
+      tags:
+        - reader
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReaderPatchRequest'
+      responses:
+        '200':
+          description: Данные читателя обновлены
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReaderResponse"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    delete:
+      operationId: removeReader
+      summary: Удалить данные читателя
+      tags:
+        - reader
+      responses:
+        '204':
+          description: Данные читателя удалены
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  parameters:
+    offsetParameter:
+      in: query
+      name: offset
+      required: false
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+        default: 0
+      description: Количество элементов, которое необходимо пропустить перед возвращением результирующего набора
+
+    limitParameter:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 25
+      description: Максимальное количество элементов, которое необходимо возвратить
+
+    sortParameter:
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+        enum: [ asc, desc ]
+        default: asc
+        example: asc
+      description: Порядок сортировки
+
+    readerId:
+      in: path
+      name: readerId
+      required: true
+      description: Уникальный идентификатор читателя
+      schema:
+        type: integer
+        format: int64
+
+  schemas:
+    ReaderInfoResponse:
+      type: object
+      properties:
+        readerId:
+          type: integer
+          format: int64
+          example: 5632
+        family:
+          type: string
+          example: Иванов
+        name:
+          type: string
+          example: Иван
+        surname:
+          type: string
+          example: Иванович
+        birthday:
+          type: string
+          format: date
+          example: 2001-07-21
+
+    ReaderResponse:
+      type: object
+      properties:
+        readerId:
+          type: integer
+          format: int64
+          example: 5632
+        family:
+          type: string
+          example: Иванов
+        name:
+          type: string
+          example: Иван
+        surname:
+          type: string
+          example: Иванович
+        birthday:
+          type: string
+          format: date
+          example: 2001-07-21
+        email:
+          type: string
+          format: email
+          example: ivanov@yandex.ru
+        phone1:
+          type: string
+          example: 8-924-123-45-67
+        phone2:
+          type: string
+          example: 8-905-123-45-67
+        address:
+          type: string
+          example: г. Москва, ул. Дыбенко, д.16, кв.54
+
+    ReaderPostRequest:
+      type: object
+      required:
+        - readerId
+        - family
+        - name
+      properties:
+        readerId:
+          type: integer
+          format: int64
+          example: 5632
+        family:
+          type: string
+          example: Иванов
+        name:
+          type: string
+          example: Иван
+        surname:
+          type: string
+          example: Иванович
+        birthday:
+          type: string
+          format: date
+          example: 2001-07-21
+        email:
+          type: string
+          format: email
+          example: ivanov@yandex.ru
+        phone1:
+          type: string
+          example: 8-924-123-45-67
+        phone2:
+          type: string
+          example: 8-905-123-45-67
+        address:
+          type: string
+          example: г. Москва, ул. Дыбенко, д.16, кв.54
+
+    ReaderPatchRequest:
+      type: object
+      properties:
+        family:
+          type: string
+          example: Иванов
+        name:
+          type: string
+          example: Иван
+        surname:
+          type: string
+          example: Иванович
+        birthday:
+          type: string
+          format: date
+          example: 2001-07-21
+        email:
+          type: string
+          format: email
+          example: ivanov@yandex.ru
+        phone1:
+          type: string
+          example: 8-924-123-45-67
+        phone2:
+          type: string
+          example: 8-905-123-45-67
+        address:
+          type: string
+          example: г. Москва, ул. Дыбенко, д.16, кв.54
+
+    Error:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: 2023-05-22T17:24:56.265+00:00
+        status:
+          type: integer
+          example: 404
+        error:
+          type: string
+          example: Not Found
+        message:
+          type: string
+          example: ID 5633 пользователя не найден
+        path:
+          type: string
+          example: /api/v1/reader/5633
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: [ ]

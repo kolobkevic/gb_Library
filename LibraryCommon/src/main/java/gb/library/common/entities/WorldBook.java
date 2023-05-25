@@ -30,13 +30,6 @@ public class WorldBook extends IdBasedEntity{
     @Column(name = "description", length = 250)
     private String description;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
-
     /*
      * CONSTRUCTORS
      */

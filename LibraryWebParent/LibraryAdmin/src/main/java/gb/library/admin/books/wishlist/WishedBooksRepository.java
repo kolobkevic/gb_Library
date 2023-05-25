@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface WishedBooksRepository extends SearchRepository<BooksWishlist, Integer> {
     @Query("SELECT b FROM BooksWishlist b WHERE b.book.title LIKE %?1% or b.book.author.firstName LIKE %?1%"
             + " OR b.book.author.lastName LIKE %?1% OR b.book.genre.name LIKE %?1%")
-    Page<BooksWishlist> findAll(String keyword, Pageable pageable);
+    Page<BooksWishlist> getAllWithFilter(String keyword, Pageable pageable);
 
 }

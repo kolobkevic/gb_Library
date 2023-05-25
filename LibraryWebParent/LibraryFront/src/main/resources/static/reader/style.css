@@ -16,3 +16,9 @@ form.dropdown-menu.p-4.show {
 .nav-link{
 
 }
+
+.row{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}

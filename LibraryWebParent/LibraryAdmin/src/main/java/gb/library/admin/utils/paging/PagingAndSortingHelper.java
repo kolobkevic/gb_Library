@@ -63,7 +63,7 @@ public class PagingAndSortingHelper {
 
         Page<?> page = null;
         if (keyword != null) {
-            page =  repo.findAll(keyword, pageable);
+            page =  repo.getAllWithFilter(keyword, pageable);
         } else {
             page = repo.findAll(pageable);
         }

@@ -1,5 +1,6 @@
 package gb.library.admin.storages;
 
+import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Storage;
@@ -8,8 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,6 @@ public class StorageService implements AbstractDaoService<Storage, Integer> {
     }
 
     @Override
-    @Transactional
     public Storage update(Storage entity) {
         Storage existedStorage = repository.findById(entity.getId())
                 .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
@@ -65,14 +65,10 @@ public class StorageService implements AbstractDaoService<Storage, Integer> {
     public String checkUnique(Integer id, String sector, String zone){
         Storage storage = repository.findBySectorAndZone(sector, zone);
 
-        if (storage != null){
-            if (!Objects.equals(storage.getId(), id)){
-                return "Duplicate";
-            }
-        }
-        return "OK";
+        return CheckUniqueResponseStatusHelper.getCheckStatus(storage, id);
     }
 
+    @Transactional
     public void save(Storage storage) {
         if (storage.getId() == null) {
             create(storage);
@@ -83,6 +79,6 @@ public class StorageService implements AbstractDaoService<Storage, Integer> {
 
     @Transactional
     public void updateAvailableStatus(Integer id, boolean available) {
-        repository.updateAvailableStatus(id, available);
+        repository.updateAvailableStatus(id, available, Instant.now());
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface GenreRepository extends SearchRepository<Genre, Integer> {
 
     @Query("SELECT g FROM Genre g WHERE g.name LIKE %?1%")
-    Page<Genre> findAll(String keyword, Pageable pageable);
+    Page<Genre> getAllWithFilter(String keyword, Pageable pageable);
 
     Genre save(Genre genre);
 

@@ -1,17 +1,13 @@
 package gb.library.reader.services;
 
-import gb.library.backend.services.WorldBookCommonService;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.ReservedBook;
-import gb.library.common.entities.User;
-import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.ReservedBooksRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservedBooksService implements AbstractDaoService<ReservedBook, Integer> {
     private final ReservedBooksRepository repository;
-    private final UserService userService;
     private final LibraryBookService libraryBookService;
-    private final WorldBookCommonService worldBookService;
 
     private final static int PAGE_SIZE_DEFAULT = 10;
 
@@ -59,23 +53,8 @@ public class ReservedBooksService implements AbstractDaoService<ReservedBook, In
         return repository.findAllByUserId(userId, PageRequest.of(pageIndex - 1, PAGE_SIZE_DEFAULT));
     }
 
-    public Page<ReservedBook> getAllPageable(int userId, int pageIndex, Sort.Direction direction,
-                                             String[] properties) {
-        if (pageIndex < 1) {
-            pageIndex = 1;
-        }
-        return repository.findAllByUserId(userId, PageRequest.of(pageIndex - 1, PAGE_SIZE_DEFAULT, direction, properties));
-    }
-
-    public WorldBook findWorldBookById(int id) {
-        return worldBookService.findById(id);
-    }
-
     public LibraryBook findLibraryBookById(int id) {
         return libraryBookService.findById(id);
     }
 
-    public User findByUserId(int id) {
-        return userService.findById(id);
-    }
 }

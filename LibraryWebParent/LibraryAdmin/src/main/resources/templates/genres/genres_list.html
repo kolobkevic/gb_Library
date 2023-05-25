@@ -21,7 +21,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th class="hideable-column">ID</th>
-                        <th>Название жанра</th>
+                        <th th:replace="~{fragments :: column_link('name', 'Название жанра', 'none')}"></th>
                         <th>Краткое описание</th>
                         <th></th>
                     </tr>

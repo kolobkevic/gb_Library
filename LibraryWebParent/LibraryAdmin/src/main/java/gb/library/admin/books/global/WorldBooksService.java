@@ -1,5 +1,6 @@
 package gb.library.admin.books.global;
 
+import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Author;
@@ -38,7 +39,6 @@ public class WorldBooksService implements AbstractDaoService<WorldBook, Integer>
     }
 
     @Override
-    @Transactional
     public WorldBook update(WorldBook entity) throws ObjectInDBNotFoundException {
         WorldBook existedBook = repository.findById(entity.getId())
                 .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
@@ -69,14 +69,10 @@ public class WorldBooksService implements AbstractDaoService<WorldBook, Integer>
     public String checkUnique(Integer id, String title, Author author) {
         WorldBook book = repository.findByTitleAndAuthor(title, author);
 
-        if (book != null) {
-            if (!Objects.equals(book.getId(), id)) {
-                return "Duplicate";
-            }
-        }
-        return "OK";
+        return CheckUniqueResponseStatusHelper.getCheckStatus(book, id);
     }
 
+    @Transactional
     public void save(WorldBook book) {
         if (book.getId() == null) {
             create(book);

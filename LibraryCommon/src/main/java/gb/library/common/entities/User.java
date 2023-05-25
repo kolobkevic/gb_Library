@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class User extends IdBasedEntity{
     @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
@@ -25,14 +27,7 @@ public class User extends IdBasedEntity{
     private String email;
     @Column(length = 64) //длина закодированного пароля равна 64
     private String password;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
-
+    @Column
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -63,16 +58,6 @@ public class User extends IdBasedEntity{
     /*
     * OVERWRITE METHODS
      */
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", enabled=" + enabled +
-                ", roles=" + roles +
-                '}';
-    }
 
 
     /*

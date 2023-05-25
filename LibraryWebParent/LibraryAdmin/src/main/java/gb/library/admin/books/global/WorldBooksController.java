@@ -28,12 +28,12 @@ public class WorldBooksController {
     private final GenreService genreService;
 
     @GetMapping("")
-    public String listFirstPage(){
+    public String showFirstPage(){
         return "redirect:/world-books/page/1?sortField=title&sortDir=asc";
     }
 
     @GetMapping("/page/{pageNum}")
-    public String listByPage(@PagingAndSortingParam(moduleURL = "/world-books")PagingAndSortingHelper helper,
+    public String showPage(@PagingAndSortingParam(moduleURL = "/world-books")PagingAndSortingHelper helper,
                              @PathVariable(name = "pageNum") int pageNum){
 
         service.listByPage(pageNum, helper);

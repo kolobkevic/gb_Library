@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController("readerBookHistoryController")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/book_history") //придумать что-то получше
+@RequestMapping("/api/v1/book_history")
 @CrossOrigin
 public class BookHistoryController {
     private final BookHistoryService service;

@@ -25,19 +25,13 @@ public class LibraryBook extends IdBasedEntity{
     private String isbn;
     @Column(name = "inventory_number", length = 20, nullable = false, unique = true)
     private String inventoryNumber;
+    @Column
     private boolean available;
 
 
     @ManyToOne
     @JoinColumn(name = "storage_id", nullable = false)
     private Storage placedAt;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
 
     /*
      * CONSTRUCTORS

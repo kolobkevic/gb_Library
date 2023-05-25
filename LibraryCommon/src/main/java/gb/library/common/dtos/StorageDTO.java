@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class StorageDTO {
+    private Integer id;
     private String zone;
     private String sector;
 }

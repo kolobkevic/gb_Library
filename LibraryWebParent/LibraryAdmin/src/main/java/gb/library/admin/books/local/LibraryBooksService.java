@@ -1,5 +1,6 @@
 package gb.library.admin.books.local;
 
+import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
@@ -8,8 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,6 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
     }
 
     @Override
-    @Transactional
     public LibraryBook update(LibraryBook entity) throws ObjectInDBNotFoundException {
         LibraryBook existedBook = repository.findById(entity.getId())
                 .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
@@ -46,6 +46,7 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
                         "Library book"));
         existedBook.setWorldBook(entity.getWorldBook());
         existedBook.setIsbn(entity.getIsbn());
+        existedBook.setInventoryNumber(entity.getInventoryNumber());
         existedBook.setAvailable(entity.isAvailable());
         existedBook.setPublisher(entity.getPublisher());
         existedBook.setPlacedAt(entity.getPlacedAt());
@@ -66,6 +67,7 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
         helper.listEntities(pageNum, LIBRARY_BOOKS_PER_PAGE, repository);
     }
 
+    @Transactional
     public void save(LibraryBook book){
         if (book.getId() == null) {
             create(book);
@@ -77,16 +79,11 @@ public class LibraryBooksService implements AbstractDaoService<LibraryBook, Inte
     public String checkUnique(Integer id, String invNumber) {
         LibraryBook book = repository.findByInventoryNumber(invNumber);
 
-        if (book != null) {
-            if (!Objects.equals(book.getId(), id)) {
-                return "Duplicate";
-            }
-        }
-        return "OK";
+        return CheckUniqueResponseStatusHelper.getCheckStatus(book, id);
     }
 
     @Transactional
     public void updateAvailableStatus(Integer id, boolean available) {
-        repository.updateAvailableStatus(id, available);
+        repository.updateAvailableStatus(id, available, Instant.now());
     }
 }
