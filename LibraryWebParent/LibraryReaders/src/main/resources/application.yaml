@@ -1,0 +1,18 @@
+server:
+  port: 48884
+  error:
+    include-message: always
+    include-stacktrace: ON_PARAM
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql:postgres?currentSchema=readers
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        globally_quoted_identifiers: true
+        hbm2ddl.auto: validate
