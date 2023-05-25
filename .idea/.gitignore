@@ -6,7 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+/.idea/*
 /.idea/
 /.idea/leetcode-pro
 /.idea/inspectionProfiles
 vcs.xml
+vcs_old.xml
