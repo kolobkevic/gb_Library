@@ -35,79 +35,126 @@
             </div>
         </div>
     </div>
-    <div class="main_start container" id="booksList">
-        <div>
+    <div class="main_start container">
+        <div id="booksList">
+            <div>
+                <p></p>
+                <p>
+                    <a class="inactive_item" href="directories/world_books.html">
+                        <button class="button_switch">Добавить книгу (из мировой библиотеки)</button>
+                    </a>
+                </p>
+
+            </div>
+
+            <table class="table">
+                <thead>
+
+                <tr>
+
+                    <td>
+                        <input name="title" type="text" id="input_title" placeholder="">
+                    </td>
+                    <td>
+                        <input name="author" type="text" id="input_author" placeholder="">
+                    </td>
+                    <td>
+                        <input name="genre" type="text" id="input_genre" placeholder="">
+                    </td>
+                    <td>
+                        <input name="description" type="text" id="input_description" placeholder="">
+                    </td>
+                    <td><select id="selectAge">
+                        <option value=>all</option>
+                        <option value=G>0+</option>
+                        <option value=PG>?+</option>
+                        <option value=PG13>13+</option>
+                        <option value=R>18+</option>
+                    </select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><b>Название</b></td>
+                    <td><b>Автор</b></td>
+                    <td><b>Жанр</b></td>
+                    <td><b>Описание</b></td>
+                    <td><b>Возраст</b></td>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="s in booksList">
+                <tr ng-repeat="s in booksList">
+
+<!--                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.id}}</a></td>-->
+                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.title}}</a></td>
+
+                    <td>{{s.worldBook.author.fullName}}</td>
+                    <td>{{s.worldBook.genre.name}}</td>
+
+                    <td>{{s.worldBook.description}}</td>
+                    <td>{{s.worldBook.ageRating}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="margin-left: 300px">
+                Страница
+                <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
+                    <
+                </button>
+                <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+                <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
+                из {{pagesCount}}
+            </div>
+            <!--            </div>-->
+        </div>
+        <div id="editForm" style="display:none">
             <p></p>
-            <p>
-                <a class="inactive_item" href="directories/world_books.html">
-                    <button class="button_switch">Добавить книгу (из мировой библиотеки)</button>
-                </a>
-            </p>
+            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
+            </br>
+            <form class="edit_form" novalidate ng-submit="saveGenre()">
 
+                </br></br>
+
+<!--                <p id="book_id"></p>-->
+                <p id="title"></p>
+                <p id="author"></p>
+                <p id="genre"></p>
+                <p id="ageRating"></p>
+                <p id="description"></p>
+                </br>
+                <p>Издатель:
+                    <input class="form-control" type="text" id="form_publisher" ng-model="book.publisher">
+                </p>
+                <p>ISBN:
+                    <input class="form-control" type="text" id="form_isbn" ng-model="book.isbn">
+                </p>
+                <p>Инвернтарный номер:
+                    <input class="form-control" type="text" id="form_inventoryNumber" ng-model="book.inventoryNumber">
+                </p>
+
+                <p>Доступна:
+                    <input type="checkbox" id="form_available" ng-model="book.available">
+                </p>
+
+                <p>Расположение:</p>
+                <p> Зона:
+                    <select id="selectZone">
+                    </select>
+                    Сектор:
+                    <select id="selectSector">
+                    </select>
+                </p>
+
+
+                <p></p>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+
+            </form>
         </div>
-
-        <table class="table">
-            <thead>
-
-            <tr>
-
-                <td>
-                    <input name="title" type="text" id="input_title" placeholder="">
-                </td>
-                <td>
-                    <input name="author" type="text" id="input_author" placeholder="">
-                </td>
-                <td>
-                    <input name="genre" type="text" id="input_genre" placeholder="">
-                </td>
-                <td>
-                    <input name="description" type="text" id="input_description" placeholder="">
-                </td>
-                <td><select id="selectAge">
-                    <option value=>all</option>
-                    <option value=G>0+</option>
-                    <option value=PG>?+</option>
-                    <option value=PG13>13+</option>
-                    <option value=R>18+</option>
-                </select>
-                </td>
-
-            </tr>
-            <tr>
-                <td><b>Название</b></td>
-                <td><b>Автор</b></td>
-                <td><b>Жанр</b></td>
-                <td><b>Описание</b></td>
-                <td><b>Возраст</b></td>
-
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr ng-repeat="s in booksList">
-            <tr ng-repeat="s in booksList">
-
-                <td><a href="/app/product/{{s.id}}/info">{{s.worldBookDTO.title}}</a></td>
-                <td>{{s.worldBookDTO.authorDTO.firstName}} {{s.worldBookDTO.authorDTO.lastName}}</td>
-                <td>{{s.worldBookDTO.genreDTO.name}}</td>
-
-                <td>{{s.worldBookDTO.description}}</td>
-                <td>{{s.worldBookDTO.ageRating}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <div style="margin-left: 300px">
-            Страница
-            <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
-                <
-            </button>
-            <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
-            <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
-            из {{pagesCount}}
-        </div>
-        <!--            </div>-->
     </div>
-
 
     <p></p>
 

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LibraryBookDTO {
+    private int id;
     private WorldBookDTO worldBookDTO;
     private String publisher;
     //Международный стандартный книжный номер (англ. International Standard Book Number, сокращённо — англ. ISBN)

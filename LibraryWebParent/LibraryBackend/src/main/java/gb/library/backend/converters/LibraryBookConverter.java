@@ -19,7 +19,8 @@ public class LibraryBookConverter {
 
     public LibraryBookDTO entityToDto(LibraryBook libraryBook) {
         WorldBook worldBook = worldBookCommonService.findById(libraryBook.getWorldBook().getId());
-        return new LibraryBookDTO(worldBookConverter.entityToDto(worldBook),
+        return new LibraryBookDTO(libraryBook.getId(),
+                worldBookConverter.entityToDto(worldBook),
                 libraryBook.getPublisher(),
                 libraryBook.getIsbn(),
                 libraryBook.getInventoryNumber(),
@@ -37,7 +38,7 @@ public class LibraryBookConverter {
         libraryBook.setIsbn(libraryBookDTO.getIsbn());
         libraryBook.setInventoryNumber(libraryBookDTO.getInventoryNumber());
         libraryBook.setAvailable(libraryBookDTO.isAvailable());
-        libraryBook.setPlacedAt(storageService.findById((libraryBookDTO.getPlacedAt().getId())));
+        libraryBook.setPlacedAt(storageService.findBySectorAndZone(libraryBookDTO.getPlacedAt().getSector(),libraryBookDTO.getPlacedAt().getZone()));
         return libraryBook;
 
     }
