@@ -1,5 +1,6 @@
 package gb.library.reader.services;
 
+import gb.library.backend.services.LibraryBookService;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.ReservedBook;
