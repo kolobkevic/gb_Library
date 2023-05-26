@@ -38,7 +38,7 @@ public class LibraryBookConverter {
         libraryBook.setIsbn(libraryBookDTO.getIsbn());
         libraryBook.setInventoryNumber(libraryBookDTO.getInventoryNumber());
         libraryBook.setAvailable(libraryBookDTO.isAvailable());
-        libraryBook.setPlacedAt(storageService.findBySectorAndZone(libraryBookDTO.getPlacedAt().getSector(),libraryBookDTO.getPlacedAt().getZone()));
+        libraryBook.setPlacedAt(storageService.findById(libraryBookDTO.getPlacedAt().getId()));
         return libraryBook;
 
     }

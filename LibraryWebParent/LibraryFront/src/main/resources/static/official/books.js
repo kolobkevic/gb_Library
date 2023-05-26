@@ -29,7 +29,12 @@ angular.module('employee-front').controller('booksController', function ($rootSc
         $scope.loadBooks();
     };
     $selectZone.onchange = function () {
-        console.log($scope.zoneList[1])
+        $scope.loadSectorsList();
+
+    };
+
+
+    $scope.loadSectorsList = function (){
         let zoneIndex = document.getElementById('selectZone').value;
         let selectForm = document.getElementById('selectSector');
         selectForm.options.length = 0;
@@ -44,9 +49,7 @@ angular.module('employee-front').controller('booksController', function ($rootSc
                 }
             }
         }
-    };
-
-
+    }
 
     $scope.loadBooks = function () {
         if ($scope.currentPage < 1) {
@@ -101,6 +104,10 @@ angular.module('employee-front').controller('booksController', function ($rootSc
             document.getElementById("booksList").style.display = 'inline';
             document.getElementById("editForm").style.display = 'none';
         }
+
+        if (!$scope.isEdit)
+            return;
+
         if ($selectZone.options.length === 0) {
             $http({
                     url: corePath + '/storage/zones',
@@ -134,11 +141,11 @@ angular.module('employee-front').controller('booksController', function ($rootSc
 
 
             // document.getElementById("book_id").innerText = "(libraryBookId=" + response.data.id + ")";
-            document.getElementById("title").innerText = response.data.worldBook.title;
-            document.getElementById("author").innerText = response.data.worldBook.author.firstName + " " + response.data.worldBook.author.lastName;
-            document.getElementById("genre").innerText = response.data.worldBook.genre.name;
-            document.getElementById("ageRating").innerText = response.data.worldBook.ageRating;
-            document.getElementById("description").innerText = response.data.worldBook.description;
+            document.getElementById("title").innerText = response.data.worldBookDTO.title;
+            document.getElementById("author").innerText = response.data.worldBookDTO.authorDTO.firstName + " " + response.data.worldBookDTO.authorDTO.lastName;
+            document.getElementById("genre").innerText = response.data.worldBookDTO.genreDTO.name;
+            document.getElementById("ageRating").innerText = response.data.worldBookDTO.ageRating;
+            document.getElementById("description").innerText = response.data.worldBookDTO.description;
             document.getElementById("form_publisher").value = response.data.publisher;
             document.getElementById("form_isbn").value = response.data.isbn;
             document.getElementById("form_inventoryNumber").value = response.data.inventoryNumber;
@@ -147,6 +154,9 @@ angular.module('employee-front').controller('booksController', function ($rootSc
 
 
             setSelectedValue($selectZone, response.data.placedAt.zone);
+            $scope.loadSectorsList();
+
+            setSelectedValue(document.getElementById('selectSector'), response.data.placedAt.sector);
 
 
 

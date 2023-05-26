@@ -89,13 +89,13 @@
                 <tr ng-repeat="s in booksList">
 
 <!--                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.id}}</a></td>-->
-                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.title}}</a></td>
+                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBookDTO.title}}</a></td>
 
-                    <td>{{s.worldBook.author.fullName}}</td>
-                    <td>{{s.worldBook.genre.name}}</td>
+                    <td>{{s.worldBookDTO.authorDTO.firstName}} {{s.worldBookDTO.authorDTO.lastName}} </td>
+                    <td>{{s.worldBookDTO.genreDTO.name}}</td>
 
-                    <td>{{s.worldBook.description}}</td>
-                    <td>{{s.worldBook.ageRating}}</td>
+                    <td>{{s.worldBookDTO.description}}</td>
+                    <td>{{s.worldBookDTO.ageRating}}</td>
                 </tr>
                 </tbody>
             </table>
