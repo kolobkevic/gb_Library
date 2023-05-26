@@ -1,4 +1,4 @@
-package gb.library.reader.repositories;
+package gb.library.reader.services;
 
 import gb.library.reader.services.BooksCatalogService;
 import org.junit.jupiter.api.Assertions;
