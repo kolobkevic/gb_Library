@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class LibraryBookService {
+public class LibraryBookCommonService {
     private final LibraryBookRepository repository;
 
     public LibraryBook findById(int id){
