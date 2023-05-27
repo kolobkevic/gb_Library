@@ -20,8 +20,9 @@ public class ReaderMapper {
 
         mainInfo.setName(readerPostRequest.getName());
         mainInfo.setSurname(readerPostRequest.getSurname());
-        mainInfo.setFamily(readerPostRequest.getFamily());
         mainInfo.setBirthday(readerPostRequest.getBirthday());
+        mainInfo.setAddress(readerPostRequest.getAddress());
+        mainInfo.setPassport(readerPostRequest.getPassport());
 
         contactInfo.setEmail(readerPostRequest.getEmail());
         contactInfo.setPhone1(readerPostRequest.getPhone1());
@@ -30,7 +31,6 @@ public class ReaderMapper {
         readerEntity.setReaderId(readerPostRequest.getReaderId());
         readerEntity.setMainInfo(mainInfo);
         readerEntity.setContactInfo(contactInfo);
-        readerEntity.setAddress(readerPostRequest.getAddress());
 
         return readerEntity;
     }
@@ -43,8 +43,9 @@ public class ReaderMapper {
 
         mainInfo.setName(readerPatchRequest.getName());
         mainInfo.setSurname(readerPatchRequest.getSurname());
-        mainInfo.setFamily(readerPatchRequest.getFamily());
         mainInfo.setBirthday(readerPatchRequest.getBirthday());
+        mainInfo.setAddress(readerPatchRequest.getAddress());
+        mainInfo.setPassport(readerPatchRequest.getPassport());
 
         contactInfo.setEmail(readerPatchRequest.getEmail());
         contactInfo.setPhone1(readerPatchRequest.getPhone1());
@@ -52,7 +53,6 @@ public class ReaderMapper {
 
         readerEntity.setMainInfo(mainInfo);
         readerEntity.setContactInfo(contactInfo);
-        readerEntity.setAddress(readerPatchRequest.getAddress());
 
         return readerEntity;
     }
@@ -68,8 +68,9 @@ public class ReaderMapper {
 
         readerResponse.setName(mainInfo.getName());
         readerResponse.setSurname(mainInfo.getSurname());
-        readerResponse.setFamily(mainInfo.getFamily());
         readerResponse.setBirthday(mainInfo.getBirthday());
+        readerResponse.setAddress(mainInfo.getAddress());
+        readerResponse.setPassport(mainInfo.getPassport());
 
         if (contactInfo != null) {
             readerResponse.setEmail(contactInfo.getEmail());
@@ -77,10 +78,9 @@ public class ReaderMapper {
             readerResponse.setPhone2(contactInfo.getPhone2());
         }
 
-        readerResponse.setAddress(readerEntity.getAddress());
-
         return readerResponse;
     }
+
 
     public ReaderInfoResponse entityToReaderInfo(ReaderEntity readerEntity) {
         ReaderInfoResponse readerInfoResponse = new ReaderInfoResponse();
@@ -89,7 +89,6 @@ public class ReaderMapper {
         readerInfoResponse.setReaderId(readerEntity.getReaderId());
         readerInfoResponse.setName(mainInfo.getName());
         readerInfoResponse.setSurname(mainInfo.getSurname());
-        readerInfoResponse.setFamily(mainInfo.getFamily());
         readerInfoResponse.setBirthday(mainInfo.getBirthday());
 
         return readerInfoResponse;

@@ -25,5 +25,4 @@ public class ReaderEntity {
     @Embedded
     private ContactInfo contactInfo;
 
-
 }
