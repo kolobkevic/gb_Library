@@ -1,5 +1,6 @@
 package gb.library.reader.services;
 
+import gb.library.backend.services.LibraryBookCommonService;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.ReservedBook;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservedBooksService implements AbstractDaoService<ReservedBook, Integer> {
     private final ReservedBooksRepository repository;
-    private final LibraryBookService libraryBookService;
+    private final LibraryBookCommonService libraryBookService;
 
     private final static int PAGE_SIZE_DEFAULT = 10;
 
