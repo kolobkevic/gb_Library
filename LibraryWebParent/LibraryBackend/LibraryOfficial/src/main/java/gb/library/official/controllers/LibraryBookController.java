@@ -38,8 +38,8 @@ public class LibraryBookController {
     }
 
     @GetMapping("/{id}")
-    public LibraryBook findById(@PathVariable Integer id) {
-        return libraryBookService.findById(id);
+    public LibraryBookDTO findById(@PathVariable Integer id) {
+        return converter.entityToDto(libraryBookService.findById(id));
     }
 
     @DeleteMapping("delete/{id}")
