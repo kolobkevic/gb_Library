@@ -1,6 +1,6 @@
 package gb.library.reader.services;
 
-import gb.library.backend.services.MailService;
+import gb.library.backend.services.VerificationMailService;
 import gb.library.backend.services.RoleService;
 import gb.library.common.entities.RegistrationType;
 import gb.library.common.entities.RoleType;
@@ -21,7 +21,7 @@ import java.util.Set;
 public class UserService {
     private final UserRepository repository;
     private final RoleService roleService;
-    private final MailService mailService;
+    private final VerificationMailService mailService;
 
     private static final RoleType USER_ROLE = RoleType.USER;
 
@@ -49,10 +49,10 @@ public class UserService {
         user.setRegistrationType(type);
         user.setRoles(Set.of(roleService.getUserRoleByRoleType(USER_ROLE)));
         user.setEnabled(false);
-//        user.setCreatedAt(new Date().toInstant()); Как правильно, полагаться на базу или вручную задавать время?
         user.setVerificationCode(RandomStringUtils.random(64, true, true));
         sendVerificationEmail(request, user);
-        return repository.save(user);
+//        return repository.save(user);
+        return user;
     }
 
     public boolean isEmailUnique(String email){
