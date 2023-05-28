@@ -9,6 +9,7 @@ import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 @Service("readerUserService")
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
     private final UserRepository repository;
     private final RoleService roleService;
@@ -51,8 +53,7 @@ public class UserService {
         user.setEnabled(false);
         user.setVerificationCode(RandomStringUtils.random(64, true, true));
         sendVerificationEmail(request, user);
-//        return repository.save(user);
-        return user;
+        return repository.save(user);
     }
 
     public boolean isEmailUnique(String email){
@@ -65,4 +66,13 @@ public class UserService {
         mailService.sendVerificationEmail(request, user);
     }
 
+    public boolean verifyCode(String verificationCode){
+        User user = repository.findUserByVerificationCode(verificationCode);
+        if(user == null || user.isEnabled()){
+            return false;
+        } else {
+            repository.enable(user.getId());
+            return true;
+        }
+    }
 }
