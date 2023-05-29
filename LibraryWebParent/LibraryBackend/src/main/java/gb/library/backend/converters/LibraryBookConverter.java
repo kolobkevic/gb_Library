@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class LibraryBookConverter {
-
     private final StorageCommonService storageService;
     private final WorldBookConverter worldBookConverter;
     private final WorldBookCommonService worldBookCommonService;
@@ -30,9 +29,11 @@ public class LibraryBookConverter {
     }
 
     public LibraryBook dtoToEntity(LibraryBookDTO libraryBookDTO) {
-        LibraryBook libraryBook = new LibraryBook();
         WorldBook worldBook = new WorldBook();
         worldBook.setId(libraryBookDTO.getWorldBookDTO().getId());
+
+        LibraryBook libraryBook = new LibraryBook();
+        libraryBook.setId(libraryBookDTO.getId());
         libraryBook.setWorldBook(worldBook);
         libraryBook.setPublisher(libraryBookDTO.getPublisher());
         libraryBook.setIsbn(libraryBookDTO.getIsbn());
@@ -40,8 +41,5 @@ public class LibraryBookConverter {
         libraryBook.setAvailable(libraryBookDTO.isAvailable());
         libraryBook.setPlacedAt(storageService.findById(libraryBookDTO.getPlacedAt().getId()));
         return libraryBook;
-
     }
-
-
 }

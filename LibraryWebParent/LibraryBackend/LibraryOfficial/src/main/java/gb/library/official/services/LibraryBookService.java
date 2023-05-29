@@ -43,7 +43,6 @@ public class LibraryBookService {
                 () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + id, "Library Book"));
     }
 
-    //    public List<LibraryBook> findAll(String title, String author, String genre, String ageRatingString, String description) {
     public Page<LibraryBook> findAll(Integer page, Integer pageSize, String title, String author, String genre, String ageRatingString, String description) {
         Specification<WorldBook> worldBookSpecification = Specification.where(null);
 
@@ -76,9 +75,7 @@ public class LibraryBookService {
                 }
             }
         }
-
         worldBookSpecification = worldBookSpecification.and(specificationAgeRating);
-
 
         Specification<LibraryBook> libraryBookSpecification = Specification.where(null);
         if (!(title + author + genre + ageRatingString + description).isBlank()) {
@@ -89,7 +86,6 @@ public class LibraryBookService {
                             .map(IdBasedEntity::getId)
                             .toList()));
         }
-
         return libraryBookRepository.findAll(libraryBookSpecification, PageRequest.of(page - 1, pageSize));
     }
 
@@ -101,9 +97,8 @@ public class LibraryBookService {
         } catch (Exception e) {
             String err = e.getCause().getCause().toString();
             if (err.contains("Duplicate entry") && err.contains(libraryBook.getInventoryNumber()))
-                throw new RuntimeException("Инвентарный номер: " +libraryBook.getInventoryNumber()+ " уже существует" );
+                throw new RuntimeException("Инвентарный номер: " + libraryBook.getInventoryNumber() + " уже существует");
         }
-
         return lb;
     }
 
@@ -113,15 +108,19 @@ public class LibraryBookService {
 
 
     public LibraryBook update(LibraryBook libraryBook) {
-        LibraryBook updatedBook = libraryBookRepository.findById(libraryBook.getId()).orElseThrow(
+        libraryBookRepository.findById(libraryBook.getId()).orElseThrow(
                 () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + libraryBook.getId(), "Library Book"));
-//        updatedBook.setTitle(libraryBook.getTitle());
-//        updatedBook.setAuthor(libraryBook.getAuthor());
-//        updatedBook.setGenre(libraryBook.getGenre());
-//        updatedBook.setAgeRating(libraryBook.getAgeRating());
-//        updatedBook.setDescription(libraryBook.getDescription());
-        //todo: update
-        return libraryBookRepository.save(updatedBook);
+
+        LibraryBook lb = null;
+        try {
+            lb = libraryBookRepository.save(libraryBook);
+        } catch (Exception e) {
+            String err = e.getCause().getCause().toString();
+            if (err.contains("Duplicate entry") && err.contains(libraryBook.getInventoryNumber()))
+                throw new RuntimeException("Инвентарный номер: " + libraryBook.getInventoryNumber() + " принадлежит другой книге");
+        }
+
+        return lb;
     }
 
     private static List<Integer> removeDuplicates(List<Integer> list) {
