@@ -7,6 +7,4 @@ public enum SettingsKey {
     MAIL_PASSWORD,
     MAIL_FROM,
     MAIL_SENDER_NAME,
-    MAIL_CONTENT,
-    MAIL_SUBJECT
 }
