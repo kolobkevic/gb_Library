@@ -18,13 +18,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLDataException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -91,36 +89,30 @@ public class LibraryBookService {
 
 
     public LibraryBook save(LibraryBook libraryBook) {
-        LibraryBook lb = null;
-        try {
-            lb = libraryBookRepository.save(libraryBook);
-        } catch (Exception e) {
-            String err = e.getCause().getCause().toString();
-            if (err.contains("Duplicate entry") && err.contains(libraryBook.getInventoryNumber()))
-                throw new RuntimeException("Инвентарный номер: " + libraryBook.getInventoryNumber() + " уже существует");
+        if (libraryBookRepository.findByInventoryNumber(libraryBook.getInventoryNumber()).isPresent()){
+            throw new RuntimeException("Инвентарный номер: " + libraryBook.getInventoryNumber() + " уже существует");
         }
-        return lb;
+        return libraryBookRepository.save(libraryBook);
     }
 
     public void deleteById(Integer id) {
         libraryBookRepository.deleteById(id);
     }
 
-
-    public LibraryBook update(LibraryBook libraryBook) {
-        libraryBookRepository.findById(libraryBook.getId()).orElseThrow(
-                () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + libraryBook.getId(), "Library Book"));
-
-        LibraryBook lb = null;
-        try {
-            lb = libraryBookRepository.save(libraryBook);
-        } catch (Exception e) {
-            String err = e.getCause().getCause().toString();
-            if (err.contains("Duplicate entry") && err.contains(libraryBook.getInventoryNumber()))
-                throw new RuntimeException("Инвентарный номер: " + libraryBook.getInventoryNumber() + " принадлежит другой книге");
+    @Transactional
+    public LibraryBook update(LibraryBook updatedLibraryBook) {
+        Optional<LibraryBook> optionalLibraryBook = libraryBookRepository.findByInventoryNumber(updatedLibraryBook.getInventoryNumber());
+        if (optionalLibraryBook.isPresent()) {
+            if (updatedLibraryBook.getId().equals(optionalLibraryBook.get().getId())) {
+                return libraryBookRepository.save(updatedLibraryBook);
+            } else {
+                throw new RuntimeException("Инвентарный номер: " + updatedLibraryBook.getInventoryNumber() + " принадлежит другой книге");
+            }
+        } else {
+            libraryBookRepository.findById(updatedLibraryBook.getId()).orElseThrow(
+                    () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + updatedLibraryBook.getId(), "Library Book"));
+            return libraryBookRepository.save(updatedLibraryBook);
         }
-
-        return lb;
     }
 
     private static List<Integer> removeDuplicates(List<Integer> list) {

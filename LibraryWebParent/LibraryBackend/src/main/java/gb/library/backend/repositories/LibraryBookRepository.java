@@ -4,7 +4,9 @@ import gb.library.common.entities.LibraryBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface LibraryBookRepository extends JpaRepository<LibraryBook, Integer> , JpaSpecificationExecutor<LibraryBook> {
+import java.util.Optional;
 
+public interface LibraryBookRepository extends JpaRepository<LibraryBook, Integer> , JpaSpecificationExecutor<LibraryBook> {
+    Optional<LibraryBook> findByInventoryNumber(String inventoryNumber);
 }
 
