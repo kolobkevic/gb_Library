@@ -23,6 +23,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
 
     private final UsersRepository usersRepo;
     private final PasswordEncoder passwordEncoder;
+    private final UsersPersonalDataService userPersonalData;
 
     private static final int USERS_PER_PAGE = 10;
 
@@ -44,7 +45,9 @@ public class UsersService implements AbstractDaoService<User, Integer> {
         entity.setEnabled(true);
         entity.setRegistrationType(RegistrationType.MANUAL);
         encodeUserPassword(entity);
-        return usersRepo.save(entity);
+        entity = usersRepo.save(entity);
+        userPersonalData.newUser(entity);
+        return entity;
     }
 
     @Override
@@ -62,7 +65,9 @@ public class UsersService implements AbstractDaoService<User, Integer> {
         existedUser.setFirstName(entity.getFirstName());
         existedUser.setLastName(entity.getLastName());
 
-        return usersRepo.save(existedUser);
+        existedUser = usersRepo.save(existedUser);
+        userPersonalData.updateUser(existedUser);
+        return existedUser;
     }
 
     @Override
@@ -72,6 +77,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
                     + ", т.к. она не найдена в базе.", "Users");
         }
         usersRepo.deleteById(id);
+        userPersonalData.deleteUser(Long.valueOf(id));
     }
 
     private void encodeUserPassword(User user){

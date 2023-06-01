@@ -57,6 +57,12 @@
 			<version>0.52</version>
 		</dependency>
 
+		<dependency>
+			<groupId>gb.library</groupId>
+			<artifactId>LibraryReadersPersonalDataIntegration</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
