@@ -88,10 +88,10 @@
                 <tr ng-repeat="s in booksList">
                 <tr ng-repeat="s in booksList">
 
-<!--                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.id}}</a></td>-->
+                    <!--                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.id}}</a></td>-->
                     <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBookDTO.title}}</a></td>
 
-                    <td>{{s.worldBookDTO.authorDTO.firstName}} {{s.worldBookDTO.authorDTO.lastName}} </td>
+                    <td>{{s.worldBookDTO.authorDTO.firstName}} {{s.worldBookDTO.authorDTO.lastName}}</td>
                     <td>{{s.worldBookDTO.genreDTO.name}}</td>
 
                     <td>{{s.worldBookDTO.description}}</td>
@@ -114,17 +114,16 @@
             <p></p>
             <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
             </br>
-            <form class="edit_form" novalidate ng-submit="saveGenre()">
+            <form class="edit_form" novalidate ng-submit="saveBook()">
 
-                </br></br>
+                <!--                <p id="book_id"></p>-->
 
-<!--                <p id="book_id"></p>-->
-                <p id="title"></p>
-                <p id="author"></p>
-                <p id="genre"></p>
-                <p id="ageRating"></p>
-                <p id="description"></p>
-                </br>
+                <p style="text-align: center; font-size: 24px" id="title"></p>
+                <p style="text-align: center; font-size: 20px" id="author"></p>
+                <p style="font-size: 16px" id="description"></p>
+                <p style="font-size: 14px" id="info"></p>
+                <!--                <p id="genre"></p>-->
+                <!--                <p id="ageRating"></p>-->
                 <p>Издатель:
                     <input class="form-control" type="text" id="form_publisher" ng-model="book.publisher">
                 </p>
