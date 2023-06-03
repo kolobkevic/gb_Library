@@ -21,3 +21,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+integrations:
+  personal-data:
+    scheme: http
+    host: localhost
+    port: 48884
+    timeout: 10000

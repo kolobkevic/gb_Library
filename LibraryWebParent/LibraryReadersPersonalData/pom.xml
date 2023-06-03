@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>LibraryReadersPersonalData</artifactId>
-	<name>LibraryReaders</name>
+	<name>LibraryReadersPersonalData</name>
 	<description>Microservice for working with personal data of readers</description>
 
 	<dependencies>

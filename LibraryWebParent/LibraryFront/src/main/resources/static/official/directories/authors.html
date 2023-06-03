@@ -20,7 +20,7 @@
 </head>
 
 <body ng-app="employee-front">
-<div ng-controller="genresController" style="  display: flex;
+<div ng-controller="authorController" style="  display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     height: 100%;">
@@ -51,71 +51,82 @@
             <p></p>
             <div>
 
-                <button class="button_switch" ng-click="goToEdit(0)">Добавить автора</button>
+                <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>
             </div>
             </br>
 
-<!--            <table class="table">-->
-<!--                <thead>-->
-<!--                <tr><b>-->
-<!--                    <td><b>ID</b></td>-->
-<!--                    <td><b>Жанр</b></td>-->
-<!--                    <td><b>Описание</b></td>-->
+            <table class="table">
+                <thead>
+                <tr><b>
+                    <td><b>ID</b></td>
+                    <td><b>Имя</b></td>
+                    <td><b>Фамилия</b></td>
 
-<!--                    <td></td>-->
-<!--                </b>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td></td>-->
-<!--                    <td>-->
-<!--                        <input name="genre" type="text" id="input_name" placeholder="фильтр">-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <input name="description" type="text" id="input_description" placeholder="фильтр">-->
-<!--                    </td>-->
+                    <td></td>
+                </b>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input name="firstName" type="text" id="input_firstName">
+                    </td>
+                    <td>
+                        <input name="lastName" type="text" id="input_lastName">
+                    </td>
 
 
-<!--                    <td></td>-->
-<!--                </tr>-->
+                    <td></td>
+                </tr>
 
-<!--                </thead>-->
-<!--                <tbody>-->
+                </thead>
+                <tbody>
 
-<!--                <tr ng-repeat="s in productList">-->
-<!--                    <td>{{s.id}}</td>-->
-<!--                    <td>{{s.name}}</td>-->
-<!--                    <td>{{s.description}}</td>-->
-<!--                    <td>-->
-<!--                        <a href="#" ng-click="goToEdit(s.id)">Изменить</a>-->
-<!--                    </td>-->
-<!--                </tbody>-->
-<!--            </table>-->
+
+                <tr ng-repeat="s in authorList">
+                    <td>{{s.id}}</td>
+                    <td>{{s.firstName}}</td>
+                    <td>{{s.lastName}}</td>
+                    <td>
+                        <a href="#" ng-click="goToEdit(s.id)">Изменить</a>
+                    </td>
+                </tbody>
+            </table>
+            <div style="margin-left: 300px">
+                Страница
+                <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
+                    <
+                </button>
+                <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+                <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
+                из {{pagesCount}}
+            </div>
         </div>
 
-<!--        <div  id="editForm" style="display:none">-->
-<!--            <p></p>-->
-<!--            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку жанров</button>-->
-<!--            </br>-->
-<!--            <form class="edit_form" novalidate ng-submit="saveGenre()">-->
+        <div id="editForm" style="display:none">
+            <p></p>
+            <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку Авторов</button>
+            </br>
+            <form class="edit_form" novalidate ng-submit="saveAuthor()">
 
-<!--                </br></br>-->
+                </br></br>
 
-<!--                <p id="genre_id"></p>-->
-<!--                </br>-->
-<!--                <p>Название:-->
-<!--                    <input class="form-control" type="text" id="form_genre" placeholder="Жанр" ng-model="genre.name">-->
-<!--                </p>-->
-<!--                <p>Описание:-->
-<!--                    <input class="form-control" type="text" id="form_description" placeholder="описание"-->
-<!--                           ng-model="genre.description">-->
-<!--                </p>-->
-<!--                <p></p>-->
-<!--                <button type="submit" class="btn btn-primary">Сохранить</button>-->
+                <p id="author_id"></p>
+                </br>
+                <p>Имя:
+                    <input class="form-control" type="text" id="form_firstName" placeholder="Имя" ng-model="author.firstName">
+                </p>
+                <p>Фамилия:
+                    <input class="form-control" type="text" id="form_lastName" placeholder="Фамилия"
+                           ng-model="author.lastName">
+                </p>
+                <p></p>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
 
-<!--            </form>-->
-<!--        </div>-->
+            </form>
+        </div>
+
     </div>
-
+    <div></div>
 </div>
 <script src="../main.js"></script>
 <script src="authors.js"></script>

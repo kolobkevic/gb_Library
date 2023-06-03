@@ -67,12 +67,16 @@ public class ReaderService {
         if (patchMainInfo.getSurname() != null && !patchMainInfo.getSurname().isBlank()) {
             mainInfo.setSurname(patchMainInfo.getSurname());
         }
-        if (patchMainInfo.getFamily() != null && !patchMainInfo.getFamily().isBlank()) {
-            mainInfo.setFamily(patchMainInfo.getFamily());
-        }
         if (patchMainInfo.getBirthday() != null) {
             mainInfo.setBirthday(patchMainInfo.getBirthday());
         }
+        if (patchMainInfo.getAddress() != null && !patchMainInfo.getAddress().isBlank()) {
+            mainInfo.setAddress(patchMainInfo.getAddress());
+        }
+        if (patchMainInfo.getPassport() != null && !patchMainInfo.getPassport().isBlank()) {
+            mainInfo.setPassport(patchMainInfo.getPassport());
+        }
+
         readerEntity.setMainInfo(mainInfo);
 
 
@@ -91,9 +95,6 @@ public class ReaderService {
         }
         readerEntity.setContactInfo(contactInfo);
 
-        if (patchReader.getAddress() != null && !patchReader.getAddress().isBlank()) {
-            readerEntity.setAddress(patchReader.getAddress());
-        }
 
         return readerRepository.save(readerEntity);
     }

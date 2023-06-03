@@ -1,11 +1,11 @@
 angular.module('reader-front').controller('registrationController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8070/reader/';
+    const contextPath = 'http://localhost:8070/reader/api/v1/users';
     let isPasswordReady = false;
     $scope.isEmailReady = false;
     let p1;
 
     $scope.registerUser = function () {
-        $http.post(contextPath + 'api/v1/users/create', $scope.new_user)
+        $http.post(contextPath + '/create', $scope.new_user)
             .then(function successCallback(response) {
                 console.log($scope.new_user);
                 $scope.new_user = null;
@@ -21,7 +21,7 @@ angular.module('reader-front').controller('registrationController', function ($s
         p1 = new Promise((resolve, reject) => {
             resolve(
                 $http({
-                    url: contextPath + 'api/v1/users/check_email',
+                    url: contextPath + '/check_email',
                     method: 'GET',
                     params: {email: email},
                     transformResponse: [function (data) {

@@ -183,15 +183,12 @@ components:
           type: integer
           format: int64
           example: 5632
-        family:
-          type: string
-          example: Иванов
         name:
           type: string
           example: Иван
         surname:
           type: string
-          example: Иванович
+          example: Иванов
         birthday:
           type: string
           format: date
@@ -204,15 +201,12 @@ components:
           type: integer
           format: int64
           example: 5632
-        family:
-          type: string
-          example: Иванов
         name:
           type: string
           example: Иван
         surname:
           type: string
-          example: Иванович
+          example: Иванов
         birthday:
           type: string
           format: date
@@ -230,27 +224,26 @@ components:
         address:
           type: string
           example: г. Москва, ул. Дыбенко, д.16, кв.54
+        passport:
+          type: string
+          example: 11 04 123456
 
     ReaderPostRequest:
       type: object
       required:
         - readerId
-        - family
         - name
       properties:
         readerId:
           type: integer
           format: int64
           example: 5632
-        family:
-          type: string
-          example: Иванов
         name:
           type: string
           example: Иван
         surname:
           type: string
-          example: Иванович
+          example: Иванов
         birthday:
           type: string
           format: date
@@ -268,19 +261,19 @@ components:
         address:
           type: string
           example: г. Москва, ул. Дыбенко, д.16, кв.54
+        passport:
+          type: string
+          example: 11 04 123456
 
     ReaderPatchRequest:
       type: object
       properties:
-        family:
-          type: string
-          example: Иванов
         name:
           type: string
           example: Иван
         surname:
           type: string
-          example: Иванович
+          example: Иванов
         birthday:
           type: string
           format: date
@@ -298,6 +291,9 @@ components:
         address:
           type: string
           example: г. Москва, ул. Дыбенко, д.16, кв.54
+        passport:
+          type: string
+          example: 11 04 123456
 
     Error:
       type: object

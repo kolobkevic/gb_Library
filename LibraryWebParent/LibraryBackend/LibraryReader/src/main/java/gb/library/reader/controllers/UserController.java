@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.Set;
 
 @RestController("readerUserController")
 @CrossOrigin
@@ -43,5 +45,11 @@ public class UserController {
     @GetMapping("/check_email")
     public String checkEmailUnique(@RequestParam String email){
         return userService.isEmailUnique(email) ? "Unique" : "Duplicated";
+    }
+
+    @GetMapping("/verify")
+    public Set<String> verifyAccount(@RequestParam("code") String code){
+        boolean verified = userService.verifyCode(code);
+        return verified ? Collections.singleton("verify_success") : Collections.singleton("verify_fail") ;
     }
 }

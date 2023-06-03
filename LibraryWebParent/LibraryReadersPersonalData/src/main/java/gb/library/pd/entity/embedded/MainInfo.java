@@ -8,9 +8,6 @@ import java.time.LocalDate;
 @Data
 public class MainInfo {
 
-    @Column(name = "family")    // прим. - удалится при рефакторинге
-    private String family;      // прим. - удалится при рефакторинге
-
     @Column(name = "name")
     private String name;
 
