@@ -49,26 +49,26 @@
         <div id="booksList">
             <p></p>
             <div>
-
-<!--                <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>-->
+                <button class="button_switch" ng-click="showCreateNewZoneForm()">Добавить запись</button>
             </div>
-            </br>
-
-
-            <table class="table" style="width: fit-content">
+            <br>
+            <table class="table" style="text-align: center;">
                 <thead>
-                <tr><b>
+                <tr style="font-weight: bold;">
                     <td style="text-align: center"><b>Зона</b></td>
                     <td style="text-align: center"><b>Сектор</b></td>
                     <td style="text-align: center"><b>Доступность</b></td>
-                </b>
                 </tr>
-
                 </thead>
                 <tbody ng-repeat="zone in zoneList">
-
                 <tr>
-                    <td> <b>{{zone.zone}}</b></td>
+                    <td>
+                        <button style="font-weight: bold; font-size: large; background: none; border: none;"
+                                ng-click="showZoneInfo(zone.zone)">{{zone.zone}}
+                        </button>
+                    </td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr ng-repeat="sec in zone.sectors">
                     <td></td>
@@ -79,15 +79,68 @@
             </table>
         </div>
 
+        <div id="zone_info" style="display: none;">
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="backToLocations()">Вернуться к списку</button>
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="editCurrentZone()">Редактировать</button>
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="editCurrentZone()">Удалить запись</button>
+            <p></p>
+            <div style="margin-top: 25px; padding-top: 10px; font-size: medium;">
+                <h5 style="padding-bottom: 10px;">Информация</h5>
+                <p>Название зоны: {{zoneTitle}}</p>
+                <p>Общее количество секторов: {{sectorsList.length}}</p>
+                <p>Количество доступных секторов: {{availableCount}}</p>
+                <p>Количество недоступных секторов: {{unavailableCount}}</p>
+            </div>
+            <div style="margin-top: 25px; font-size: medium; text-align: center;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Сектор</td>
+                        <td>Доступность</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="sector in sectorsList">
+                        <td>{{sector.sector}}</td>
+                        <td>{{sector.isAvailable}}</td>
+                        <td>
+                            <a href="#" ng-click="editSector(zone, sector)">Изменить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
+        <div id="createNewZoneForm" style="display: none;">
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="backToLocations()">Вернуться к списку</button>
+            <p></p>
+            <form class="edit_form" novalidate ng-submit="addNewZone()">
+                <p>Название зоны: </p>
+                <input class="form-control" type="text" id="newZoneTitle"
+                       ng-model="new_zone.zone">
+                <p></p>
+                <p>Название сектора:</p>
+                <input class="form-control" type="text" id="newZoneSector" ng-model="new_zone.sector">
+                <p></p>
+                <p>Доступность сектора:</p>
+                <select class="form-select" id="newZoneSectorAvailable" aria-label="Default select example" style="width: 250px;" ng-model="new_zone.available">
+                    <option selected ng-value="true">true</option>
+                    <option ng-value="false">false</option>
+                </select>
+                <p></p>
+                <button type="submit" class="btn btn-primary" >Добавить запись</button>
+            </form>
+        </div>
     </div>
 
 </div>
 <script src="../main.js"></script>
 <script src="locations.js"></script>
-</div>
-</div>
-
 </body>
-
 </html>

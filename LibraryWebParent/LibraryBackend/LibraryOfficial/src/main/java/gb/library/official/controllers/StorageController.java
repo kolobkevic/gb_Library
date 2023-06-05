@@ -1,5 +1,6 @@
 package gb.library.official.controllers;
 
+import gb.library.common.entities.Storage;
 import gb.library.official.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,4 +21,13 @@ public class StorageController {
         return storageService.getStorageZones();
     }
 
+    @GetMapping("/zones/{zoneTitle}")
+    public StorageService.Zone findZoneByTitle(@PathVariable String zoneTitle) {
+        return storageService.findZoneByTitle(zoneTitle);
+    }
+
+    @PostMapping
+    public Storage save(@RequestBody Storage storage) {
+        return storageService.save(storage);
+    }
 }

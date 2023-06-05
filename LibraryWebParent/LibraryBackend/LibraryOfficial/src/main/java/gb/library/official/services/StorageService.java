@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +24,8 @@ public class StorageService {
         return storageRepository.save(storage);
     }
 
-    public void deleteById(Integer id) {storageRepository.deleteById(id);
+    public void deleteById(Integer id) {
+        storageRepository.deleteById(id);
     }
 
 
@@ -39,13 +37,13 @@ public class StorageService {
         return storageRepository.save(updatedGenre);
     }
 
-    public List<Zone> getStorageZones(){
-        Map<String, List<Sector>> zones = new HashMap<>();
+    public List<Zone> getStorageZones() {
+        Map<String, List<Sector>> zones = new TreeMap<>();
         List<Storage> storages = findAll();
         for (Storage storage : storages) {
             List<Sector> sectors = zones.get(storage.getZone());
-            if (sectors == null){
-                sectors=new ArrayList<>();
+            if (sectors == null) {
+                sectors = new ArrayList<>();
                 zones.put(storage.getZone(), sectors);
             }
             sectors.add(new Sector(storage.getId(), storage.getSector(), storage.isAvailable()));
@@ -58,14 +56,30 @@ public class StorageService {
 
         return zonesList;
     }
+
+    public Zone findZoneByTitle(String zoneTitle) {
+        Map<String, List<Sector>> zoneData = new TreeMap<>();
+        List<Storage> storages = storageRepository.findAllByZone(zoneTitle);
+        for (Storage storage : storages) {
+            List<Sector> sectors = zoneData.get(storage.getZone());
+            if (sectors == null) {
+                sectors = new ArrayList<>();
+                zoneData.put(storage.getZone(), sectors);
+            }
+            sectors.add(new Sector(storage.getId(), storage.getSector(), storage.isAvailable()));
+        }
+        return new Zone(zoneTitle, zoneData.get(zoneTitle));
+    }
+
     @AllArgsConstructor
-    public static class Zone{
+    public static class Zone {
         public String zone;
         public List<Sector> sectors;
-        
+
     }
+
     @AllArgsConstructor
-    public static class Sector{
+    public static class Sector {
         public int id;
         public String sector;
         public Boolean isAvailable;
