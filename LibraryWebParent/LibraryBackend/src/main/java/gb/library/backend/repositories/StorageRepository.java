@@ -16,6 +16,5 @@ public interface StorageRepository extends JpaRepository<Storage, Integer> , Jpa
     void deleteAllByZone(String zone);
     Optional<Storage> findByZoneAndSector(String zone, String sector);
 
-    List<Storage> findAllByZoneAndSector(String zone, String sector);
 }
 

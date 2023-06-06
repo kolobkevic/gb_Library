@@ -94,11 +94,7 @@
             <p></p>
             <button class="button_switch" style="width: 210px" ng-click="backToLocations()">Вернуться к списку</button>
             <p></p>
-            <button class="button_switch" style="width: 210px" ng-click="editCurrentZone()">Редактировать</button>
-            <p></p>
-            <button class="button_switch" style="width: 210px" ng-click="deleteCurrentZone(zoneTitle)">Удалить запись
-            </button>
-            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="showEditZoneForm(zoneTitle)">Редактировать</button>
             <div style="margin-top: 25px; padding-top: 10px; font-size: medium;">
                 <h5 style="padding-bottom: 10px;">Информация</h5>
                 <p>Название зоны: {{zoneTitle}}</p>
@@ -120,10 +116,7 @@
                         <td>{{sector.sector}}</td>
                         <td>{{sector.isAvailable}}</td>
                         <td>
-                            <a href="#" ng-click="editSector(zoneTitle, sector.sector, sector.isAvailable)">Изменить</a>
-                        </td>
-                        <td>
-                            <button hidden id="deleteBtn" class="button_switch">Удалить</button>
+                            <button class="button_switch" style="width: 210px;" style="" ng-click="showEditSectorForm(zoneTitle, sector.sector, sector.isAvailable)">Изменить</button>
                         </td>
                     </tr>
                     </tbody>
@@ -131,17 +124,55 @@
             </div>
         </div>
 
+        <div id="edit_zone_info" style="display: none;">
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="showZoneInfo(zoneTitle)">Отменить</button>
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="deleteCurrentZone(zoneTitle)">Удалить запись</button>
+            <div style="margin-top: 25px; padding-top: 10px; font-size: medium;">
+                <h5 style="padding-bottom: 10px;">Информация</h5>
+                <p>Название зоны: {{zoneTitle}}</p>
+                <p>Общее количество секторов: {{sectorsList.length}}</p>
+                <p>Количество доступных секторов: {{availableCount}}</p>
+                <p>Количество недоступных секторов: {{unavailableCount}}</p>
+            </div>
+            <div style="margin-top: 25px; font-size: medium; text-align: center;">
+                <table class="table">
+                    <thead>
+                    <tr style="font-weight: bold;">
+                        <td hidden></td>
+                        <td>Сектор</td>
+                        <td>Доступность</td>
+                        <td><button class="button_switch" style="width: 210px" ng-click="showCreateNewSectorForm(zoneTitle)">Добавить сектор</button></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="sector in sectorsList">
+                        <td hidden>{{sector.id}}</td>
+                        <td>{{sector.sector}}</td>
+                        <td>{{sector.isAvailable}}</td>
+                        <td>
+                            <button id="deleteBtn" class="button_switch" style="width: 210px" ng-click="deleteSector(zoneTitle, sector.id)">Удалить</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         <div id="createNewZoneForm" style="display: none;">
             <p></p>
             <button class="button_switch" style="width: 210px" ng-click="backToLocations()">Вернуться к списку</button>
             <p></p>
             <form class="edit_form" novalidate ng-submit="addNewZone()">
                 <p>Название зоны: </p>
-                <input class="form-control" type="text" id="newZoneTitle"
+                <input class="form-control" type="text" id="newZoneTitle" style="width: 500px;"
                        ng-model="new_zone.zone">
                 <p></p>
                 <p>Название сектора:</p>
-                <input class="form-control" type="text" id="newZoneSector" ng-model="new_zone.sector">
+                <input class="form-control" type="text" id="newZoneSector" style="width: 500px;" ng-model="new_zone.sector">
                 <p></p>
                 <p>Доступность сектора:</p>
                 <select class="form-select" id="newZoneSectorAvailable" aria-label="Default select example"
@@ -150,7 +181,29 @@
                     <option ng-value="false">false</option>
                 </select>
                 <p></p>
-                <button type="submit" class="btn btn-primary">Добавить запись</button>
+                <button type="submit" class="button_switch">Добавить запись</button>
+            </form>
+        </div>
+
+        <div id="createNewSectorForm" style="display: none;">
+            <p></p>
+            <button class="button_switch" style="width: 210px" ng-click="showEditZoneForm(zoneTitle)">Отменить</button>
+            <p></p>
+            <form class="edit_form" novalidate ng-submit="addNewSector()">
+                <input class="form-control" ng-value="zoneTitle" type="text" id="currentZoneTitle" style="width: 500px;"
+                       ng-model="new_sector.zone">
+                <p></p>
+                <p>Название сектора:</p>
+                <input class="form-control" type="text" style="width: 500px;" id="newSectorTitle" ng-model="new_sector.sector">
+                <p></p>
+                <p>Доступность сектора:</p>
+                <select class="form-select" id="newSectorAvailable" aria-label="Default select example"
+                        style="width: 250px;">
+                    <option selected ng-value="true">true</option>
+                    <option ng-value="false">false</option>
+                </select>
+                <p></p>
+                <button type="submit" class="button_switch">Добавить сектор</button>
             </form>
         </div>
 
@@ -162,7 +215,7 @@
                 <input hidden id="zoneTitle" type="text" ng-model="edit_sector.zone">
                 <p></p>
                 <p>Название сектора:</p>
-                <input class="form-control" type="text" id="editSectorTitle" ng-model="edit_sector.sector">
+                <input class="form-control" style="width: 500px;" type="text" id="editSectorTitle" ng-model="edit_sector.sector">
                 <p></p>
                 <p>Доступность сектора:</p>
                 <select class="form-select" id="editSectorAvailable" aria-label="Default select example"
@@ -171,7 +224,7 @@
                     <option ng-value="false">false</option>
                 </select>
                 <p></p>
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="button_switch">Сохранить</button>
             </form>
         </div>
     </div>

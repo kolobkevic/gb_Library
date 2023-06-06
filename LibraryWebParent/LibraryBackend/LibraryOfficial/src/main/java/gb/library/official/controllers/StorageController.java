@@ -49,7 +49,12 @@ public class StorageController {
     }
 
     @DeleteMapping("/{zoneTitle}")
-    private void delete(@PathVariable String zoneTitle) {
+    public void delete(@PathVariable String zoneTitle) {
         storageService.deleteAllByZone(zoneTitle);
+    }
+
+    @DeleteMapping("sectors/{id}")
+    public void deleteSectorById(@PathVariable Integer id) {
+        storageService.deleteById(id);
     }
 }

@@ -43,6 +43,8 @@ angular.module('employee-front').controller('locationsController', function ($ro
         ).then(function (response) {
             document.getElementById("editCurrentSector").style.display = 'none';
             document.getElementById("booksList").style.display = 'none';
+            document.getElementById("edit_zone_info").style.display = 'none';
+            document.getElementById("createNewSectorForm").style.display = 'none';
             document.getElementById("zone_info").style.display = 'inline';
 
             const zoneData = response.data;
@@ -70,6 +72,42 @@ angular.module('employee-front').controller('locationsController', function ($ro
         });
     };
 
+    $scope.showEditZoneForm = function (zoneTitle) {
+        document.getElementById("editCurrentSector").style.display = 'none';
+        document.getElementById("booksList").style.display = 'none';
+        document.getElementById("zone_info").style.display = 'none';
+        document.getElementById("createNewSectorForm").style.display = 'none';
+        document.getElementById("edit_zone_info").style.display = 'inline';
+
+        $http({
+                url: corePath + '/storage/zones/' + zoneTitle,
+                method: 'GET',
+            }
+        ).then(function (response) {
+            const zoneData = response.data;
+
+            $scope.zoneTitle = zoneData.zone;
+            $scope.sectorsList = zoneData.sectors;
+            $scope.commonSectorsCount = zoneData.sectors.length;
+
+            $scope.availableCount = 0;
+            $scope.unavailableCount = 0;
+
+            for (let i = 0; i < zoneData.sectors.length; i++) {
+                if (zoneData.sectors[i].isAvailable === true) $scope.availableCount += 1;
+                else $scope.unavailableCount += 1;
+            }
+        });
+    }
+
+
+    $scope.saveZoneChanges = function () {
+        if ($scope.edit_zone == null || document.getElementById("zoneTitleField").value.trim() == '') {
+            alert('Название зоны не заполнено!');
+            return;
+        }
+    };
+
     $scope.showCreateNewZoneForm = function () {
         document.getElementById("booksList").style.display = 'none';
         document.getElementById("createNewZoneForm").style.display = 'inline';
@@ -85,9 +123,7 @@ angular.module('employee-front').controller('locationsController', function ($ro
             alert('Форма не заполнена');
             return;
         }
-
         $scope.new_zone.available = document.getElementById("newZoneSectorAvailable").value;
-
         $http({
             url: corePath + '/storage',
             method: 'POST',
@@ -101,7 +137,6 @@ angular.module('employee-front').controller('locationsController', function ($ro
             function failureCallback(response) {
                 alert('Не удалось создать новую зону!');
             });
-
     };
 
 
@@ -120,10 +155,43 @@ angular.module('employee-front').controller('locationsController', function ($ro
                 });
     };
 
-    $scope.editSector = function (zoneTitle, sectorTitle, sectorAvailable) {
+    $scope.showCreateNewSectorForm = function (zoneTitle) {
+        document.getElementById("booksList").style.display = 'none';
+        document.getElementById("zone_info").style.display = 'none';
+        document.getElementById("edit_zone_info").style.display = 'none';
+        document.getElementById("createNewZoneForm").style.display = 'none';
+        document.getElementById("editCurrentSector").style.display = 'none';
+        document.getElementById("createNewSectorForm").style.display = 'inline';
+    };
+
+    $scope.addNewSector = function () {
+        if ($scope.new_sector == null || document.getElementById("newSectorTitle").value.trim() == '') {
+            alert('У сектора должно быть название!');
+            return;
+        }
+        $scope.new_sector.zone = document.getElementById("currentZoneTitle").value;
+        $scope.new_sector.available = document.getElementById("newSectorAvailable").value;
+        console.log($scope.new_sector);
+
+        $http({
+            url: corePath + '/storage',
+            method: 'POST',
+            data: $scope.new_sector
+        }).then(function successCallback(response) {
+                $scope.new_zone = null;
+                alert('Новый сектор успешно добавлен!');
+                $scope.showEditZoneForm(document.getElementById("currentZoneTitle").value);
+            },
+            function failureCallback(response) {
+                alert('Не удалось создать новый сектор!');
+            });
+    };
+
+    $scope.showEditSectorForm = function (zoneTitle, sectorTitle) {
         document.getElementById("booksList").style.display = 'none';
         document.getElementById("zone_info").style.display = 'none';
         document.getElementById("createNewZoneForm").style.display = 'none';
+        document.getElementById("createNewSectorForm").style.display = 'none';
         document.getElementById("editCurrentSector").style.display = 'inline';
 
         $http({
@@ -141,6 +209,31 @@ angular.module('employee-front').controller('locationsController', function ($ro
             });
     };
 
+    $scope.deleteSector = function (zoneTitle, sectorId) {
+        $http({
+                url: corePath + '/storage/zones/' + zoneTitle,
+                method: 'GET',
+            }
+        ).then(function (response) {
+            $scope.commonSectorsCount = response.data.sectors.length;
+            if ($scope.commonSectorsCount == 1) {
+                alert('Зона не может быть пустой!');
+                return;
+            } else {
+                $http({
+                    url: corePath + '/storage/sectors/' + sectorId,
+                    method: 'DELETE'
+                }).then(function successCallback(response) {
+                        alert('Сектор удален!');
+                        $scope.showEditZoneForm(zoneTitle);
+                    },
+                    function failureCallback(response) {
+                        alert(response.data.messages);
+                    });
+            }
+        });
+    };
+
     $scope.updateSector = function () {
         if ($scope.edit_sector == null || document.getElementById("editSectorTitle").value.trim() == '') {
             alert('Форма не заполнена');
@@ -151,14 +244,13 @@ angular.module('employee-front').controller('locationsController', function ($ro
             url: corePath + '/storage',
             method: 'PUT',
             data: $scope.edit_sector
-        })
-            .then(function successCallback(response) {
-                    alert('Сектор успешно обновлен!');
-                    $scope.showZoneInfo($scope.edit_sector.zone)
-                },
-                function failureCallback(response) {
-                    alert('Не удалось обновить сектор!');
-                });
+        }).then(function successCallback(response) {
+                alert('Сектор успешно обновлен!');
+                $scope.showZoneInfo($scope.edit_sector.zone)
+            },
+            function failureCallback(response) {
+                alert('Не удалось обновить сектор!');
+            });
     }
 
     $scope.backToLocations = function () {
