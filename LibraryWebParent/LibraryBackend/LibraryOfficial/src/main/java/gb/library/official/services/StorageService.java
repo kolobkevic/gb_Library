@@ -3,6 +3,7 @@ package gb.library.official.services;
 import gb.library.common.entities.Storage;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.StorageRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,12 +30,14 @@ public class StorageService {
     }
 
 
-    public Storage update(Storage storage) {
-        Storage updatedGenre = storageRepository.findById(storage.getId()).orElseThrow(
-                () -> new ObjectInDBNotFoundException("Место хранения не найдено базе, id: " + storage.getId(), "Storage"));
-        updatedGenre.setZone(storage.getZone());
-        updatedGenre.setSector(storage.getSector());
-        return storageRepository.save(updatedGenre);
+    public Storage update(Storage storageToUpdate) {
+        System.out.println(storageToUpdate.getZone() + " " + storageToUpdate.getSector());
+        Storage currentStorage = storageRepository.findById(storageToUpdate.getId()).orElseThrow(
+                () -> new ObjectInDBNotFoundException("Место хранения не найдено базе, id: " + storageToUpdate.getId(), "Storage"));
+        currentStorage.setZone(storageToUpdate.getZone());
+        currentStorage.setSector(storageToUpdate.getSector());
+        currentStorage.setAvailable(storageToUpdate.isAvailable());
+        return storageRepository.save(currentStorage);
     }
 
     public List<Zone> getStorageZones() {
@@ -71,6 +74,11 @@ public class StorageService {
         return new Zone(zoneTitle, zoneData.get(zoneTitle));
     }
 
+    public Storage findByZoneAndSector(String zone, String sector) {
+        return storageRepository.findByZoneAndSector(zone, sector).orElseThrow(
+                () -> new ObjectInDBNotFoundException(String.format("Место хранения не найдена по заданным параметрам (%s, %s)", zone, sector), "Storage"));
+    }
+
     @AllArgsConstructor
     public static class Zone {
         public String zone;
@@ -84,5 +92,10 @@ public class StorageService {
         public String sector;
         public Boolean isAvailable;
 
+    }
+
+    @Transactional
+    public void deleteAllByZone(String zone) {
+        storageRepository.deleteAllByZone(zone);
     }
 }

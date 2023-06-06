@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d16176-cc22-4b30-af69-1b183f14b5c7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryCommon/src/main/java/gb/library/common/entities/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryCommon/src/main/java/gb/library/common/entities/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryCommon/src/main/java/gb/library/common/dtos/StorageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryCommon/src/main/java/gb/library/common/dtos/StorageDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/controllers/StorageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/controllers/StorageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/services/StorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/services/StorageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/converters/LibraryBookConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/converters/LibraryBookConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/repositories/StorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/repositories/StorageRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.js" afterDir="false" />
@@ -41,26 +42,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "spring.configuration.checksum": "4fda8e41e55fe4e16331011e093e9a19",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;4fda8e41e55fe4e16331011e093e9a19&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Spring Boot.LibraryOfficialApplication">
+}</component>
+  <component name="RunManager" selected="Spring Boot.LibraryFrontApplication">
     <configuration name="LibraryAdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="LibraryAdmin" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="gb.library.admin.LibraryAdminApplication" />
@@ -157,7 +158,9 @@
       <workItem from="1685742047583" duration="757000" />
       <workItem from="1685904624799" duration="738000" />
       <workItem from="1685962236799" duration="1248000" />
-      <workItem from="1685973734594" duration="16187000" />
+      <workItem from="1685973734594" duration="19321000" />
+      <workItem from="1685997694285" duration="4647000" />
+      <workItem from="1686048215215" duration="7526000" />
     </task>
     <servers />
   </component>
