@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a9d16176-cc22-4b30-af69-1b183f14b5c7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryCommon/src/main/java/gb/library/common/dtos/StorageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryCommon/src/main/java/gb/library/common/dtos/StorageDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/controllers/StorageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/controllers/StorageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/services/StorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/java/gb/library/official/services/StorageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryOfficial/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/converters/LibraryBookConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/converters/LibraryBookConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/repositories/StorageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/src/main/java/gb/library/backend/repositories/StorageRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.js" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/official/directories/locations.js" afterDir="false" />
@@ -160,7 +157,7 @@
       <workItem from="1685962236799" duration="1248000" />
       <workItem from="1685973734594" duration="19321000" />
       <workItem from="1685997694285" duration="4647000" />
-      <workItem from="1686048215215" duration="7526000" />
+      <workItem from="1686048215215" duration="12193000" />
     </task>
     <servers />
   </component>

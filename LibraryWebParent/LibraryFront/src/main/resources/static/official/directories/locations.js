@@ -2,11 +2,31 @@ angular.module('employee-front').controller('locationsController', function ($ro
 
     const corePath = 'http://' + window.location.hostname + ':8060/official/api/v1';
 
+    $zoneFilter = document.getElementById('zoneFilter');
+    $sectorFilter = document.getElementById('sectorFilter');
+    $availableFilter = document.getElementById('availableFilter');
+
+
+    $zoneFilter.onchange = function () {
+        $scope.loadZones();
+    };
+    $sectorFilter.onchange = function () {
+        $scope.loadZones();
+    };
+    $availableFilter.onchange = function () {
+        $scope.loadZones();
+    };
+
 
     $scope.loadZones = function () {
         $http({
                 url: corePath + '/storage/zones',
                 method: 'GET',
+                params: {
+                    zone: document.getElementById("zoneFilter").value.trim(),
+                    sector: document.getElementById("sectorFilter").value.trim(),
+                    available: document.getElementById('availableFilter').value.trim()
+                }
             }
         ).then(function (response) {
             console.log(response.data);

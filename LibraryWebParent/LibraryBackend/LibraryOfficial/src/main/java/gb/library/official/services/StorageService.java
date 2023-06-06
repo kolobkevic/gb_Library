@@ -1,11 +1,13 @@
 package gb.library.official.services;
 
+import gb.library.backend.specifications.StorageSpecification;
 import gb.library.common.entities.Storage;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.StorageRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -40,9 +42,22 @@ public class StorageService {
         return storageRepository.save(currentStorage);
     }
 
-    public List<Zone> getStorageZones() {
-        Map<String, List<Sector>> zones = new TreeMap<>();
-        List<Storage> storages = findAll();
+    public List<Zone> getStorageZones(String zone, String sector, String available) {
+        Specification<Storage> specification = Specification.where(null);
+
+        if (zone != null && !zone.isBlank()) {
+            specification = specification.and(StorageSpecification.zoneLike(zone));
+        }
+        if (sector != null && !sector.isBlank()) {
+            specification = specification.and(StorageSpecification.sectorLike(sector));
+        }
+        if (available != null && !available.isBlank()) {
+            specification = specification.and(StorageSpecification.availableCheck(Boolean.parseBoolean(available)));
+        }
+
+        Map<String, List<Sector>> zones = new HashMap<>();
+        List<Storage> storages = storageRepository.findAll(specification);
+
         for (Storage storage : storages) {
             List<Sector> sectors = zones.get(storage.getZone());
             if (sectors == null) {
@@ -61,7 +76,7 @@ public class StorageService {
     }
 
     public Zone findZoneByTitle(String zoneTitle) {
-        Map<String, List<Sector>> zoneData = new TreeMap<>();
+        Map<String, List<Sector>> zoneData = new HashMap<>();
         List<Storage> storages = storageRepository.findAllByZone(zoneTitle);
         for (Storage storage : storages) {
             List<Sector> sectors = zoneData.get(storage.getZone());

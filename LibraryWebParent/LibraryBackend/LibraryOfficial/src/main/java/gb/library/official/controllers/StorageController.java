@@ -19,8 +19,11 @@ public class StorageController {
 
 
     @GetMapping("/zones")
-    public List<StorageService.Zone> getAllZones() {
-        return storageService.getStorageZones();
+    public List<StorageService.Zone> getAllZones(
+            @RequestParam(name = "zone", required = false) String zone,
+            @RequestParam(name = "sector", required = false) String sector,
+            @RequestParam(name = "available", required = false) String available) {
+        return storageService.getStorageZones(zone, sector, available);
     }
 
     @GetMapping("/zones/{zoneTitle}")
