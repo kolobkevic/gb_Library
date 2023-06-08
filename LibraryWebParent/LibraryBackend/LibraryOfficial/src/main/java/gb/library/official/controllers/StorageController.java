@@ -2,7 +2,6 @@ package gb.library.official.controllers;
 
 import gb.library.backend.converters.StorageConverter;
 import gb.library.common.dtos.StorageDTO;
-import gb.library.common.entities.Storage;
 import gb.library.official.services.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +31,8 @@ public class StorageController {
     }
 
     @GetMapping
-    public StorageDTO findByZoneAndSector(@RequestParam(name = "zone", required = true, defaultValue = "zone1") String zone,
-                                          @RequestParam(name = "sector", required = true, defaultValue = "sector1") String sector) {
+    public StorageDTO findByZoneAndSector(@RequestParam(name = "zone", required = true) String zone,
+                                          @RequestParam(name = "sector", required = true) String sector) {
         return storageConverter.entityToDto(storageService.findByZoneAndSector(zone, sector));
     }
 
@@ -44,7 +43,6 @@ public class StorageController {
 
     @PutMapping
     public StorageDTO update(@RequestBody StorageDTO storageDTO) {
-        System.out.println(storageDTO.getZone() + " " + storageDTO.getSector());
         return storageConverter.entityToDto(storageService.update(storageConverter.dtoToEntity(storageDTO)));
     }
 
