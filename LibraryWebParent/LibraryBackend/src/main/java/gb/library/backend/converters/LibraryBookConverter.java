@@ -24,7 +24,7 @@ public class LibraryBookConverter {
                 libraryBook.getIsbn(),
                 libraryBook.getInventoryNumber(),
                 libraryBook.isAvailable(),
-                new StorageDTO(libraryBook.getPlacedAt().getId(), libraryBook.getPlacedAt().getZone(), libraryBook.getPlacedAt().getSector())
+                new StorageDTO(libraryBook.getPlacedAt().getId(), libraryBook.getPlacedAt().getZone(), libraryBook.getPlacedAt().getSector(), libraryBook.getPlacedAt().isAvailable())
         );
     }
 

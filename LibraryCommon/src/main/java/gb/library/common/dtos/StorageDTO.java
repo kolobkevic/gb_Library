@@ -9,4 +9,5 @@ public class StorageDTO {
     private Integer id;
     private String zone;
     private String sector;
+    private boolean isAvailable;
 }
