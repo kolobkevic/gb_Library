@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LibraryReaders {
+public class LibraryReadersPersonalData {
 
     public static void main(String[] args) {
-        SpringApplication.run(LibraryReaders.class, args);
+        SpringApplication.run(LibraryReadersPersonalData.class, args);
     }
 
 //  Генерация кода из openapi.yaml:
