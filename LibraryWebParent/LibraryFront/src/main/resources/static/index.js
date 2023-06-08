@@ -1,12 +1,10 @@
-var libApp = angular.module('front', ['ngRoute', 'ngStorage']);
+function fillAdminURI(){
+    const adminPort = 8050;
+    const adminPref = "admin";
 
+    const currentURI = window.location;
+    document.getElementById("adminEnter").href = currentURI.protocol + "//" + currentURI.hostname + ":" + adminPort + "/" + adminPref;
+}
 
-libApp.controller('entranceController', function ($scope, $http, $localstorage) {
-    $scope.enterOfficial = function (){
-        console.log("go to official");
-    };
+fillAdminURI();
 
-    $scope.enterReader = function (){
-        console.log("go to reader");
-    };
-});

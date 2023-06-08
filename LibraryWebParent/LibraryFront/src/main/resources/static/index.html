@@ -13,37 +13,36 @@
 <!--    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>-->
 <!--    <script src="/webjars/jquery/3.6.3/src/jquery.js"></script>-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
 
 </head>
-<body ng-app="front">
-<div class="container-fluid">
-    <div ng-controller="entranceController">
-       <div style="align-content: center">
-            <div class="card" style="width: 600px;">
-              <div class="card-body">
-                <h2 class="card-title">Welcome to public library</h2>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Заголовок блока</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
-                <button class="btn btn-secondary" ng-click="enterOfficial()">Войти как сотрудник</button>
-                <button class="btn btn-secondary" ng-click="enterReader()">Войти как читатель</button>
-
-              </div>
-              <div class="card-footer text-body-secondary">
-                <a href="#!/official" class="card-link">Войти как читатель</a>
-                <a href="#!/reader" class="card-link">Войти как читатель</a>
-                <a href="#!/auth" class="btn btn-primary">Авторизироваться</a>
-              </div>
+<body>
+<div class="container-fluid text-center" style="display: flex; align-content: center; align-items: center; justify-content: center">
+    <div>
+        <div class="card text-center border-primary rounded mt-5" style="width: 600px; display: block">
+            <h4 class="card-header">Добро пожаловать на портал публичной библиотеки</h4>
+            <div class="card-body  p-3">
+                <h2 class="card-title">Введите ваши данные:</h2>
+                <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+                <p class="card-text"></p>
+                <div class="col p-2">
+                    <label>Email:</label>
+                    <input type="email" placeholder="E-mail as login" class="form-control mt-1" required minlength="6">
+                    <label>Password:</label>
+                    <input type="password" placeholder="Password" class="form-control mt-1" required minlength="6">
+                </div>
+                <a href="official/index.html" class="btn btn-info">Войти как сотрудник</a>
+                <a href="reader/index.html" class="btn btn-primary">Войти как читатель</a>
             </div>
-       </div>
+
+            <div class="card-footer text-body-secondary">
+                <a href="reader/registration_form/registration_form.html" class="card-link">Зарегистрироваться</a>
+                <a id="adminEnter" href="" class="card-link text-sm-center">Войти в админку</a>
+            </div>
+        </div>
+
     </div>
 
-    <ng-view></ng-view>
-
-    <script src="index.js"></script>
+<script src="index.js"></script>
 </div>
 </body>
 </html>
