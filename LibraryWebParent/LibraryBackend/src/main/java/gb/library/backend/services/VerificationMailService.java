@@ -1,6 +1,6 @@
 package gb.library.backend.services;
 
-import gb.library.backend.repositories.MailSettingRepository;
+import gb.library.backend.configs.MailSender;
 import gb.library.common.entities.User;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,8 +19,9 @@ public class VerificationMailService extends AbstractMailService{
     private static final String MAIL_CONTENT = "verification_mail.html";
     private final Context context = new Context();
 
-    public VerificationMailService(MailSettingRepository repository, SpringTemplateEngine templateEngine) {
-        super(repository, templateEngine);
+    public VerificationMailService(SpringTemplateEngine templateEngine, MailSettingsService mailService,
+                                   MailSender mailSender) {
+        super(templateEngine, mailService, mailSender);
     }
 
     public void sendVerificationEmail(HttpServletRequest request, User user)

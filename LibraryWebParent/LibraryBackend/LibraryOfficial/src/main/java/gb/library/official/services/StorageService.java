@@ -1,16 +1,16 @@
 package gb.library.official.services;
 
+import gb.library.backend.specifications.StorageSpecification;
 import gb.library.common.entities.Storage;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.StorageRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,25 +27,40 @@ public class StorageService {
         return storageRepository.save(storage);
     }
 
-    public void deleteById(Integer id) {storageRepository.deleteById(id);
+    public void deleteById(Integer id) {
+        storageRepository.deleteById(id);
     }
 
 
-    public Storage update(Storage storage) {
-        Storage updatedGenre = storageRepository.findById(storage.getId()).orElseThrow(
-                () -> new ObjectInDBNotFoundException("Место хранения не найдено базе, id: " + storage.getId(), "Storage"));
-        updatedGenre.setZone(storage.getZone());
-        updatedGenre.setSector(storage.getSector());
-        return storageRepository.save(updatedGenre);
+    public Storage update(Storage storageToUpdate) {
+        Storage currentStorage = storageRepository.findById(storageToUpdate.getId()).orElseThrow(
+                () -> new ObjectInDBNotFoundException("Место хранения не найдено базе, id: " + storageToUpdate.getId(), "Storage"));
+        currentStorage.setZone(storageToUpdate.getZone());
+        currentStorage.setSector(storageToUpdate.getSector());
+        currentStorage.setAvailable(storageToUpdate.isAvailable());
+        return storageRepository.save(currentStorage);
     }
 
-    public List<Zone> getStorageZones(){
+    public List<Zone> getStorageZones(String zone, String sector, String available) {
+        Specification<Storage> specification = Specification.where(null);
+
+        if (zone != null && !zone.isBlank()) {
+            specification = specification.and(StorageSpecification.zoneLike(zone));
+        }
+        if (sector != null && !sector.isBlank()) {
+            specification = specification.and(StorageSpecification.sectorLike(sector));
+        }
+        if (available != null && !available.isBlank()) {
+            specification = specification.and(StorageSpecification.availableCheck(Boolean.parseBoolean(available)));
+        }
+
         Map<String, List<Sector>> zones = new HashMap<>();
-        List<Storage> storages = findAll();
+        List<Storage> storages = storageRepository.findAll(specification);
+
         for (Storage storage : storages) {
             List<Sector> sectors = zones.get(storage.getZone());
-            if (sectors == null){
-                sectors=new ArrayList<>();
+            if (sectors == null) {
+                sectors = new ArrayList<>();
                 zones.put(storage.getZone(), sectors);
             }
             sectors.add(new Sector(storage.getId(), storage.getSector(), storage.isAvailable()));
@@ -58,17 +73,43 @@ public class StorageService {
 
         return zonesList;
     }
+
+    public Zone findZoneByTitle(String zoneTitle) {
+        Map<String, List<Sector>> zoneData = new HashMap<>();
+        List<Storage> storages = storageRepository.findAllByZone(zoneTitle);
+        for (Storage storage : storages) {
+            List<Sector> sectors = zoneData.get(storage.getZone());
+            if (sectors == null) {
+                sectors = new ArrayList<>();
+                zoneData.put(storage.getZone(), sectors);
+            }
+            sectors.add(new Sector(storage.getId(), storage.getSector(), storage.isAvailable()));
+        }
+        return new Zone(zoneTitle, zoneData.get(zoneTitle));
+    }
+
+    public Storage findByZoneAndSector(String zone, String sector) {
+        return storageRepository.findByZoneAndSector(zone, sector).orElseThrow(
+                () -> new ObjectInDBNotFoundException(String.format("Место хранения не найдена по заданным параметрам (%s, %s)", zone, sector), "Storage"));
+    }
+
     @AllArgsConstructor
-    public static class Zone{
+    public static class Zone {
         public String zone;
         public List<Sector> sectors;
-        
+
     }
+
     @AllArgsConstructor
-    public static class Sector{
+    public static class Sector {
         public int id;
         public String sector;
         public Boolean isAvailable;
 
+    }
+
+    @Transactional
+    public void deleteAllByZone(String zone) {
+        storageRepository.deleteAllByZone(zone);
     }
 }
