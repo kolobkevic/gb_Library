@@ -32,6 +32,7 @@ public class StorageService {
     }
 
 
+    @Transactional
     public Storage update(Storage storageToUpdate) {
         Storage currentStorage = storageRepository.findById(storageToUpdate.getId()).orElseThrow(
                 () -> new ObjectInDBNotFoundException("Место хранения не найдено базе, id: " + storageToUpdate.getId(), "Storage"));
