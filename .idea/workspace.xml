@@ -7,6 +7,19 @@
     <list default="true" id="a9d16176-cc22-4b30-af69-1b183f14b5c7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryReader/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryBackend/LibraryReader/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/book_history/book_history.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/book_history/book_history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/book_on_hands/book_on_hands.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/book_on_hands/books_on_hands.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/book_on_hands/book_on_hands.js" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/book_on_hands/books_on_hands.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/books/books.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/books/books.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/books_catalog/books_catalog.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/books_catalog/books_catalog_old.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/books_catalog/books_catalog.js" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/books_catalog/books_catalog_old.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/personal_account/personal_account.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/personal_account/personal_account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/personal_account/personal_account.js" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/personal_account/personal_account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/reader_wishlist/reader_wishlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/reader_wishlist/reader_wishlist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/registration_form/registration_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/registration_form/registration_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/reserved_books/reserved_books.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/reserved_books/reserved_books.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/verification_check/verification.html" beforeDir="false" afterPath="$PROJECT_DIR$/LibraryWebParent/LibraryFront/src/main/resources/static/reader/verification_check/verification.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +31,9 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -35,26 +51,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;4fda8e41e55fe4e16331011e093e9a19&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "4fda8e41e55fe4e16331011e093e9a19",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Spring Boot.LibraryReaderApplication">
+}]]></component>
+  <component name="RunManager" selected="Spring Boot.LibraryFrontApplication">
     <configuration name="LibraryAdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="LibraryAdmin" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="gb.library.admin.LibraryAdminApplication" />
@@ -89,9 +107,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LibraryReaders" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="LibraryReadersPersonalData" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="LibraryReadersPersonalData" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="gb.library.pd.LibraryReaders" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="gb.library.pd.LibraryReadersPersonalData" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -112,26 +130,9 @@
       <option name="specificationPath" value="D:\JavaProjects\MyProjects\gb_Library\LibraryWebParent\LibraryReadersPersonalData\src\main\resources\openapi\openapi_v1.yaml" />
       <method v="2" />
     </configuration>
-    <configuration name="openapi_v1.yaml" type="SwaggerCodegen" temporary="true">
-      <option name="activeConfigurationType" value="FILE" />
-      <option name="configurationPath" value="" />
-      <option name="customJreEnabled" value="false" />
-      <option name="customTemplatesPath" value="" />
-      <option name="enableDebugLogging" value="false" />
-      <option name="generateToPath" value="D:\JavaProjects\MyProjects\gb_Library\gen" />
-      <option name="generationParameters">
-        <list />
-      </option>
-      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
-      <option name="jdkPath" value="Default" />
-      <option name="language" value="java" />
-      <option name="specificationPath" value="D:\JavaProjects\MyProjects\gb_Library\LibraryWebParent\LibraryReadersPersonalData\src\main\resources\openapi\openapi_v1.yaml" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.LibraryFrontApplication" />
-        <item itemvalue="Swagger Codegen.openapi_v1.yaml" />
       </list>
     </recent_temporary>
   </component>
@@ -155,6 +156,8 @@
       <workItem from="1685997694285" duration="4647000" />
       <workItem from="1686048215215" duration="20549000" />
       <workItem from="1686071736138" duration="273000" />
+      <workItem from="1686341993003" duration="147000" />
+      <workItem from="1686397254502" duration="14151000" />
     </task>
     <servers />
   </component>

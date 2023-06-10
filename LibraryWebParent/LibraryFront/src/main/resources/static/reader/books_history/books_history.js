@@ -6,7 +6,7 @@ angular.module('reader-front').controller('bookHistoryController', function ($sc
         currentPageIndex = pageIndex;
         $http({
             // url: contextPath + 'api/v1/book_on_hands' + $localStorage.webUser.username,
-            url: contextPath + 'api/v1/book_history/3', // поменять адрес на актуальный
+            url: contextPath + 'api/v1/book_history/1', // поменять адрес на актуальный
             method: 'GET',
         }).then(function (response) {
             console.log(response);

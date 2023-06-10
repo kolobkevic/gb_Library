@@ -1,4 +1,5 @@
-angular.module('reader-front', []).controller('booksCatalogController', function ($scope, $http) {
+angular.module('reader-front').controller('booksCatalogController', function ($scope, $http) {
+
     let contextPath = 'http://localhost:8070/reader/api/v1/books_catalog';
     let booksWishlistPath = 'http://localhost:8070/reader/api/v1/wishlist';
     let genresPath = 'http://localhost:8070/reader/api/v1/genres';
@@ -79,10 +80,9 @@ angular.module('reader-front', []).controller('booksCatalogController', function
                 button.textContent = 'Добавлено';
                 button.disabled = 'true';
                 console.log('Книга успешно добавлена в список');
-               //TODO
+                //TODO
             });
     }
-
 
 
     $scope.loadBooksCatalogPage();

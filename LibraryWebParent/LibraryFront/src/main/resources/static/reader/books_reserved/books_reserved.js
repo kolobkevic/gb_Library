@@ -1,4 +1,4 @@
-angular.module('reader-front').controller('reservedBooksController', function ($scope, $http, $localStorage) {
+angular.module('reader-front').controller('booksReservedController', function ($scope, $http, $localStorage) {
     const contextPath = 'http://localhost:8070/reader/';
     let currentPageIndex = 1;
 

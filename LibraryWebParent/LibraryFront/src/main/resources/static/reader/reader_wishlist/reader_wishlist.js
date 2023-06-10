@@ -1,4 +1,4 @@
-angular.module('reader-front', []).controller('booksWishlistController', function ($scope, $http) {
+angular.module('reader-front').controller('booksWishlistController', function ($scope, $http) {
     let contextPath = 'http://localhost:8070/reader/api/v1/wishlist';
 
     let defaultPage = 1;
@@ -31,7 +31,7 @@ angular.module('reader-front', []).controller('booksWishlistController', functio
 
     $scope.removeCurrentBookFromWishlist = function (recordId) {
         $http.delete(contextPath + '/' + recordId).then(function () {
-           $scope.loadBooksWishlist(currentPage);
+            $scope.loadBooksWishlist(currentPage);
         });
     }
 
