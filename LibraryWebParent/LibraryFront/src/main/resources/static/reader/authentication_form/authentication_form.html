@@ -1,0 +1,28 @@
+<div>
+    <div style="padding-left: 550px; padding-right: 550px;">
+        <div style="padding: 35px 75px 35px 75px; margin-top: 100px; border-radius: 15px; background: white; box-shadow: 0px 1px 2px 1px lightgray;">
+            <header style="margin-bottom: 55px; text-align: center;">
+                <h3>Вход в учетную запись</h3>
+            </header>
+            <form class="form-floating" novalidate ng-submit="startAuthentication()">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="loginField"  ng-model="auth_user.email"
+                           placeholder="email" required minlength="6">
+                    <label for="loginField">E-mail</label>
+                </div>
+                <p></p>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="passwordField"
+                           placeholder="password" required minlength="6">
+                    <label for="passwordField">Пароль</label>
+                </div>
+                <p></p>
+                <button type="submit" class="btn btn-primary"
+                        style="position: relative; left: 50%; transform: translate(-50%, 0); margin-top: 35px;">
+                    Войти в систему
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -19,7 +19,7 @@ angular.module('reader-front').controller('personalAccountController', function 
             .then(function successCallback(response) {
                 $scope.updated_user = null;
                 alert('Данные пользователя успешно обновлены');
-                $location.path('/personal_account');  // Скорректировать
+                $scope.loadUserInformation();
             }, function failureCallback(response) {
                 alert(response.data.messages);
             });

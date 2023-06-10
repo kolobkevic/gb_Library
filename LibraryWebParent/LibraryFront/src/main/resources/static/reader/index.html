@@ -22,11 +22,12 @@
     <script src="books_reserved/books_reserved.js"></script>
     <script src="reader_wishlist/reader_wishlist.js"></script>
     <script src="registration_form/registration_form.js"></script>
+    <script src="authentication_form/authentication_form.js"></script>
     <script src="personal_account/personal_account.js"></script>
 </head>
 <body ng-app="reader-front" style="background-color: #f1f1f1">
 <div ng-controller="indexController">
-    <header>
+    <header id="header">
         <div style="width: 100%; height: 100px; background-color: white; box-shadow: 0px 1px 2px 1px lightgray;">
             <nav class="navbar navbar-expand-lg navbar-light" style="padding-top: 25px;">
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -37,8 +38,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="padding-left: 15px;">Каталог
-                                книг</a>
+                            <a class="nav-link" style="padding-left: 15px;" href="#!/books_catalog">Каталог книг</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#!/reader_wishlist">Список желаемого</a>
@@ -58,6 +58,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#!/registration">Регистрация</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!/authentication">Аутентификация</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -66,7 +69,7 @@
     <div>
         <ng-view></ng-view>
     </div>
-    <footer class="container" style="padding-top: 150px">
+    <footer id="footer" class="container" style="padding-top: 150px">
         <hr>
         <p>&copy;Все права защищены</p>
     </footer>

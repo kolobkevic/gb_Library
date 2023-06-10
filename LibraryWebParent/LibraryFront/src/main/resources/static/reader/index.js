@@ -9,7 +9,7 @@
             // .when('/', {
             //     templateUrl: 'static/index.html',
             // })
-            .when('/', {
+            .when('/books_catalog', {
                 templateUrl: 'books_catalog/books_catalog.html',
                 controller: 'booksCatalogController'
             })
@@ -37,8 +37,12 @@
                 templateUrl: 'registration_form/registration_form.html',
                 controller: 'registrationController'
             })
+            .when('/authentication', {
+                templateUrl: 'authentication_form/authentication_form.html',
+                controller: 'authenticationController'
+            })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/books_catalog'
             });
     }
 

@@ -1,27 +1,49 @@
 <div>
     <div style="padding-left: 550px; padding-right: 550px;">
-        <div style="padding: 25px 55px 25px 55px; margin-top: 65px; border-radius: 15px; background: white; box-shadow: 0px 1px 2px 1px lightgray;">
-            <header style="margin-bottom: 35px; text-align: center;">
+        <div style="padding: 35px 75px 35px 75px; margin-top: 100px; border-radius: 15px; background: white; box-shadow: 0px 1px 2px 1px lightgray;">
+            <header style="margin-bottom: 55px; text-align: center;">
                 <h3>Регистрация</h3>
             </header>
-            <form ng-submit="preregisterCheck()">
-                <input class="form-control" type="text" placeholder="Имя" ng-model="new_user.firstName"
-                       required minlength="2">
+            <form class="form-floating" novalidate ng-submit="preregisterCheck()">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="firstName" ng-model="new_user.firstName"
+                           placeholder="Имя" required minlength="6">
+                    <label for="loginField">Имя</label>
+                </div>
                 <p></p>
-                <input class="form-control" type="text" placeholder="Фамилия" ng-model="new_user.lastName"
-                       required minlength="2">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="lastName" ng-model="new_user.lastName"
+                           placeholder="Фамилия" required minlength="6">
+                    <label for="loginField">Фамилия</label>
+                </div>
                 <p></p>
-                <input class="form-control" type="email" placeholder="E-mail" ng-model="new_user.email"
-                       required minlength="6">
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="loginField" ng-model="new_user.email"
+                           placeholder="E-mail" required minlength="6">
+                    <label for="loginField">E-mail</label>
+                </div>
                 <p></p>
-                <input id="password" class="form-control" type="password" placeholder="Пароль"
-                       ng-model="new_user.password" required minlength="6">
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="passwordField" ng-model="new_user.password"
+                           placeholder="Пароль" required minlength="6">
+                    <label for="passwordField">Пароль</label>
+                </div>
                 <p></p>
-                <input class="form-control" type="password" placeholder="Потдвердите пароль" ng-model="confirmPassword">
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="passwordConfirmField" ng-model="confirmPassword"
+                           placeholder="Подтвердите пароль" required minlength="6">
+                    <label for="passwordField">Подвердите пароль</label>
+                    <a style="font-size: x-small;" href="#!/authentication_form">
+                        У меня уже есть аккаунт...</a><br>
+                </div>
+                <p></p>
                 <button type="submit" class="btn btn-primary"
-                        style="position: relative; left: 50%; transform: translate(-50%, 0); margin-top: 35px;">Зарегистрироваться
+                        style="position: relative; left: 50%; transform: translate(-50%, 0); margin-top: 35px;">
+                    Зарегистрироваться
                 </button>
             </form>
+
         </div>
     </div>
 </div>
+
