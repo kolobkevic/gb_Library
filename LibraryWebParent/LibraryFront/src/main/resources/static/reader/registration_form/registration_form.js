@@ -1,8 +1,16 @@
-angular.module('reader-front').controller('registrationController', function ($scope, $http) {
+angular.module('reader-front').controller('registrationController', function ($scope, $http, $location) {
     const contextPath = 'http://localhost:8070/reader/api/v1/users';
     let isPasswordReady = false;
     $scope.isEmailReady = false;
     let p1;
+
+    const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
+
+    let hideHeaderAndFooter = function () {
+        header.style.display = "none";
+        footer.style.display = "none";
+    };
 
     $scope.registerUser = function () {
         $http.post(contextPath + '/create', $scope.new_user)
@@ -10,7 +18,7 @@ angular.module('reader-front').controller('registrationController', function ($s
                 console.log($scope.new_user);
                 $scope.new_user = null;
                 alert('Пользователь успешно создан');
-                window.location.href = '../books/books.html'; // временное решение
+                $location.path('/authentication');
             }, function failureCallback(response) {
                 console.log(response);
                 alert(response.data.messages);
@@ -60,4 +68,6 @@ angular.module('reader-front').controller('registrationController', function ($s
             alert('Пароли не совпадают');
         } else isPasswordReady = true;
     }
+
+    hideHeaderAndFooter();
 });

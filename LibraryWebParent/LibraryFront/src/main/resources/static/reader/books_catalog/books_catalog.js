@@ -1,8 +1,20 @@
-angular.module('reader-front', []).controller('booksCatalogController', function ($scope, $http) {
+angular.module('reader-front').controller('booksCatalogController', function ($scope, $http) {
+
     let contextPath = 'http://localhost:8070/reader/api/v1/books_catalog';
     let booksWishlistPath = 'http://localhost:8070/reader/api/v1/wishlist';
     let genresPath = 'http://localhost:8070/reader/api/v1/genres';
     let currentPage = 1;
+
+    const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
+
+    let showHeaderAndFooter = function () {
+        if (header.style.display == "none" && footer.style.display == "none") {
+            header.style.display = "inline";
+            footer.style.display = "inline";
+        }
+    };
+
 
     $scope.generatePagesIndexes = function (totalPages) {
         let arr = [];
@@ -79,12 +91,11 @@ angular.module('reader-front', []).controller('booksCatalogController', function
                 button.textContent = 'Добавлено';
                 button.disabled = 'true';
                 console.log('Книга успешно добавлена в список');
-               //TODO
+                //TODO
             });
     }
 
-
-
+    showHeaderAndFooter();
     $scope.loadBooksCatalogPage();
     $scope.loadGenres();
 });
