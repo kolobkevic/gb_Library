@@ -25,5 +25,4 @@ public class ReservedBook extends IdBasedEntity{
     @JoinColumn(name = "library_book_id")
     private LibraryBook libraryBook;
 
-
 }
