@@ -5,6 +5,17 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
     let genresPath = 'http://localhost:8070/reader/api/v1/genres';
     let currentPage = 1;
 
+    const header = document.getElementById("header");
+    const footer = document.getElementById("footer");
+
+    let showHeaderAndFooter = function () {
+        if (header.style.display == "none" && footer.style.display == "none") {
+            header.style.display = "inline";
+            footer.style.display = "inline";
+        }
+    };
+
+
     $scope.generatePagesIndexes = function (totalPages) {
         let arr = [];
         for (let i = 0; i < totalPages; i++) {
@@ -84,7 +95,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
             });
     }
 
-
+    showHeaderAndFooter();
     $scope.loadBooksCatalogPage();
     $scope.loadGenres();
 });

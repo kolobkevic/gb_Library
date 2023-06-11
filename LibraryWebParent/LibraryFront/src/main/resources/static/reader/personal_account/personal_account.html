@@ -5,7 +5,7 @@
                 <h3>Информация об аккаунте</h3>
             </header>
             <form class="form-floating" novalidate ng-submit="updateUser()" ng-show="userInfo">
-                <div class="form-floating">
+                <div hidden class="form-floating">
                     <input ng-model="updated_user.userId" type="text" class="form-control" id="idValue" placeholder="Id"
                            value={{userInfo.userId}}>
                     <label for="idValue">ID</label>

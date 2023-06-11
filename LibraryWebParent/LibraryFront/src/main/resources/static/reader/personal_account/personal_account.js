@@ -15,6 +15,14 @@ angular.module('reader-front').controller('personalAccountController', function 
     };
 
     $scope.updateUser = function () {
+        if (document.getElementById("firstName").value.trim() == '' ||
+            document.getElementById("lastName").value.trim() == '' ||
+            document.getElementById("email").value.trim() == '' ||
+            document.getElementById("password").value.trim() == '') {
+            alert('Все поля должны быть заполнены');
+            return;
+        }
+
         $http.put(contextPath + 'api/v1/users', $scope.updated_user)
             .then(function successCallback(response) {
                 $scope.updated_user = null;
