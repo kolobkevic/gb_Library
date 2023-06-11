@@ -3,8 +3,10 @@ package gb.library.admin.users;
 import gb.library.admin.roles.RolesService;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.admin.utils.paging.PagingAndSortingParam;
+import gb.library.common.dtos.UserDTO;
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
+import gb.library.pd.openapi.client.pd.model.ReaderResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UsersController {
     private final UsersService usersService;
     private final RolesService rolesService;
+    private final UsersPersonalDataService personalDataService;
+    private final UsersMapper usersMapper;
 
     @GetMapping("")
     public String showFirstPage(){
@@ -55,6 +59,23 @@ public class UsersController {
         String firstPartOfEmail = user.getEmail().split("@")[0];
 
         return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
+    }
+
+    @GetMapping("/info/{id}")
+    public String infoUser(@PathVariable(name = "id") Integer id, Model model,
+                           RedirectAttributes redirectAttributes){
+        try {
+            User user = usersService.getById(id);
+            ReaderResponse reader = personalDataService.getUserById(Long.valueOf(id));
+            UserDTO userDTO = usersMapper.toDto(user, reader);
+            model.addAttribute("user", userDTO);
+            model.addAttribute("pageTitle", "Информация о пользователе");
+
+            return "users/user_info";
+        } catch (ObjectInDBNotFoundException ex){
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+            return "redirect:/users";
+        }
     }
 
     @GetMapping("/edit/{id}")

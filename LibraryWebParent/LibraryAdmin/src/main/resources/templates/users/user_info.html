@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: page_head(${pageTitle}, 'none')}"></head>
+<body>
+<div class="container-fluid">
+    <div th:insert="~{navigation :: menu}"></div>
+
+    <div>
+        <h2>Управление пользователями | [[${pageTitle}]]</h2>
+    </div>
+
+    <div style="max-width: 500px; margin: 0 auto">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td>ID</td>
+                <td>[[${user.id}]]</td>
+            </tr>
+            <tr>
+                <td>Имя</td>
+                <td>[[${user.firstName}]]</td>
+            </tr>
+            <tr>
+                <td>Фамилия</td>
+                <td>[[${user.lastName}]]</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>[[${user.email}]]</td>
+            </tr>
+            <tr>
+                <td>Роли</td>
+                <td>[[${user.roles}]]</td>
+            </tr>
+            <tr>
+                <td>Enabled</td>
+                <td th:if="${user.enabled == true}">Да</td>
+                <td th:if="${user.enabled != true}">Нет</td>
+            </tr>
+
+            <tr>
+                <td>Дата рождения</td>
+                <td th:if="${user.birthday == null}">-</td>
+                <td th:if="${user.birthday != null}">[[${user.birthday}]]</td>
+            </tr>
+            <tr>
+                <td>Телефон (домашний)</td>
+                <td th:if="${user.phone1 == null}">-</td>
+                <td th:if="${user.phone1 != null}">[[${user.phone1}]]</td>
+            </tr>
+            <tr>
+                <td>Телефон (рабочий)</td>
+                <td th:if="${user.phone2 == null}">-</td>
+                <td th:if="${user.phone2 != null}">[[${user.phone2}]]</td>
+            </tr>
+            <tr>
+                <td>Адрес</td>
+                <td th:if="${user.address == null}">-</td>
+                <td th:if="${user.address != null}">[[${user.address}]]</td>
+            </tr>
+            <tr>
+                <td>Номер паспорта</td>
+                <td th:if="${user.passport == null}">-</td>
+                <td th:if="${user.passport != null}">[[${user.passport}]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:insert="~{fragments :: footer}"></div>
+</div>
+
+</body>
+</html>
