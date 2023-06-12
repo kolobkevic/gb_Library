@@ -2,6 +2,7 @@ package gb.library.common.dtos;
 
 import gb.library.common.entities.Role;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ public class UserDTO {
 
     private Set<Role> roles = new HashSet<>();
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private String phone1;
     private String phone2;

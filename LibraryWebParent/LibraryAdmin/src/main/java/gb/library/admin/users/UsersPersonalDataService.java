@@ -1,6 +1,5 @@
 package gb.library.admin.users;
 
-import gb.library.common.entities.User;
 import gb.library.pd.openapi.client.pd.ApiException;
 import gb.library.pd.openapi.client.pd.api.ReaderApi;
 import gb.library.pd.openapi.client.pd.model.ReaderPatchRequest;
@@ -33,14 +32,8 @@ public class UsersPersonalDataService {
         return new ReaderResponse();
     }
 
-    public void newUser(User user) {
-        ReaderPostRequest request = new ReaderPostRequest();
 
-        request.setReaderId(Long.valueOf(user.getId()));
-        request.setName(user.getFirstName());
-        request.setSurname(user.getLastName());
-        request.setEmail(user.getEmail());
-
+    public void newUser(ReaderPostRequest request) {
         try {
             readerApi.addNewReader(request);
         } catch (ApiException e) {
@@ -49,15 +42,9 @@ public class UsersPersonalDataService {
     }
 
 
-    public void updateUser(User user) {
-        ReaderPatchRequest request = new ReaderPatchRequest();
-
-        request.setName(user.getFirstName());
-        request.setSurname(user.getLastName());
-        request.setEmail(user.getEmail());
-
+    public void updateUser(Long readerId, ReaderPatchRequest request) {
         try {
-            readerApi.updateReader(Long.valueOf(user.getId()), request);
+            readerApi.updateReader(readerId, request);
         } catch (ApiException e) {
             // TODO: Добавить логику обработки исключения
         }

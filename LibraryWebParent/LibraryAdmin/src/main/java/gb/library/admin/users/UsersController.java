@@ -37,7 +37,7 @@ public class UsersController {
 
     @GetMapping("/new")
     public String newUser(Model model){
-        User newUser = new User();
+        UserDTO newUser = new UserDTO();
         newUser.setEnabled(true);
         model.addAttribute("user", newUser);
         model.addAttribute("listRoles", rolesService.getAllList());
@@ -47,7 +47,7 @@ public class UsersController {
     }
 
     @PostMapping("/save")
-    public String saveUser(User user, RedirectAttributes redirectAttributes) {
+    public String saveUser(UserDTO user, RedirectAttributes redirectAttributes) {
         usersService.save(user);
 
         redirectAttributes.addFlashAttribute("message", "Пользователь был успешно добавлен в базу");
@@ -55,7 +55,7 @@ public class UsersController {
         return getRedirectURItoAffectedUser(user);
     }
 
-    private static String getRedirectURItoAffectedUser(User user) {
+    private String getRedirectURItoAffectedUser(UserDTO user) {
         String firstPartOfEmail = user.getEmail().split("@")[0];
 
         return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
@@ -83,7 +83,9 @@ public class UsersController {
                            RedirectAttributes redirectAttributes){
         try {
             User user = usersService.getById(id);
-            model.addAttribute("user", user);
+            ReaderResponse reader = personalDataService.getUserById(Long.valueOf(id));
+            UserDTO userDTO = usersMapper.toDto(user, reader);
+            model.addAttribute("user", userDTO);
             model.addAttribute("listRoles", rolesService.getAllList());
             model.addAttribute("pageTitle", "Редактирование пользователя (ID: " + id + ")");
 
