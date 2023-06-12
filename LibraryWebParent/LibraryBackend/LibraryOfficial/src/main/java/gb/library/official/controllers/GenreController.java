@@ -2,17 +2,14 @@ package gb.library.official.controllers;
 
 import gb.library.backend.converters.GenreConverter;
 import gb.library.common.dtos.GenreDTO;
-import gb.library.common.entities.Genre;
 import gb.library.official.services.GenreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +18,6 @@ import java.util.stream.Collectors;
 public class GenreController {
     private final GenreService genreService;
     private final GenreConverter converter;
-    private final ModelMapper mapper;
 
     @GetMapping
     public List<GenreDTO> findAll(@RequestParam(required = false, name = "name") String name,
