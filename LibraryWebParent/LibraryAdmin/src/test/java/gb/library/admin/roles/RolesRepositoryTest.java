@@ -55,9 +55,9 @@ public class RolesRepositoryTest {
     @Test
     void testFindByNameAndRoleType(){
         RoleType roleType = RoleType.ADMIN;
-        String roleName = "Super Admin";
-
-        Role role = repository.findByNameAndRoleType(roleName, roleType);
+        String roleName = "Super Admin";// <-- description
+        String name = "Root";           // <-- name
+        Role role = repository.findByNameAndRoleType(name, roleType);
         assertThat(role).isNotNull();
     }
 }
