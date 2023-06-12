@@ -17,7 +17,7 @@ public class GenreCommonService {
 
     public Genre findById(Integer id) {
         return repository.findById(id).orElseThrow(
-                () -> new ObjectInDBNotFoundException("Жанр не найде базе, id: " + id, "Genre"));
+                () -> new ObjectInDBNotFoundException("Жанр не найде базе, id: " + id, "GenreCommonService"));
     }
 
     public List<Genre> findAll(String genre, String description) {
