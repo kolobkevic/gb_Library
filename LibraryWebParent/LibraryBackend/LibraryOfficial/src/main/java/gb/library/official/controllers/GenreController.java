@@ -1,11 +1,12 @@
 package gb.library.official.controllers;
 
-import gb.library.common.dtos.GenreDTO;
 import gb.library.backend.converters.GenreConverter;
+import gb.library.common.dtos.GenreDTO;
 import gb.library.official.services.GenreService;
-import gb.library.official.validators.GenreValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,14 +18,11 @@ import java.util.List;
 public class GenreController {
     private final GenreService genreService;
     private final GenreConverter converter;
-    private final GenreValidator validator;
 
     @GetMapping
     public List<GenreDTO> findAll(@RequestParam(required = false, name = "name") String name,
                                @RequestParam(required = false, name = "description") String description) {
-        System.out.println("incoming request");
-
-        return genreService.findAll(name, description).stream().map(converter::entityToDto).toList();
+        return converter.listEntity2Dto(genreService.findAll(name, description));
     }
 
     @GetMapping("/{id}")
@@ -32,22 +30,24 @@ public class GenreController {
         return converter.entityToDto(genreService.findById(id));
     }
 
-    @DeleteMapping("delete/{id}")
-    public void deleteAuthor(@PathVariable Integer id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAuthor(@PathVariable Integer id) {
+        if (id < 1) return ResponseEntity.badRequest().build();
+
         genreService.deleteById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public GenreDTO updateGenre(@RequestBody GenreDTO genreDTO) {
-        validator.validate(genreDTO);
-        return converter.entityToDto(genreService.update(genreDTO));
+    public ResponseEntity<?> updateGenre(@RequestBody @Valid GenreDTO genreDTO) {
+        return ResponseEntity.accepted().body(converter.entityToDto(genreService.update(genreDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GenreDTO saveNewGenre(@RequestBody GenreDTO genreDTO) {
-        validator.validate(genreDTO);
+    public GenreDTO saveNewGenre(@RequestBody @Valid GenreDTO genreDTO) {
         return converter.entityToDto(genreService.save(converter.dtoToEntity(genreDTO)));
     }
+
 }
