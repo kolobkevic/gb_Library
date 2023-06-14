@@ -1,45 +1,36 @@
 package gb.library.backend.converters;
 
-import gb.library.backend.services.StorageCommonService;
-import gb.library.backend.services.WorldBookCommonService;
 import gb.library.common.dtos.LibraryBookDTO;
 import gb.library.common.dtos.StorageDTO;
+import gb.library.common.dtos.WorldBookDTO;
 import gb.library.common.entities.LibraryBook;
+import gb.library.common.entities.Storage;
 import gb.library.common.entities.WorldBook;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class LibraryBookConverter {
-    private final StorageCommonService storageService;
-    private final WorldBookConverter worldBookConverter;
-    private final WorldBookCommonService worldBookCommonService;
+
+    private final ModelMapper mapper;
+
 
     public LibraryBookDTO entityToDto(LibraryBook libraryBook) {
-        WorldBook worldBook = worldBookCommonService.findById(libraryBook.getWorldBook().getId());
-        return new LibraryBookDTO(libraryBook.getId(),
-                worldBookConverter.entityToDto(worldBook),
-                libraryBook.getPublisher(),
-                libraryBook.getIsbn(),
-                libraryBook.getInventoryNumber(),
-                libraryBook.isAvailable(),
-                new StorageDTO(libraryBook.getPlacedAt().getId(), libraryBook.getPlacedAt().getZone(), libraryBook.getPlacedAt().getSector(), libraryBook.getPlacedAt().isAvailable())
-        );
+
+        LibraryBookDTO dto = mapper.map(libraryBook, LibraryBookDTO.class);
+        dto.setWorldBookDTO(mapper.map(libraryBook.getWorldBook(), WorldBookDTO.class));
+        dto.setPlacedAt(mapper.map(libraryBook.getPlacedAt(), StorageDTO.class));
+
+        return dto;
     }
 
-    public LibraryBook dtoToEntity(LibraryBookDTO libraryBookDTO) {
-        WorldBook worldBook = new WorldBook();
-        worldBook.setId(libraryBookDTO.getWorldBookDTO().getId());
+    public LibraryBook dtoToEntity(LibraryBookDTO dto) {
+        LibraryBook book = mapper.map(dto, LibraryBook.class);
+        book.setWorldBook(mapper.map(dto.getWorldBookDTO(), WorldBook.class));
+        book.setPlacedAt(mapper.map(dto.getPlacedAt(), Storage.class));
 
-        LibraryBook libraryBook = new LibraryBook();
-        libraryBook.setId(libraryBookDTO.getId());
-        libraryBook.setWorldBook(worldBook);
-        libraryBook.setPublisher(libraryBookDTO.getPublisher());
-        libraryBook.setIsbn(libraryBookDTO.getIsbn());
-        libraryBook.setInventoryNumber(libraryBookDTO.getInventoryNumber());
-        libraryBook.setAvailable(libraryBookDTO.isAvailable());
-        libraryBook.setPlacedAt(storageService.findById(libraryBookDTO.getPlacedAt().getId()));
-        return libraryBook;
+        return book;
     }
 }

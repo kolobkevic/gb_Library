@@ -2,7 +2,6 @@ package gb.library.official.controllers;
 
 import gb.library.backend.converters.AuthorConverter;
 import gb.library.common.dtos.AuthorDTO;
-import gb.library.common.entities.Author;
 import gb.library.official.services.AuthorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +22,17 @@ public class AuthorController {
     private final AuthorConverter converter;
 
     @GetMapping
-    public Page<Author> findAll(@RequestParam(defaultValue = "1", name = "p") int pageIndex,
+    public Page<AuthorDTO> findAll(@RequestParam(defaultValue = "1", name = "p") int pageIndex,
                                 @RequestParam(required = false, name = "firstName") String firstName,
                                 @RequestParam(required = false, name = "lastName") String lastName) {
 
         if (firstName != null && !firstName.isBlank()) {
-            return authorService.findByFirstName(pageIndex, firstName);
+            return authorService.findByFirstName(pageIndex, firstName).map(converter::entity2dto);
         }
         if (lastName != null && !lastName.isBlank()) {
-            return authorService.findByLastName(pageIndex, lastName);
+            return authorService.findByLastName(pageIndex, lastName).map(converter::entity2dto);
         }
-        return authorService.findAll(pageIndex);
+        return authorService.findAll(pageIndex).map(converter::entity2dto);
     }
 
     @GetMapping("/all")
