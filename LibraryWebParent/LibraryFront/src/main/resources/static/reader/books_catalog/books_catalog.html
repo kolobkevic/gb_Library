@@ -79,7 +79,7 @@
                             <button class="btn btn-primary" type="submit" id="button-addon2">Поиск</button>
                         </div>
                     </form>
-                    <table class="table">
+                    <table class="table" style="padding-left: 20px; padding-right: 20px;">
                         <thead>
                         <tr>
                             <td>Автор</td>
@@ -96,7 +96,7 @@
                             <td>{{b.genreDTO.name}}</td>
                             <td>{{b.ageRating}}</td>
                             <td style="padding-right: 30px;">
-                                <button id="{{b.id}}" class="btn btn-primary" ng-click="addToBooksWishlist(b.id)">В желаемое</button>
+                                <button id="{{b.title}}" class="btn btn-primary" ng-disabled="wishlistContainsBook(b.title)" ng-click="addToBooksWishlist(b.id)">В желаемое</button>
                                 <button class="btn btn-danger">Забронировать</button>
                             </td>
                         </tr>

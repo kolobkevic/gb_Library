@@ -13,27 +13,29 @@
                 </div>
                 <div class="form-floating">
                     <input ng-model="updated_user.firstName" type="text" class="form-control" id="firstName"
-                           placeholder="firstName" value={{userInfo.firstName}}>
+                           placeholder="firstName"
+                           ng-value=userInfo.first_name>
                     <label for="firstName">Имя</label>
                     <p></p>
                 </div>
                 <div class="form-floating">
                     <input ng-model="updated_user.lastName" type="text" class="form-control" id="lastName"
-                           placeholder="lastName" value={{userInfo.lastName}}>
+                           placeholder="lastName"
+                           ng-value=userInfo.last_name>
                     <label for="idValue">Фамилия</label>
                     <p></p>
                 </div>
                 <div class="form-floating">
                     <input ng-model="updated_user.email" type="email" class="form-control" id="email"
                            placeholder="email"
-                           value={{userInfo.email}}>
+                           ng-value=userInfo.email>
                     <label for="idValue">Почта</label>
                     <p></p>
                 </div>
                 <div class="form-floating">
                     <input ng-model="updated_user.password" type="text" class="form-control" id="password"
                            placeholder="Id"
-                           value={{userInfo.password}}>
+                           ng-value=userInfo.password>
                     <label for="idValue">Пароль</label>
                     <p></p>
                 </div>

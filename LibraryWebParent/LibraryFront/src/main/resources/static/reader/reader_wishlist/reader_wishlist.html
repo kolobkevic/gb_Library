@@ -3,8 +3,11 @@
     <div>
       <h3 style="padding-top: 20px; padding-bottom: 15px">Список желаемого</h3>
     </div>
-    <div style="padding: 25px 200px 25px 35px;border-radius: 15px; background: white; box-shadow: 0px 1px 2px 1px lightgray;">
-      <table class="table">
+    <div style="padding: 25px 35px 25px 35px; border-radius: 15px;
+     background: white; box-shadow: 0px 1px 2px 1px lightgray;">
+      <h5 id="showEmptyWishlistMsg" style="display: none;">В списке пока нет ни одной желаемой книги</h5>
+      <a id="redirectToBooksCatalog" class="btn btn-primary" href="#!/books_catalog" style="margin-left: 10px; display: none;">Перейти в каталог</a>
+      <table id="wishlistTable" class="table" style="width: 100%;">
         <thead>
         <tr>
           <td hidden>id</td>
@@ -31,7 +34,7 @@
       </table>
     </div>
     <br>
-    <div>
+    <div id="navigation" style="display: none;">
       <nav aria-label="Page navigation">
         <ul class="pagination"
             style="padding-top: 10px; padding-bottom: 10px; padding-left: 30px; border-radius: 15px; background: white; box-shadow: 0px 1px 2px 1px lightgray;">

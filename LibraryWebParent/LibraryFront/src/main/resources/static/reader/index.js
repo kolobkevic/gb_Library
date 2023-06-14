@@ -6,9 +6,6 @@
 
     function config($routeProvider) {
         $routeProvider
-            // .when('/', {
-            //     templateUrl: 'static/index.html',
-            // })
             .when('/books_catalog', {
                 templateUrl: 'books_catalog/books_catalog.html',
                 controller: 'booksCatalogController'

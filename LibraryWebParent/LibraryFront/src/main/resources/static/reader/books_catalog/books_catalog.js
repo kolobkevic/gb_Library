@@ -5,6 +5,9 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
     let genresPath = 'http://localhost:8070/reader/api/v1/genres';
     let currentPage = 1;
 
+    let outputData = [];
+
+
     const header = document.getElementById("header");
     const footer = document.getElementById("footer");
 
@@ -87,15 +90,46 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
         $http.get(booksWishlistPath + '/1/add/' + bookId)
             .then(function (response) {
                 console.log(bookId);
-                let button = document.getElementById(bookId);
-                button.textContent = 'Добавлено';
-                button.disabled = 'true';
                 console.log('Книга успешно добавлена в список');
+                bookWishListData();
+                $scope.loadBooksCatalogPage();
                 //TODO
             });
-    }
+    };
+
+    let bookWishListData = function (pageIndex = 0) {
+        $http({
+            url: booksWishlistPath,
+            method: 'GET',
+            params: {
+                p: pageIndex
+            }
+        }).then(function (response) {
+            console.log(response.data.content);
+            console.log("length: " + bookWishListData.length);
+            let responseData = response.data.content;
+
+            for (let i = 0; i < responseData.length; i++) {
+                outputData.push(responseData[i].book.title);
+            }
+            console.log('out: ' + outputData);
+        });
+    };
+
+    $scope.wishlistContainsBook = function (bookTitle) {
+        let button = document.getElementById(bookTitle);
+        if (outputData.includes(bookTitle)) {
+            button.textContent = 'В желаемом';
+            return true;
+        } else {
+            button.textContent = 'В желаемое';
+            return false;
+        }
+    };
+
 
     showHeaderAndFooter();
+    bookWishListData();
     $scope.loadBooksCatalogPage();
     $scope.loadGenres();
 });
