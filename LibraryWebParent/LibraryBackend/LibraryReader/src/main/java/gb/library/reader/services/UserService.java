@@ -2,8 +2,8 @@ package gb.library.reader.services;
 
 import gb.library.backend.services.VerificationMailService;
 import gb.library.backend.services.RoleService;
-import gb.library.common.entities.RegistrationType;
-import gb.library.common.entities.RoleType;
+import gb.library.common.enums.RegistrationType;
+import gb.library.common.enums.RoleType;
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.UserRepository;

@@ -2,7 +2,7 @@ package gb.library.backend.services;
 
 import gb.library.backend.repositories.MailSettingRepository;
 import gb.library.common.entities.MailSetting;
-import gb.library.common.entities.SettingsKey;
+import gb.library.common.enums.SettingsKey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

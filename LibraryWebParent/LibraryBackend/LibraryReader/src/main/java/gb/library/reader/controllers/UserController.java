@@ -1,6 +1,6 @@
 package gb.library.reader.controllers;
 
-import gb.library.common.entities.RegistrationType;
+import gb.library.common.enums.RegistrationType;
 import gb.library.reader.converters.UserConverter;
 import gb.library.reader.dtos.UserReaderDto;
 import gb.library.reader.services.UserService;

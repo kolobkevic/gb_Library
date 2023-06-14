@@ -1,8 +1,7 @@
 package gb.library.admin.roles;
 
 import gb.library.common.entities.Role;
-import gb.library.common.entities.RoleType;
-import org.junit.jupiter.api.DisplayName;
+import gb.library.common.enums.RoleType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
