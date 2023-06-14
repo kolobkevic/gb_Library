@@ -1,10 +1,10 @@
 package gb.library.reader.controllers;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gb.library.common.dtos.*;
 import gb.library.common.entities.*;
+import gb.library.common.enums.AgeRating;
 import gb.library.reader.converters.ReservedBookConverter;
 import gb.library.reader.dtos.ReservedBookReaderDto;
 import gb.library.reader.dtos.UserReaderDto;
@@ -88,7 +88,7 @@ class ReservedBookControllerTest {
         worldBookDto.setId(1);
         worldBookDto.setTitle("Test");
         worldBookDto.setDescription("Test dto world book");
-        worldBookDto.setAgeRating(AgeRating.PG13);
+        worldBookDto.setAgeRating(String.valueOf(AgeRating.PG13));
 
         LibraryBookDTO libBookDto = new LibraryBookDTO();
         libBookDto.setWorldBookDTO(worldBookDto);

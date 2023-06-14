@@ -3,7 +3,7 @@ package gb.library.admin.roles;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.admin.utils.paging.PagingAndSortingParam;
 import gb.library.common.entities.Role;
-import gb.library.common.entities.RoleType;
+import gb.library.common.enums.RoleType;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

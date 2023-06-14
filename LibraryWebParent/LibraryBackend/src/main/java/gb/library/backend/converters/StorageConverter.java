@@ -3,21 +3,20 @@ package gb.library.backend.converters;
 import gb.library.common.dtos.StorageDTO;
 import gb.library.common.entities.Storage;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class StorageConverter {
+
+    private final ModelMapper mapper;
+
     public Storage dtoToEntity(StorageDTO storageDTO) {
-        Storage storage = new Storage();
-        storage.setId(storageDTO.getId());
-        storage.setZone(storageDTO.getZone());
-        storage.setSector(storageDTO.getSector());
-        storage.setAvailable(storageDTO.isAvailable());
-        return storage;
+        return mapper.map(storageDTO, Storage.class);
     }
 
     public StorageDTO entityToDto(Storage storage) {
-        return new StorageDTO(storage.getId(), storage.getZone(), storage.getSector(), storage.isAvailable());
+        return mapper.map(storage, StorageDTO.class);
     }
 }

@@ -1,13 +1,10 @@
 package gb.library.common.entities;
 
+import gb.library.common.enums.AgeRating;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.Instant;
 
 
 @Entity

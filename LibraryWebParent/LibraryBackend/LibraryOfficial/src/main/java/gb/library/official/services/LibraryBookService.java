@@ -1,7 +1,7 @@
 package gb.library.official.services;
 
 
-import gb.library.common.entities.AgeRating;
+import gb.library.common.enums.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.WorldBook;
@@ -11,17 +11,13 @@ import gb.library.backend.repositories.LibraryBookRepository;
 import gb.library.backend.repositories.WorldBookRepository;
 import gb.library.backend.specifications.LibraryBookSpecification;
 import gb.library.backend.specifications.WorldBookSpecification;
-import gb.library.common.exceptions.ValidateException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLDataException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 @Service

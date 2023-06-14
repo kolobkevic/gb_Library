@@ -4,7 +4,7 @@ import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.Role;
-import gb.library.common.entities.RoleType;
+import gb.library.common.enums.RoleType;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -4,7 +4,7 @@ import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.dtos.UserDTO;
-import gb.library.common.entities.RegistrationType;
+import gb.library.common.enums.RegistrationType;
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.pd.openapi.client.pd.model.ReaderPatchRequest;

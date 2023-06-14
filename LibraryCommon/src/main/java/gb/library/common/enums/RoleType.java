@@ -1,4 +1,4 @@
-package gb.library.common.entities;
+package gb.library.common.enums;
 
 public enum RoleType {
     ADMIN,

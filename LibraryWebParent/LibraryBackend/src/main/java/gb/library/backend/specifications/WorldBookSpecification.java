@@ -1,6 +1,6 @@
 package gb.library.backend.specifications;
 
-import gb.library.common.entities.AgeRating;
+import gb.library.common.enums.AgeRating;
 import gb.library.common.entities.Author;
 import gb.library.common.entities.Genre;
 import gb.library.common.entities.WorldBook;

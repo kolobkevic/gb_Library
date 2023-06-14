@@ -1,5 +1,6 @@
 package gb.library.common.entities;
 
+import gb.library.common.enums.SettingsKey;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

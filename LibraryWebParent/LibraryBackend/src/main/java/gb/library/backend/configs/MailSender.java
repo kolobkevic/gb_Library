@@ -1,6 +1,6 @@
 package gb.library.backend.configs;
 
-import gb.library.common.entities.SettingsKey;
+import gb.library.common.enums.SettingsKey;
 import lombok.Getter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
