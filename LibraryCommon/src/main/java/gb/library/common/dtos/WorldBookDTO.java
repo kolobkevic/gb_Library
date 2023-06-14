@@ -15,7 +15,6 @@ import org.hibernate.validator.constraints.Length;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class WorldBookDTO {
 
     @Min(value = 0, message = "ID не может быть отрицательным")
