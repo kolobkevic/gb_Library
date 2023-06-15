@@ -20,13 +20,13 @@ public class ReservedBookController {
     private final ReservedBookConverter converter;
 
     @GetMapping("/{userId}")
-    public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "page") int pageIndex,
+    public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "page", defaultValue = "1", required = false) int pageIndex,
                                                @PathVariable int userId) {
         return reservedBooksService.getAllPageable(userId, pageIndex).map(converter::entityToDto);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteFromReserved(@PathVariable  int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteFromReserved(@PathVariable int id) {
         if (id < 1)
             return ResponseEntity.badRequest().build();
 
@@ -34,7 +34,7 @@ public class ReservedBookController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ReservedBookReaderDto reserveBook(@RequestBody @Valid ReservedBookReaderDto reservedBookDto) {
         ReservedBook book = reservedBooksService.create(converter.DtoToEntity(reservedBookDto));
         return converter.entityToDto(book);

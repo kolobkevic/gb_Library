@@ -1,13 +1,13 @@
 angular.module('reader-front').controller('booksReservedController', function ($scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:8070/reader/';
+    const contextPath = 'http://localhost:8070/reader/api/v1/reserved';
     let currentPageIndex = 1;
 
     $scope.loadReservedBooks = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
         $http({
             // url: contextPath + 'api/v1/reserved' + $localStorage.webUser.username,
-            url: contextPath + 'api/v1/reserved/3',
-            method: 'GET',
+            url: contextPath + '/1',
+            method: 'GET'
         }).then(function (response) {
             console.log(response);
             $scope.reservedBooks = response.data;
@@ -27,12 +27,11 @@ angular.module('reader-front').controller('booksReservedController', function ($
 
     $scope.unReserveBook = function (id) {
         $http({
-            url: contextPath + 'api/v1/reserved/delete/' + id,
-            method: 'DELETE',
-
+            url: contextPath + '/' + id,
+            method: 'DELETE'
         }).then(function successCallback(response) {
             console.log(response)
-            alert('Броинрование успешно отменено');
+            alert('Бронирование успешно отменено');
             $scope.loadReservedBooks();
         });
     };
