@@ -3,7 +3,7 @@ package gb.library.admin.users;
 import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
-import gb.library.common.dtos.UserDTO;
+import gb.library.common.dtos.UserDataDTO;
 import gb.library.common.enums.RegistrationType;
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
@@ -24,7 +24,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
     private final UsersRepository usersRepo;
     private final PasswordEncoder passwordEncoder;
     private final UsersPersonalDataService userPersonalData;
-    private final UsersMapper usersMapper;
+    private final UserDataMapper userDataMapper;
 
     private static final int USERS_PER_PAGE = 10;
 
@@ -87,17 +87,17 @@ public class UsersService implements AbstractDaoService<User, Integer> {
     }
 
     @Transactional
-    public void save(UserDTO userDTO){
-        User user = usersMapper.dtoToUser(userDTO);
+    public void save(UserDataDTO userDataDTO){
+        User user = userDataMapper.dtoToUser(userDataDTO);
         if (user.getId() == null){
             user = create(user);
-            ReaderPostRequest reader = usersMapper.dtoToPostRequest(userDTO);
+            ReaderPostRequest reader = userDataMapper.dtoToPostRequest(userDataDTO);
             reader.setReaderId(Long.valueOf(user.getId()));
             userPersonalData.newUser(reader);
         } else {
             update(user);
-            ReaderPatchRequest reader = usersMapper.dtoToPatchRequest(userDTO);
-            userPersonalData.updateUser(Long.valueOf(userDTO.getId()), reader);
+            ReaderPatchRequest reader = userDataMapper.dtoToPatchRequest(userDataDTO);
+            userPersonalData.updateUser(Long.valueOf(userDataDTO.getId()), reader);
         }
     }
 
