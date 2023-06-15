@@ -34,7 +34,7 @@ public class ReservedBookController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ReservedBookReaderDto reserveBook(@RequestBody @Valid ReservedBookReaderDto reservedBookDto) {
         ReservedBook book = reservedBooksService.create(converter.DtoToEntity(reservedBookDto));
         return converter.entityToDto(book);

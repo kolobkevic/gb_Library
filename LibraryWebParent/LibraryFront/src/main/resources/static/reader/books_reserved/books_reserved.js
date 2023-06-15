@@ -27,7 +27,7 @@ angular.module('reader-front').controller('booksReservedController', function ($
 
     $scope.unReserveBook = function (id) {
         $http({
-            url: contextPath + id,
+            url: contextPath + '/' + id,
             method: 'DELETE'
         }).then(function successCallback(response) {
             console.log(response)

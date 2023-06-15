@@ -1,7 +1,10 @@
-angular.module('reader-front').controller('booksCatalogController', function ($scope, $http) {
+angular.module('reader-front').controller('booksCatalogController', function ($scope, $http, $location) {
 
     let contextPath = 'http://localhost:8070/reader/api/v1/books_catalog';
+    let usersPath = 'http://localhost:8070/reader/api/v1/users';
     let booksWishlistPath = 'http://localhost:8070/reader/api/v1/wishlist';
+    let reservedPath = 'http://localhost:8070/reader/api/v1/reserved';
+    let libraryBooksPath = 'http://localhost:8070/reader/api/v1/library_books';
     let genresPath = 'http://localhost:8070/reader/api/v1/genres';
     let currentPage = 1;
 
@@ -93,7 +96,6 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
                 console.log('Книга успешно добавлена в список');
                 bookWishListData();
                 $scope.loadBooksCatalogPage();
-                //TODO
             });
     };
 
@@ -105,14 +107,11 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
                 p: pageIndex
             }
         }).then(function (response) {
-            console.log(response.data.content);
-            console.log("length: " + bookWishListData.length);
             let responseData = response.data.content;
 
             for (let i = 0; i < responseData.length; i++) {
                 outputData.push(responseData[i].book.title);
             }
-            console.log('out: ' + outputData);
         });
     };
 
@@ -127,9 +126,62 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
         }
     };
 
+    let findLibraryBook = function (id) {
+        $http({
+            url: libraryBooksPath + '/' + id,
+            method: 'GET'
+        }).then(function (response) {
+            let libraryBooks = response.data;
+            $scope.libraryBook = libraryBooks.find(el => el.available === true);
+        });
+    };
 
-    showHeaderAndFooter();
-    bookWishListData();
-    $scope.loadBooksCatalogPage();
-    $scope.loadGenres();
-});
+    let findUserData = function (id) {
+        $http({
+            url: usersPath + '/' + id,
+            method: 'GET'
+        }).then(function (response) {
+            $scope.userData = response.data;
+        });
+    }
+
+
+    $scope.reserveThisBook = function (worldBook) {
+        findLibraryBook(worldBook.id);
+        // TODO Отредактировать по аутентификации
+        findUserData(1);
+
+        setTimeout(function () {
+            if ($scope.userData != null && $scope.libraryBook != null) {
+                let reservedBookJSON = {
+                    'id' : $scope.libraryBook.id,
+                    'user': $scope.userData,
+                    'library_book': $scope.libraryBook,
+                    'world_book': worldBook
+                }
+                console.log(reservedBookJSON);
+
+                $http({
+                    url: reservedPath,
+                    method: 'POST',
+                    data: reservedBookJSON
+                }).then(function successCallback(response) {
+                        reservedBookJSON = null;
+                        alert('Книга ' + worldBook.title + ' автора ' + worldBook.authorDTO.firstName + ' ' + worldBook.authorDTO.lastName + ' забронирована');
+                        // TODO Отредактировать по аутентификации
+                        $location.path('/books_reserved');
+                    },
+                    function failureCallback(response) {
+                        alert(response.data.messages);
+                    });
+            }
+        }, 200);
+};
+
+
+showHeaderAndFooter();
+bookWishListData();
+$scope.loadBooksCatalogPage();
+$scope.loadGenres();
+})
+;

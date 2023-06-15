@@ -82,6 +82,7 @@
                     <table class="table" style="padding-left: 20px; padding-right: 20px;">
                         <thead>
                         <tr>
+                            <td style="display: none;">Id</td>
                             <td>Автор</td>
                             <td>Название</td>
                             <td>Жанр</td>
@@ -91,17 +92,20 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="b in booksCatalog.content">
+                            <td style="display: none;">{{b.id}}</td>
                             <td>{{b.authorDTO.firstName + ' ' + b.authorDTO.lastName}}</td>
                             <td>{{b.title}}</td>
                             <td>{{b.genreDTO.name}}</td>
                             <td>{{b.ageRating}}</td>
                             <td style="padding-right: 30px;">
                                 <button id="{{b.title}}" class="btn btn-primary" ng-disabled="wishlistContainsBook(b.title)" ng-click="addToBooksWishlist(b.id)">В желаемое</button>
-                                <button class="btn btn-danger">Забронировать</button>
+                                <button class="btn btn-danger" ng-click="reserveThisBook(b)">Забронировать</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <p id="secretLibraryModel">{{libraryBook}}</p>
+                    <p id="secretUserData">{{userData}}</p>
                 </div>
                 <br>
                 <div>

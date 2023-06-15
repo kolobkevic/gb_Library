@@ -4,10 +4,9 @@ angular.module('reader-front').controller('booksWishlistController', function ($
     let defaultPage = 1;
     let currentPage = 1;
 
-    let navigation = document.getElementById("navigation");
-    let showEmptyWishlistMsg = document.getElementById("showEmptyWishlistMsg");
-    let wishlistTable = document.getElementById("wishlistTable");
-    let redirectToBooksCatalog = document.getElementById("redirectToBooksCatalog");
+    const navigation = document.getElementById("navigation");
+    const emptyWishlistPanel = document.getElementById("emptyWishlistPanel");
+    const wishlistTable = document.getElementById("wishlistTable");
 
 
     $scope.generatePagesIndexes = function (totalPages) {
@@ -27,15 +26,12 @@ angular.module('reader-front').controller('booksWishlistController', function ($
             }
         }).then(function (response) {
             currentPage = pageIndex;
-
             if (response.data.content.length === 0) {
-                showEmptyWishlistMsg.style.display = 'inline';
-                redirectToBooksCatalog.style.display = 'inline';
+                emptyWishlistPanel.style.display = 'inline';
                 wishlistTable.style.display = 'none';
                 navigation.style.display = 'none';
             } else {
-                showEmptyWishlistMsg.style.display = 'none';
-                redirectToBooksCatalog.style.display = 'none';
+                emptyWishlistPanel.style.display = 'none';
                 wishlistTable.style.display = 'inline';
                 navigation.style.display = 'inline';
             }
