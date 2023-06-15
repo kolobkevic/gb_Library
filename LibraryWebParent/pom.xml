@@ -17,6 +17,7 @@
 
 	<packaging>pom</packaging>
 	<modules>
+		<module>LibraryAuth</module>
 		<module>LibraryAdmin</module>
 		<module>LibraryBackend</module>
 		<module>LibraryFront</module>
