@@ -1,8 +1,7 @@
 package gb.library.admin.roles;
 
 import gb.library.common.entities.Role;
-import gb.library.common.entities.RoleType;
-import org.junit.jupiter.api.DisplayName;
+import gb.library.common.enums.RoleType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -55,9 +54,9 @@ public class RolesRepositoryTest {
     @Test
     void testFindByNameAndRoleType(){
         RoleType roleType = RoleType.ADMIN;
-        String roleName = "Super Admin";
-
-        Role role = repository.findByNameAndRoleType(roleName, roleType);
+        String roleName = "Super Admin";// <-- description
+        String name = "Root";           // <-- name
+        Role role = repository.findByNameAndRoleType(name, roleType);
         assertThat(role).isNotNull();
     }
 }

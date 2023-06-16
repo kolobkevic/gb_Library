@@ -1,20 +1,20 @@
 package gb.library.admin.users;
 
-import gb.library.admin.roles.RolesRepository;
 import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
-import gb.library.common.entities.RegistrationType;
-import gb.library.common.entities.Role;
+import gb.library.common.dtos.UserDataDTO;
+import gb.library.common.enums.RegistrationType;
 import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import gb.library.pd.openapi.client.pd.model.ReaderPatchRequest;
+import gb.library.pd.openapi.client.pd.model.ReaderPostRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +24,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
     private final UsersRepository usersRepo;
     private final PasswordEncoder passwordEncoder;
     private final UsersPersonalDataService userPersonalData;
+    private final UserDataMapper userDataMapper;
 
     private static final int USERS_PER_PAGE = 10;
 
@@ -45,9 +46,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
         entity.setEnabled(true);
         entity.setRegistrationType(RegistrationType.MANUAL);
         encodeUserPassword(entity);
-        entity = usersRepo.save(entity);
-        userPersonalData.newUser(entity);
-        return entity;
+        return usersRepo.save(entity);
     }
 
     @Override
@@ -65,9 +64,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
         existedUser.setFirstName(entity.getFirstName());
         existedUser.setLastName(entity.getLastName());
 
-        existedUser = usersRepo.save(existedUser);
-        userPersonalData.updateUser(existedUser);
-        return existedUser;
+        return usersRepo.save(existedUser);
     }
 
     @Override
@@ -90,11 +87,17 @@ public class UsersService implements AbstractDaoService<User, Integer> {
     }
 
     @Transactional
-    public void save(User user){
+    public void save(UserDataDTO userDataDTO){
+        User user = userDataMapper.dtoToUser(userDataDTO);
         if (user.getId() == null){
-            create(user);
+            user = create(user);
+            ReaderPostRequest reader = userDataMapper.dtoToPostRequest(userDataDTO);
+            reader.setReaderId(Long.valueOf(user.getId()));
+            userPersonalData.newUser(reader);
         } else {
             update(user);
+            ReaderPatchRequest reader = userDataMapper.dtoToPatchRequest(userDataDTO);
+            userPersonalData.updateUser(Long.valueOf(userDataDTO.getId()), reader);
         }
     }
 

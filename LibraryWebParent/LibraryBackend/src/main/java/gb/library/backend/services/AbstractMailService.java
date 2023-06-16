@@ -1,7 +1,7 @@
 package gb.library.backend.services;
 
 import gb.library.backend.configs.MailSender;
-import gb.library.common.entities.SettingsKey;
+import gb.library.common.enums.SettingsKey;
 import gb.library.common.entities.User;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

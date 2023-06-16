@@ -1,0 +1,31 @@
+<div>
+  <div>
+    <div style="padding-left: 100px; padding-right: 100px;">
+      <div>
+        <h3 style="padding-top: 20px; padding-bottom: 15px">Книги на руках</h3>
+      </div>
+      <div style="padding: 25px 200px 25px 35px;border-radius: 15px; background: white; box-shadow: 0px 1px 2px 1px lightgray;">
+        <table class="table">
+          <thead>
+          <tr>
+            <td>Инвентарный номер</td>
+            <td>Название</td>
+            <td>Автор</td>
+            <td>Взята</td>
+            <td>Вернуть до</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="b in booksOnHandsPage.content">
+            <td>{{b.libraryBook.inventoryNumber}}</td>
+            <td>{{b.worldBook.title}}</td>
+            <td>{{b.worldBook.author}}</td>
+            <td>{{b.takenAt}}</td>
+            <td>{{b.dateOfReturn}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

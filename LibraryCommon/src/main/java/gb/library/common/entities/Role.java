@@ -1,5 +1,6 @@
 package gb.library.common.entities;
 
+import gb.library.common.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

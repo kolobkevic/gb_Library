@@ -1,7 +1,7 @@
 package gb.library.official.services;
 
 
-import gb.library.common.entities.AgeRating;
+import gb.library.common.enums.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.WorldBook;
@@ -13,15 +13,12 @@ import gb.library.backend.specifications.LibraryBookSpecification;
 import gb.library.backend.specifications.WorldBookSpecification;
 import gb.library.common.exceptions.ValidateException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLDataException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 @Service
@@ -41,6 +38,7 @@ public class LibraryBookService {
                 () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + id, "Library Book"));
     }
 
+    @Transactional
     public Page<LibraryBook> findAll(Integer page, Integer pageSize, String title, String author, String genre, String ageRatingString, String description) {
         Specification<WorldBook> worldBookSpecification = Specification.where(null);
 
@@ -87,10 +85,10 @@ public class LibraryBookService {
         return libraryBookRepository.findAll(libraryBookSpecification, PageRequest.of(page - 1, pageSize));
     }
 
-
+    @Transactional
     public LibraryBook save(LibraryBook libraryBook) {
         if (libraryBookRepository.findByInventoryNumber(libraryBook.getInventoryNumber()).isPresent()){
-            throw new RuntimeException("Инвентарный номер: " + libraryBook.getInventoryNumber() + " уже существует");
+            throw new ValidateException(List.of("Инвентарный номер: " + libraryBook.getInventoryNumber() + " уже существует"));
         }
         return libraryBookRepository.save(libraryBook);
     }
@@ -106,11 +104,11 @@ public class LibraryBookService {
             if (updatedLibraryBook.getId().equals(optionalLibraryBook.get().getId())) {
                 return libraryBookRepository.save(updatedLibraryBook);
             } else {
-                throw new RuntimeException("Инвентарный номер: " + updatedLibraryBook.getInventoryNumber() + " принадлежит другой книге");
+                throw new ValidateException(List.of("Инвентарный номер: " + updatedLibraryBook.getInventoryNumber() + " принадлежит другой книге"));
             }
         } else {
             libraryBookRepository.findById(updatedLibraryBook.getId()).orElseThrow(
-                    () -> new ObjectInDBNotFoundException("Книга не найде базе, id: " + updatedLibraryBook.getId(), "Library Book"));
+                    () -> new ObjectInDBNotFoundException("Книга не найдена базе, id: " + updatedLibraryBook.getId(), "Library Book"));
             return libraryBookRepository.save(updatedLibraryBook);
         }
     }

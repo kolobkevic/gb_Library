@@ -1,44 +1,45 @@
 package gb.library.backend.converters;
 
-import gb.library.backend.services.AuthorCommonService;
 import gb.library.common.dtos.AuthorDTO;
 import gb.library.common.dtos.GenreDTO;
 import gb.library.common.dtos.WorldBookDTO;
 import gb.library.common.entities.Author;
+import gb.library.common.entities.Genre;
 import gb.library.common.entities.WorldBook;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class WorldBookConverter {
-    private final GenreConverter genreConverter;
-    private final AuthorCommonService authorCommonService;
+
+    private final ModelMapper mapper;
 
     public WorldBookDTO entityToDto(WorldBook worldBook) {
-        return new WorldBookDTO(worldBook.getId(),
-                worldBook.getTitle(),
-                new AuthorDTO(worldBook.getAuthor().getId(), worldBook.getAuthor().getFirstName(), worldBook.getAuthor().getLastName()),
-                genreConverter.entityToDto(worldBook.getGenre()),
-                worldBook.getAgeRating(),
-                worldBook.getDescription());
 
+        WorldBookDTO dto = mapper.map(worldBook, WorldBookDTO.class);
+        dto.setAuthorDTO(mapper.map(worldBook.getAuthor(), AuthorDTO.class));
+        dto.setGenreDTO(mapper.map(worldBook.getGenre(), GenreDTO.class));
+
+        return dto;
     }
 
-    public WorldBook dtoToEntity(WorldBookDTO worldBookDTO) {
-        WorldBook worldBook = new WorldBook();
-        if (worldBookDTO.getId() != 0)
-            worldBook.setId(worldBookDTO.getId());
+    public WorldBook dtoToEntity(WorldBookDTO dto) {
 
+        WorldBook book = mapper.map(dto, WorldBook.class);
+        book.setAuthor(mapper.map(dto.getAuthorDTO(), Author.class));
+        book.setGenre(mapper.map(dto.getGenreDTO(), Genre.class));
 
-        worldBook.setTitle(worldBookDTO.getTitle());
-        worldBook.setAuthor(authorCommonService.findById(worldBookDTO.getAuthorDTO().getId()));
-        worldBook.setGenre(genreConverter.dtoToEntity(worldBookDTO.getGenreDTO()));
-        worldBook.setAgeRating(worldBookDTO.getAgeRating());
-        worldBook.setDescription(worldBookDTO.getDescription());
-        return worldBook;
-
+        return book;
     }
 
+    public List<WorldBookDTO> listEntities2dto(List<WorldBook> bookList){
+        return bookList.stream().map(this::entityToDto)
+                .collect(Collectors.toList());
+    }
 
 }

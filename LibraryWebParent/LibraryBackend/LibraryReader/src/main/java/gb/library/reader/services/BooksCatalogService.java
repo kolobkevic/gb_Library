@@ -3,10 +3,9 @@ package gb.library.reader.services;
 
 import gb.library.backend.repositories.WorldBookRepository;
 import gb.library.backend.specifications.WorldBookSpecification;
-import gb.library.common.entities.AgeRating;
+import gb.library.common.enums.AgeRating;
 import gb.library.common.entities.WorldBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
-import gb.library.backend.repositories.WorldBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +13,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -1,6 +1,6 @@
 package gb.library.admin.users;
 
-import gb.library.common.entities.RegistrationType;
+import gb.library.common.enums.RegistrationType;
 import gb.library.common.entities.Role;
 import gb.library.common.entities.User;
 import org.assertj.core.api.Assertions;
@@ -14,7 +14,7 @@ import org.springframework.test.annotation.Rollback;
 
 import java.util.*;
 
-@DataJpaTest(showSql = true)
+@DataJpaTest()
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = true)
 class UsersRepositoryTest {

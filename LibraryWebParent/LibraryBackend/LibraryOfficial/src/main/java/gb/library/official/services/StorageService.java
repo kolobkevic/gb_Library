@@ -32,6 +32,7 @@ public class StorageService {
     }
 
 
+    @Transactional
     public Storage update(Storage storageToUpdate) {
         Storage currentStorage = storageRepository.findById(storageToUpdate.getId()).orElseThrow(
                 () -> new ObjectInDBNotFoundException("Место хранения не найдено базе, id: " + storageToUpdate.getId(), "Storage"));
@@ -58,11 +59,7 @@ public class StorageService {
         List<Storage> storages = storageRepository.findAll(specification);
 
         for (Storage storage : storages) {
-            List<Sector> sectors = zones.get(storage.getZone());
-            if (sectors == null) {
-                sectors = new ArrayList<>();
-                zones.put(storage.getZone(), sectors);
-            }
+            List<Sector> sectors = zones.computeIfAbsent(storage.getZone(), k -> new ArrayList<>());
             sectors.add(new Sector(storage.getId(), storage.getSector(), storage.isAvailable()));
         }
 
@@ -78,11 +75,7 @@ public class StorageService {
         Map<String, List<Sector>> zoneData = new HashMap<>();
         List<Storage> storages = storageRepository.findAllByZone(zoneTitle);
         for (Storage storage : storages) {
-            List<Sector> sectors = zoneData.get(storage.getZone());
-            if (sectors == null) {
-                sectors = new ArrayList<>();
-                zoneData.put(storage.getZone(), sectors);
-            }
+            List<Sector> sectors = zoneData.computeIfAbsent(storage.getZone(), k -> new ArrayList<>());
             sectors.add(new Sector(storage.getId(), storage.getSector(), storage.isAvailable()));
         }
         return new Zone(zoneTitle, zoneData.get(zoneTitle));
@@ -104,7 +97,7 @@ public class StorageService {
     public static class Sector {
         public int id;
         public String sector;
-        public Boolean isAvailable;
+        public Boolean available;
 
     }
 

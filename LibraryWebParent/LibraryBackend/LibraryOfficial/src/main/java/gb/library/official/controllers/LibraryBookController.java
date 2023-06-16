@@ -2,9 +2,9 @@ package gb.library.official.controllers;
 
 
 import gb.library.common.dtos.LibraryBookDTO;
-import gb.library.common.entities.LibraryBook;
 import gb.library.backend.converters.LibraryBookConverter;
 import gb.library.official.services.LibraryBookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,6 @@ public class LibraryBookController {
     private final LibraryBookConverter converter;
 
     private static final int DEFAULT_PAGE_SIZE = 10;
-//    private final LibraryBookValidator validator;
 
     @GetMapping
     public Page<LibraryBookDTO> findAll(@RequestParam(defaultValue = "1") Integer page,
@@ -49,16 +48,13 @@ public class LibraryBookController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public LibraryBookDTO update(@RequestBody LibraryBookDTO libraryBook) {
-//        validator.validate(libraryBook);
+    public LibraryBookDTO update(@RequestBody @Valid LibraryBookDTO libraryBook) {
         return converter.entityToDto(libraryBookService.update(converter.dtoToEntity(libraryBook)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LibraryBookDTO saveNewLibraryBook(@RequestBody LibraryBookDTO libraryBook) {
-//        validator.validate(libraryBook);
-
+    public LibraryBookDTO saveNewLibraryBook(@RequestBody @Valid LibraryBookDTO libraryBook) {
         return converter.entityToDto(libraryBookService.save(converter.dtoToEntity(libraryBook)));
     }
 }

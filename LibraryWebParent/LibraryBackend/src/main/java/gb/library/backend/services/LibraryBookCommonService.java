@@ -6,6 +6,9 @@ import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LibraryBookCommonService {
@@ -15,5 +18,9 @@ public class LibraryBookCommonService {
         return repository.findById(id)
                 .orElseThrow(() -> new ObjectInDBNotFoundException("Книга не найдена в базе, id: " + id, "Library book"));
 
+    }
+
+    public List<LibraryBook> findAllByWorldBookId(Integer id) {
+        return Collections.unmodifiableList(repository.findAllByWorldBookId(id));
     }
 }

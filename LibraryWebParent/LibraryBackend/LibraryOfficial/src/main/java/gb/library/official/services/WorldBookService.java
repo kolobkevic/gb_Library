@@ -2,7 +2,7 @@ package gb.library.official.services;
 
 
 import gb.library.backend.services.WorldBookCommonService;
-import gb.library.common.entities.AgeRating;
+import gb.library.common.enums.AgeRating;
 import gb.library.common.entities.IdBasedEntity;
 import gb.library.common.entities.WorldBook;
 import gb.library.backend.repositories.GenreRepository;
@@ -19,7 +19,6 @@ import java.util.*;
 public class WorldBookService {
     private final WorldBookRepository worldBookRepository;
     private final AuthorService authorService;
-    private final GenreService genreService;
     private final GenreRepository genreRepository;
     private final WorldBookCommonService worldBookCommonService;
 
@@ -79,7 +78,6 @@ public class WorldBookService {
 
 
     public WorldBook update(WorldBook worldBook) {
-
         return worldBookCommonService.update(worldBook);
     }
 

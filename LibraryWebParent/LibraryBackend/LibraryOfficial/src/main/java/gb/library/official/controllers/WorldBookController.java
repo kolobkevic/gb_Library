@@ -4,6 +4,7 @@ package gb.library.official.controllers;
 import gb.library.common.dtos.WorldBookDTO;
 import gb.library.backend.converters.WorldBookConverter;
 import gb.library.official.services.WorldBookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,6 @@ public class WorldBookController {
     private final WorldBookService worldBookService;
     private final WorldBookConverter converter;
 
-//    private final WorldBookValidator validator;
 
     @GetMapping
     public List<WorldBookDTO> findAll(@RequestParam(required = false, name = "title") String title,
@@ -27,8 +27,7 @@ public class WorldBookController {
                                       @RequestParam(required = false, name = "ageRating") String ageRating,
                                       @RequestParam(required = false, name = "description") String description) {
 
-
-        return worldBookService.findAll(title, author, genre, ageRating, description).stream().map(converter::entityToDto).toList();
+        return converter.listEntities2dto(worldBookService.findAll(title, author, genre, ageRating, description));
     }
 
     @GetMapping("/{id}")
@@ -43,15 +42,13 @@ public class WorldBookController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public WorldBookDTO update(@RequestBody WorldBookDTO worldBookDTO) {
-//        validator.validate(worldBookDTO);
+    public WorldBookDTO update(@RequestBody @Valid WorldBookDTO worldBookDTO) {
         return converter.entityToDto(worldBookService.update(converter.dtoToEntity(worldBookDTO)));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public WorldBookDTO saveNewBook(@RequestBody WorldBookDTO worldBookDTO) {
-//        validator.validate(worldBookDTO);
+    public WorldBookDTO saveNewBook(@RequestBody @Valid WorldBookDTO worldBookDTO) {
         return converter.entityToDto(worldBookService.save(converter.dtoToEntity(worldBookDTO)));
     }
 }

@@ -15,11 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GenreController {
     private final GenreCommonService genreService;
-    private final GenreConverter genreConverter;
+    private final GenreConverter converter;
 
     @GetMapping
     public List<GenreDTO> findAll(@RequestParam(name = "name", required = false) String name,
                                   @RequestParam(name = "description", required = false) String description) {
-        return genreService.findAll(name, description).stream().map(genreConverter::entityToDto).toList();
+        return converter.listEntity2Dto(genreService.findAll(name, description));
     }
 }

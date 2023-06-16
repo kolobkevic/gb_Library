@@ -36,7 +36,9 @@
       </thead>
       <tbody>
       <tr th:each="user : ${entitiesList}">
-        <td class="hideable-column col-1">[[${user.id}]]</td>
+        <td class="hideable-column col-1">
+          <a th:href="@{'/users/info/' + ${user.id}}" th:title="'Информация о пользователе'">[[${user.id}]]</a>
+        </td>
         <td class="hideable-column">[[${user.email}]]</td>
         <td>[[${user.firstName}]]</td>
         <td>[[${user.lastName}]]</td>
