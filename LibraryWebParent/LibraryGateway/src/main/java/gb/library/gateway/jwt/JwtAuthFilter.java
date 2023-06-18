@@ -3,65 +3,47 @@ package gb.library.gateway.jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
-
 
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+    private final RouteValidator validator;
 
-    public JwtAuthFilter(JwtService jwtService) {
+    @Autowired
+    public JwtAuthFilter(JwtService jwtService, RouteValidator validator) {
         super(Config.class);
         this.jwtService = jwtService;
+        this.validator = validator;
     }
 
     @Override
     public GatewayFilter apply(Config config) {
-        return (exchange, chain) -> {
+        return ((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-            if (!isAuthMissing(request)) {
-                final String token = getAuthHeader(request);
-                if (!jwtService.validateToken(token)) {
-                    return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
+            if (validator.isSecured.test(request)) {
+                if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                    throw new RuntimeException("Missing authorization header");
                 }
-                populateRequestWithHeaders(exchange, token);
+
+                String authHeader = request.getHeaders().getOrEmpty(HttpHeaders.AUTHORIZATION).get(0);
+                if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                    authHeader = authHeader.substring(7);
+                }
+                try {
+                    jwtService.validateToken(authHeader);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("Unauthorized access");
+                }
             }
             return chain.filter(exchange);
-        };
+        });
     }
 
     public static class Config {
     }
 
-    private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus httpStatus) {
-        ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(httpStatus);
-        return response.setComplete();
-    }
-
-    private String getAuthHeader(ServerHttpRequest request) {
-        return request.getHeaders().getOrEmpty("Authorization").get(0).substring(7);
-    }
-
-    private boolean isAuthMissing(ServerHttpRequest request) {
-        if (!request.getHeaders().containsKey("Authorization")) {
-            return true;
-        }
-        if (!request.getHeaders().getOrEmpty("Authorization").get(0).startsWith("Bearer ")) {
-            return true;
-        }
-        return false;
-    }
-
-    private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
-        exchange.getRequest().mutate()
-                .header("username", jwtService.getUsernameFromToken(token))
-                .build();
-    }
 }
