@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('verificationCheckController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8070/reader/';
+    const contextPath = 'http://localhost:5555/reader/';
     $scope.verified = "";
 
     $scope.verifyUser = function () {

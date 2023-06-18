@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('booksWishlistController', function ($scope, $http) {
-    let contextPath = 'http://localhost:8070/reader/api/v1/wishlist';
+    let contextPath = 'http://localhost:5555/reader/api/v1/wishlist';
 
     let defaultPage = 1;
     let currentPage = 1;

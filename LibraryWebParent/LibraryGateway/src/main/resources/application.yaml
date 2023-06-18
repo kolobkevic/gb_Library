@@ -8,10 +8,13 @@ spring:
     name: gateway
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
       globalcors:
+        add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:8080" # адрес фронт сервиса
+            allowedOrigins: "http://localhost:8080"
             allowedMethods:
               - GET
               - POST

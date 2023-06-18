@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('authenticationController', function ($scope, $http, $location) {
-    const contextPath = 'http://localhost:8070/reader/api/v1/users';
+    const contextPath = 'http://localhost:5555/reader/api/v1/users';
     const header = document.getElementById("header");
     const footer = document.getElementById("footer");
 

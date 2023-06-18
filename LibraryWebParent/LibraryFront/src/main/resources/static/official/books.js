@@ -1,6 +1,6 @@
 angular.module('employee-front').controller('booksController', function ($rootScope, $scope, $http, $location, $localStorage) {
 
-    const corePath = 'http://' + window.location.hostname + ':8060/official/api/v1';
+    const corePath = 'http://' + window.location.hostname + ':5555/official/api/v1';
     $scope.currentPage = 1;
     $scope.isEdit = false;
 

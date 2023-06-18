@@ -1,11 +1,11 @@
 angular.module('reader-front').controller('booksCatalogController', function ($scope, $http, $location) {
 
-    let contextPath = 'http://localhost:8070/reader/api/v1/books_catalog';
-    let usersPath = 'http://localhost:8070/reader/api/v1/users';
-    let booksWishlistPath = 'http://localhost:8070/reader/api/v1/wishlist';
-    let reservedPath = 'http://localhost:8070/reader/api/v1/reserved';
-    let libraryBooksPath = 'http://localhost:8070/reader/api/v1/library_books';
-    let genresPath = 'http://localhost:8070/reader/api/v1/genres';
+    let contextPath = 'http://localhost:5555/reader/api/v1/books_catalog';
+    let usersPath = 'http://localhost:5555/reader/api/v1/users';
+    let booksWishlistPath = 'http://localhost:5555/reader/api/v1/wishlist';
+    let reservedPath = 'http://localhost:5555/reader/api/v1/reserved';
+    let libraryBooksPath = 'http://localhost:5555/reader/api/v1/library_books';
+    let genresPath = 'http://localhost:5555/reader/api/v1/genres';
     let currentPage = 1;
 
     let outputData = [];
@@ -180,7 +180,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
 
 showHeaderAndFooter();
-bookWishListData();
+// bookWishListData();
 $scope.loadBooksCatalogPage();
 $scope.loadGenres();
 })
