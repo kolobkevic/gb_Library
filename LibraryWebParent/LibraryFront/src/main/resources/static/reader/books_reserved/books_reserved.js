@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('booksReservedController', function ($scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:8070/reader/api/v1/reserved';
+    const contextPath = 'http://localhost:5555/reader/api/v1/reserved';
     let currentPageIndex = 1;
 
     $scope.loadReservedBooks = function (pageIndex = 1) {

@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('personalAccountController', function ($scope, $http, $location) {
-    const contextPath = 'http://localhost:8070/reader/'; // поменять адрес на актуальный
+    const contextPath = 'http://localhost:5555/reader/'; // поменять адрес на актуальный
 
     $scope.loadUserInformation = function () {
         $http({

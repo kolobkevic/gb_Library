@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('registrationController', function ($scope, $http, $location) {
-    const contextPath = 'http://localhost:8070/reader/api/v1/users';
+    const contextPath = 'http://localhost:5555/reader/api/v1/users';
     let isPasswordReady = false;
     $scope.isEmailReady = false;
     let p1;

@@ -1,5 +1,5 @@
 angular.module('reader-front').controller('bookOnHandsController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8070/reader/'; // поменять адрес на актуальный
+    const contextPath = 'http://localhost:5555/reader/'; // поменять адрес на актуальный
     let currentPageIndex = 1;
 
     $scope.loadBookOnHands = function (pageIndex = 1) {

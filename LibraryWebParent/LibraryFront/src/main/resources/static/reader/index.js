@@ -65,7 +65,7 @@
 })();
 
 angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:8070/reader';
+    const contextPath = 'http://localhost:5555/reader';
 
     $scope.tryToAuth = function () {
         $http.post('http://localhost:5555/auth/auth', $scope.user) // поменять адрес на актуальный
