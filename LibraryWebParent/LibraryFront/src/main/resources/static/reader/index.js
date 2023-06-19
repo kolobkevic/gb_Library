@@ -68,7 +68,7 @@ angular.module('reader-front').controller('indexController', function ($rootScop
     const contextPath = 'http://localhost:5555/reader';
 
     $scope.tryToAuth = function () {
-        $http.post('http://localhost:5555/auth/auth', $scope.user) // поменять адрес на актуальный
+        $http.post('http://localhost:5555/auth/authenticate', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
@@ -76,7 +76,7 @@ angular.module('reader-front').controller('indexController', function ($rootScop
                     $scope.user.username = null;
                     $scope.user.password = null;
 
-                    $location.path('/books');
+                    $location.path('/books_catalog');
                 }
             }, function errorCallback(response) {
             });
