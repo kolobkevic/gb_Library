@@ -2,6 +2,10 @@ angular.module('reader-front').controller('booksReservedController', function ($
     const contextPath = 'http://localhost:8070/reader/api/v1/reserved';
     let currentPageIndex = 1;
 
+    const emptyReservedBooksPanel = document.getElementById("emptyReservedBooksPanel");
+    const reservedBooksTable = document.getElementById("reservedBooksTable");
+
+
     $scope.loadReservedBooks = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
         $http({
@@ -10,8 +14,16 @@ angular.module('reader-front').controller('booksReservedController', function ($
             method: 'GET'
         }).then(function (response) {
             console.log(response);
-            $scope.reservedBooks = response.data;
-            $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.reservedBooks.totalPages);
+            if (response.data.content.length === 0) {
+                emptyReservedBooksPanel.style.display = 'inline';
+                reservedBooksTable.style.display = 'none';
+            } else {
+                emptyReservedBooksPanel.style.display = 'none';
+                reservedBooksTable.style.display = 'inline';
+
+                $scope.reservedBooks = response.data;
+                $scope.paginationArray = $scope.generatePagesIndexes(1, $scope.reservedBooks.totalPages);
+            }
         });
     };
 
