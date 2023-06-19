@@ -19,7 +19,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<JwtResponse> authenticate(@RequestBody JwtRequest request) throws BadCredentialsException {
         UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
 
