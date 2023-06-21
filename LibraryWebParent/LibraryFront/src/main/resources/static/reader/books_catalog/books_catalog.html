@@ -98,14 +98,17 @@
                             <td>{{b.genreDTO.name}}</td>
                             <td>{{b.ageRating}}</td>
                             <td style="padding-right: 30px;">
-                                <button id="{{b.title}}" class="btn btn-primary" ng-disabled="wishlistContainsBook(b.title)" ng-click="addToBooksWishlist(b.id)">В желаемое</button>
-                                <button class="btn btn-danger" ng-click="reserveThisBook(b)">Забронировать</button>
+                                <button id="{{b.title}}" class="btn btn-primary"
+                                        ng-disabled="wishlistContainsBook(b.title)" ng-click="addToBooksWishlist(b.id)">
+                                    В желаемое
+                                </button>
+                                <button id="{{b.id}}" class="btn btn-primary" ng-disabled="reservedContainsBook(b)" ng-click="prepareForReserve(b)">Забронировать</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <p id="secretLibraryModel">{{libraryBook}}</p>
-                    <p id="secretUserData">{{userData}}</p>
+                    <p style="display: none;" id="secretLibraryModel">{{libraryBook}}</p>
+                    <p style="display: none;" id="secretUserData">{{userData}}</p>
                 </div>
                 <br>
                 <div>
@@ -118,6 +121,32 @@
                             </li>
                         </ul>
                     </nav>
+                </div>
+            </div>
+            <div id="acceptReserveModalWindow"
+                    style="display: none; position: fixed; top: 0; left: 0; width: 100%;
+                         height: 100%; background-color: rgba(0, 0, 0, 0.5);
+                         align-items: center; justify-content: center;">
+                <div style="background-color: #fff; padding: 20px; border-radius: 5px;">
+                    <p>К сожалению, сейчас данная книга недоступна для брони, но вы можете<br>ее
+                        зарезервировать. При появлении в наличии информация обновится<br> в списке
+                        забронированных.</p>
+                    <button id="reserveBtn" class="btn btn-primary" style="margin-left: 130px;" ng-click="reserveBook()">
+                        Зарезервировать
+                    </button>
+                    <button id="cancelReserveBtn" class="btn btn-danger" style="margin-left: 10px;">Отменить</button>
+                </div>
+            </div>
+            <div id="confirmReserveModalWindow"
+                 style="display: none; position: fixed; top: 0; left: 0; width: 100%;
+                         height: 100%; background-color: rgba(0, 0, 0, 0.5);
+                         align-items: center; justify-content: center;">
+                <div style="background-color: #fff; padding: 20px; border-radius: 5px;">
+                    <p>Забронировать выбранную книгу?</p>
+                    <button id="confirmedReserveBtn" class="btn btn-primary" ng-click="reserveBook()">
+                        Подтвердить бронирование
+                    </button>
+                    <button id="cancelConfirmReserveBtn" class="btn btn-danger" style="margin-left: 10px;">Отменить</button>
                 </div>
             </div>
         </div>

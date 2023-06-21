@@ -5,7 +5,6 @@ import gb.library.reader.converters.ReservedBookConverter;
 import gb.library.reader.dtos.ReservedBookReaderDto;
 import gb.library.reader.services.ReservedBooksService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ public class ReservedBookController {
     private final ReservedBookConverter converter;
 
     @GetMapping("/{userId}")
-    public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "page", defaultValue = "1", required = false) int pageIndex,
+    public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) int pageIndex,
                                                @PathVariable int userId) {
         return reservedBooksService.getAllPageable(userId, pageIndex).map(converter::entityToDto);
     }
