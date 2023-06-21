@@ -1,14 +1,15 @@
 angular.module('reader-front').controller('booksCatalogController', function ($scope, $http, $location) {
 
-    let contextPath = 'http://localhost:8070/reader/api/v1/books_catalog';
-    let usersPath = 'http://localhost:8070/reader/api/v1/users';
-    let booksWishlistPath = 'http://localhost:8070/reader/api/v1/wishlist';
-    let reservedPath = 'http://localhost:8070/reader/api/v1/reserved';
-    let libraryBooksPath = 'http://localhost:8070/reader/api/v1/library_books';
-    let genresPath = 'http://localhost:8070/reader/api/v1/genres';
+    let contextPath = 'http://localhost:5555/reader/api/v1/books_catalog';
+    let usersPath = 'http://localhost:5555/reader/api/v1/users';
+    let booksWishlistPath = 'http://localhost:5555/reader/api/v1/wishlist';
+    let reservedPath = 'http://localhost:5555/reader/api/v1/reserved';
+    let libraryBooksPath = 'http://localhost:5555/reader/api/v1/library_books';
+    let genresPath = 'http://localhost:5555/reader/api/v1/genres';
     let currentPage = 1;
 
-    let outputData = [];
+    let outputWishListData = [];
+    let outputReservedListData = [];
 
     const header = document.getElementById("header");
     const footer = document.getElementById("footer");
@@ -104,6 +105,30 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
             });
     };
 
+    let bookReservedData = function () {
+        $http({
+            url: reservedPath + '/1',
+            method: 'GET'
+        }).then(function (response) {
+            let responseData = response.data.content;
+
+            for (let i = 0; i < responseData.length; i++) {
+                outputReservedListData.push(responseData[i].world_book.title);
+            }
+        });
+    };
+
+    $scope.reservedContainsBook = function (book) {
+        let button = document.getElementById(book.id);
+        if (outputReservedListData.includes(book.title)) {
+            button.textContent = 'Забронировано';
+            return true;
+        } else {
+            button.textContent = 'Забронировать';
+            return false;
+        }
+    }
+
     let bookWishListData = function (pageIndex = 0) {
         $http({
             url: booksWishlistPath,
@@ -115,14 +140,14 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
             let responseData = response.data.content;
 
             for (let i = 0; i < responseData.length; i++) {
-                outputData.push(responseData[i].book.title);
+                outputWishListData.push(responseData[i].book.title);
             }
         });
     };
 
     $scope.wishlistContainsBook = function (bookTitle) {
         let button = document.getElementById(bookTitle);
-        if (outputData.includes(bookTitle)) {
+        if (outputWishListData.includes(bookTitle)) {
             button.textContent = 'В желаемом';
             return true;
         } else {
@@ -138,7 +163,6 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
         }).then(function (response) {
             let libraryBooks = response.data;
             let availableBookFoundStatus = false;
-            // libraryBooks.find(el => el.available === true);
 
             for (let i = 0; i < libraryBooks.length; i++) {
                 if (libraryBooks[i].available === true) {
@@ -214,6 +238,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
                     });
             } else {
                 console.log("Нет информации");
+                alert('К сожалению, вариантов данной книги в библиотеке нет');
             }
         }, 200);
     };
@@ -221,6 +246,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     showHeaderAndFooter();
     bookWishListData();
+    bookReservedData();
     $scope.loadBooksCatalogPage();
     $scope.loadGenres();
 });

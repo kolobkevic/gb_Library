@@ -102,7 +102,7 @@
                                         ng-disabled="wishlistContainsBook(b.title)" ng-click="addToBooksWishlist(b.id)">
                                     В желаемое
                                 </button>
-                                <button class="btn btn-danger" ng-click="prepareForReserve(b)">Забронировать</button>
+                                <button id="{{b.id}}" class="btn btn-primary" ng-disabled="reservedContainsBook(b)" ng-click="prepareForReserve(b)">Забронировать</button>
                             </td>
                         </tr>
                         </tbody>

@@ -55,12 +55,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#!/personal_account">Личный кабинет</a>
                         </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" href="#!/registration">Регистрация</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Учетная запись
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#!/authentication">Войти в систему</a></li>
+                                <li><a class="dropdown-item" href="#!/registration">Зарегистрироваться</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" href="#!/authentication">Аутентификация</a>
-                        </li>
+<!--                        <li class="nav-item" >-->
+<!--                            <a class="nav-link" href="#!/registration">Регистрация</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item" >-->
+<!--                            <a class="nav-link" href="#!/authentication">Аутентификация</a>-->
+<!--                        </li>-->
                         <li class="nav-item"  style="padding: 4px;">
                             <h6 ng-model="user">{{'Имя пользователя: ' + user.username}}</h6>
                             <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Выйти</button>
