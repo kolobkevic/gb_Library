@@ -39,9 +39,6 @@ public class VerificationMailService extends AbstractMailService{
     }
 
     public String getSiteURL(HttpServletRequest request) {
-//        String siteURL = request.getRequestURL().toString();
-//        return siteURL.replace(request.getServletPath(), "");
-        // TODO Исправить на адрес сервера
-        return "http://localhost:8080/reader/api/v1/users";
+        return "http://localhost:5555/reader/api/v1/users";
     }
 }

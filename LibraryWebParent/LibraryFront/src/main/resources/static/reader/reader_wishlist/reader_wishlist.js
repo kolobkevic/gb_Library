@@ -5,6 +5,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
     let libraryBooksPath = 'http://localhost:5555/reader/api/v1/library_books';
 
 
+
     let defaultPage = 1;
     let currentPage = 1;
 

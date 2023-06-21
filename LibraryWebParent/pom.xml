@@ -23,6 +23,7 @@
 		<module>LibraryFront</module>
 		<module>LibraryReadersPersonalData</module>
 		<module>LibraryIntegration</module>
+		<module>LibraryGateway</module>
 	</modules>
 
 	<properties>
