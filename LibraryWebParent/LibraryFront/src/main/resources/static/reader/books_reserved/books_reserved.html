@@ -19,6 +19,7 @@
                         <td>Название</td>
                         <td>Жанр</td>
                         <td>Ограничение</td>
+                        <td>Наличие</td>
                         <td></td>
                     </tr>
                     </thead>
@@ -29,6 +30,7 @@
                         <td>{{b.world_book.title}}</td>
                         <td>{{b.world_book.genreDTO.name}}</td>
                         <td>{{b.world_book.ageRating}}</td>
+                        <td>{{b.library_book.available}}</td>
                         <td>
                             <button class="btn btn-danger" data-ng-click="unReserveBook(b.id)">Отменить бронирование
                             </button>
