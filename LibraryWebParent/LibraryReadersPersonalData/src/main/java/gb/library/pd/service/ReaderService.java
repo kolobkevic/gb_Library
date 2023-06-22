@@ -1,4 +1,4 @@
-package gb.library.pd.servace;
+package gb.library.pd.service;
 
 import gb.library.pd.entity.embedded.ContactInfo;
 import gb.library.pd.entity.embedded.MainInfo;
