@@ -97,7 +97,7 @@
                             <td>{{b.title}}</td>
                             <td>{{b.genreDTO.name}}</td>
                             <td>{{b.ageRating}}</td>
-                            <td style="padding-right: 30px;">
+                            <td ng-show="isUserLoggedIn()" style="padding-right: 30px;">
                                 <button id="{{b.title}}" class="btn btn-primary"
                                         ng-disabled="wishlistContainsBook(b.title)" ng-click="addToBooksWishlist(b.id)">
                                     В желаемое

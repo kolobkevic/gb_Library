@@ -4,8 +4,10 @@ import gb.library.backend.services.LibraryBookCommonService;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.entities.LibraryBook;
 import gb.library.common.entities.ReservedBook;
+import gb.library.common.entities.User;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.backend.repositories.ReservedBooksRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ReservedBooksService implements AbstractDaoService<ReservedBook, Integer> {
     private final ReservedBooksRepository repository;
     private final LibraryBookCommonService libraryBookService;
+    private final UserService userService;
 
     private final static int PAGE_SIZE_DEFAULT = 10;
 
@@ -52,6 +55,15 @@ public class ReservedBooksService implements AbstractDaoService<ReservedBook, In
             pageIndex = 1;
         }
         return repository.findAllByUserId(userId, PageRequest.of(pageIndex - 1, PAGE_SIZE_DEFAULT));
+    }
+
+    @Transactional
+    public Page<ReservedBook> findAllByUserLogin(String userLogin, int pageIndex) {
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+        User user = userService.findByEmail(userLogin);
+        return repository.findAllByUserId(user.getId(), PageRequest.of(pageIndex - 1, PAGE_SIZE_DEFAULT));
     }
 
     public LibraryBook findLibraryBookById(int id) {

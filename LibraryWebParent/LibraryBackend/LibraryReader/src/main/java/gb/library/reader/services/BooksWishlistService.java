@@ -21,18 +21,19 @@ public class BooksWishlistService {
     private final UserService userService;
     private final BooksCatalogService booksCatalogService;
 
-    public Page<BooksWishlist> findAll(Integer pageIndex, Integer pageSize) {
-
-        return booksWishlistRepository.findAll(PageRequest.of(pageIndex, pageSize));
+    @Transactional
+    public Page<BooksWishlist> findAll(String userLogin, Integer pageIndex, Integer pageSize) {
+        User user = userService.findByEmail(userLogin);
+        return booksWishlistRepository.findAllByUserId(user.getId(), PageRequest.of(pageIndex, pageSize));
     }
     public BooksWishlist findById(Integer id) {
         return booksWishlistRepository.findById(id).orElseThrow(() -> new ObjectInDBNotFoundException(String.format("Список с id(%d) не найден", id), "BooksWishlist"));
     }
 
     @Transactional
-    public void addToWishlist(Integer readerId, Integer worldBookId) {
+    public void addToWishlist(String userLogin, Integer worldBookId) {
         BooksWishlist booksWishlist = new BooksWishlist();
-        User user = userService.findById(readerId);
+        User user = userService.findByEmail(userLogin);
         WorldBook worldBook = booksCatalogService.findById(worldBookId);
         booksWishlist.setUser(user);
         booksWishlist.setBook(worldBook);

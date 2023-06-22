@@ -18,6 +18,8 @@ spring:
             allowedMethods:
               - GET
               - POST
+              - DELETE
+              - PUT
             allowedHeaders: "*"
       routes:
         - id: reader-service
