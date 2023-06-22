@@ -21,4 +21,10 @@ public class JwtService {
     private Key getSignKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
+
+    public Claims getAllClaimsFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build().parseClaimsJws(token).getBody();
+    }
 }
