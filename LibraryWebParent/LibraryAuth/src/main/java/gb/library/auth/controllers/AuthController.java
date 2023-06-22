@@ -23,6 +23,7 @@ public class AuthController {
     public ResponseEntity<JwtResponse> authenticate(@RequestBody JwtRequest request) throws BadCredentialsException {
         UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
 
+        userDetails = userService.checkPasswordIsEncoded(userDetails, request.getPassword());
         if(passwordEncoder.matches(request.getPassword(), userDetails.getPassword())){
             String token = jwtService.generateToken(request.getEmail());
             return ResponseEntity.ok(new JwtResponse(token));

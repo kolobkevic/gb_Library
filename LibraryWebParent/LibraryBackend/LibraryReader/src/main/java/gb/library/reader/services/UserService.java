@@ -56,11 +56,6 @@ public class UserService {
         return repository.save(user);
     }
 
-//    private void encodeUserPassword(User user){
-//        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(encodedPassword);
-//    }
-
     public boolean isEmailUnique(String email){
         User user = repository.findUserByEmail(email);
         return user == null;
