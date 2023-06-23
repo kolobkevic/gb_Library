@@ -1,11 +1,13 @@
 package gb.library.gateway.jwt;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
 
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
@@ -38,6 +40,7 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
                     e.printStackTrace();
                     throw new RuntimeException("Unauthorized access");
                 }
+                populateRequestWithHeaders(exchange, authHeader);
             }
             return chain.filter(exchange);
         });
@@ -46,4 +49,10 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     public static class Config {
     }
 
+    private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
+        Claims claims = jwtService.getAllClaimsFromToken(token);
+        exchange.getRequest().mutate()
+                .header("username", claims.getSubject())
+                .build();
+    }
 }
