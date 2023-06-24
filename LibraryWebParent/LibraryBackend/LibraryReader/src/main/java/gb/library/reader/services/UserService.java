@@ -47,8 +47,8 @@ public class UserService {
         return updatedUser;
     }
 
-    public void delete(Integer userId) {
-        repository.deleteById(userId);
+    public void deleteUserByEmail(String username) {
+        repository.deleteUserByEmail(username);
     }
 
     public User create(User user, RegistrationType type, HttpServletRequest request)

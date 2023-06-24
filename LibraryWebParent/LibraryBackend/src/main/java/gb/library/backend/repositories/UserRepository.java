@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("UPDATE User u SET u.enabled = true, u.verificationCode = null WHERE u.id = ?1")
     @Modifying
     void enable(Integer id);
+
+    void deleteUserByEmail(String username);
 }

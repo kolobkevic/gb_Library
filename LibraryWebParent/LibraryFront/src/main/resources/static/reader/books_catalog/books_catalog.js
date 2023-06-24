@@ -197,7 +197,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     let findUserData = function (userLogin) {
         $http({
-            url: usersPath + '/' + userLogin,
+            url: usersPath,
             method: 'GET'
         }).then(function (response) {
             $scope.userData = response.data;

@@ -18,12 +18,12 @@ public class BookHistoryController {
     private final static String PAGE_INDEX_DEFAULT = "1";
     private final static String PAGE_SIZE_DEFAULT = "10";
 
-    @GetMapping("/{userId}")
-    public Page<BookHistoryReaderDto> findAll(@PathVariable int userId,
-                                              @RequestParam(defaultValue = PAGE_INDEX_DEFAULT, name = "page") int pageIndex,
-                                              @RequestParam(defaultValue = PAGE_SIZE_DEFAULT, name = "size") int pageSize,
-                                              @RequestParam(defaultValue = "false") boolean unReturned) {
-        return service.getBooksOnHands(userId, pageIndex, pageSize, unReturned).map(converter::entityToDto);
+    @GetMapping
+    public Page<BookHistoryReaderDto> findAllByUsername(@RequestHeader String username,
+                                                        @RequestParam(defaultValue = PAGE_INDEX_DEFAULT, name = "page") int pageIndex,
+                                                        @RequestParam(defaultValue = PAGE_SIZE_DEFAULT, name = "size") int pageSize,
+                                                        @RequestParam(defaultValue = "false") boolean unReturned) {
+        return service.getBooksOnHands(username, pageIndex, pageSize, unReturned).map(converter::entityToDto);
     }
 
 

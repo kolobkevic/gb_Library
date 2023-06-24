@@ -127,7 +127,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
 
     let findUserData = function () {
         $http({
-            url: usersPath + '/' + $localStorage.webUser.username,
+            url: usersPath,
             method: 'GET'
         }).then(function (response) {
             $scope.userData = response.data;
