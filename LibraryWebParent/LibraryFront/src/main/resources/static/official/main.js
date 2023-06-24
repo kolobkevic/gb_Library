@@ -78,6 +78,7 @@ angular.module('employee-front').controller('indexController', function ($rootSc
             return false;
         }
     };
+
     $rootScope.hasUserRole = function (role) {
         if (!$rootScope.isUserLoggedIn()) return false;
         for (let i = 0; i < $localStorage.biblioUser.roles.length; i++) {

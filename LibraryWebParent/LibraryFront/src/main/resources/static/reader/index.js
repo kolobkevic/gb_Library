@@ -64,9 +64,8 @@
     }
 })();
 
-angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
+angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage, $window) {
     const contextPath = 'http://localhost:5555/reader';
-    $scope.userData = $localStorage.webUser.username;
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
@@ -81,9 +80,17 @@ angular.module('reader-front').controller('indexController', function ($rootScop
 
     $rootScope.isUserLoggedIn = function () {
         if ($localStorage.webUser) {
+            console.log($localStorage.webUser);
+            $scope.userData = $localStorage.webUser.username;
             return true;
         } else {
             return false;
         }
     };
+
+    $scope.backToMain = function () {
+        $window.location.href = '../index.html';
+    };
+
+    $rootScope.isUserLoggedIn();
 });
