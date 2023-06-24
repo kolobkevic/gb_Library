@@ -96,7 +96,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     // Скорректировать после добавления аутентификации
     $scope.addToBooksWishlist = function (bookId) {
-        $http.get(booksWishlistPath + '/' + $localStorage.webUser.username + '/add/' + bookId)
+        $http.get(booksWishlistPath + '/add/' + bookId)
             .then(function (response) {
                 console.log(bookId);
                 console.log('Книга успешно добавлена в список');
@@ -107,7 +107,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     let bookReservedData = function () {
         $http({
-            url: reservedPath + '/' + $localStorage.webUser.username,
+            url: reservedPath,
             method: 'GET'
         }).then(function (response) {
             let responseData = response.data.content;
@@ -131,7 +131,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     let bookWishListData = function (pageIndex = 0) {
         $http({
-            url: booksWishlistPath + '/' + $localStorage.webUser.username,
+            url: booksWishlistPath,
             method: 'GET',
             params: {
                 p: pageIndex
@@ -197,7 +197,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     let findUserData = function (userLogin) {
         $http({
-            url: usersPath + '/' + userLogin,
+            url: usersPath,
             method: 'GET'
         }).then(function (response) {
             $scope.userData = response.data;

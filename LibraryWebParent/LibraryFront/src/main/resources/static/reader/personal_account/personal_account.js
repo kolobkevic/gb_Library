@@ -3,7 +3,7 @@ angular.module('reader-front').controller('personalAccountController', function 
 
     $scope.loadUserInformation = function () {
         $http({
-            url: contextPath + 'api/v1/users/' + $localStorage.webUser.username,
+            url: contextPath + 'api/v1/users',
             method: 'GET',
         }).then(function (response) {
             console.log(response);

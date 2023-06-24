@@ -17,17 +17,17 @@ public class BooksWishlistController {
     private final BooksWishlistService booksWishlistService;
     private final BooksWishlistConverter booksWishlistConverter;
 
-    @GetMapping("/{userLogin}")
-    public Page<BooksWishlistDto> findAllByUserLogin(@PathVariable String userLogin,
+    @GetMapping
+    public Page<BooksWishlistDto> findAllByUserLogin(@RequestHeader String username,
             @RequestParam(name = "p", defaultValue = "1", required = false) Integer pageIndex,
             @RequestParam(name = "page_size", defaultValue = "10", required = false) Integer pageSize) {
         if (pageIndex < 1) pageIndex = 1;
-        return booksWishlistService.findAll(userLogin,pageIndex - 1, pageSize).map(booksWishlistConverter::entityToDto);
+        return booksWishlistService.findAll(username,pageIndex - 1, pageSize).map(booksWishlistConverter::entityToDto);
     }
 
-    @GetMapping("/{userLogin}/add/{worldBookId}")
-    public void addWorldBookToWishlist(@PathVariable String userLogin, @PathVariable Integer worldBookId) {
-        booksWishlistService.addToWishlist(userLogin, worldBookId);
+    @GetMapping("/add/{worldBookId}")
+    public void addWorldBookToWishlist(@RequestHeader String username, @PathVariable Integer worldBookId) {
+        booksWishlistService.addToWishlist(username, worldBookId);
     }
 
     @DeleteMapping("/{recordId}")

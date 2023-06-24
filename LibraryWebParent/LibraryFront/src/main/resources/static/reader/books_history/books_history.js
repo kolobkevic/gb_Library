@@ -1,12 +1,11 @@
 angular.module('reader-front').controller('bookHistoryController', function ($scope, $http) {
-    const contextPath = 'http://localhost:5555/reader/'; // поменять адрес на актуальный
+    const contextPath = 'http://localhost:5555/reader/';
     let currentPageIndex = 1;
 
     $scope.loadBookHistory = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
         $http({
-            // url: contextPath + 'api/v1/book_on_hands' + $localStorage.webUser.username,
-            url: contextPath + 'api/v1/book_history/1', // поменять адрес на актуальный
+            url: contextPath + 'api/v1/book_history',
             method: 'GET',
         }).then(function (response) {
             console.log(response);
