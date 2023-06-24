@@ -66,21 +66,21 @@
 
 angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:5555/reader';
-
-    $scope.tryToAuth = function () {
-        $http.post('http://localhost:5555/auth/authenticate', $scope.user)
-            .then(function successCallback(response) {
-                if (response.data.token) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.webUser = {username: $scope.user.username, token: response.data.token};
-                    $scope.user.username = null;
-                    $scope.user.password = null;
-
-                    $location.path('/books_catalog');
-                }
-            }, function errorCallback(response) {
-            });
-    };
+    $scope.userData = $localStorage.webUser.username;
+    // $scope.tryToAuth = function () {
+    //     $http.post('http://localhost:5555/auth/authenticate', $scope.user)
+    //         .then(function successCallback(response) {
+    //             if (response.data.token) {
+    //                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+    //                 $localStorage.webUser = {username: $scope.user.username, token: response.data.token};
+    //                 $scope.user.username = null;
+    //                 $scope.user.password = null;
+    //
+    //                 $location.path('/books_catalog');
+    //             }
+    //         }, function errorCallback(response) {
+    //         });
+    // };
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
