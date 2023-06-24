@@ -31,7 +31,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
 
     $scope.loadBooksWishlist = function (pageIndex = defaultPage) {
         $http({
-            url: contextPath + '/' + $localStorage.webUser.username,
+            url: contextPath,
             method: 'GET',
             params: {
                 p: pageIndex
@@ -64,7 +64,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
 
     let bookReservedData = function () {
         $http({
-            url: reservedPath + '/' + $localStorage.webUser.username,
+            url: reservedPath,
             method: 'GET'
         }).then(function (response) {
             let responseData = response.data.content;
@@ -127,7 +127,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
 
     let findUserData = function () {
         $http({
-            url: usersPath + '/' + $localStorage.webUser.username,
+            url: usersPath,
             method: 'GET'
         }).then(function (response) {
             $scope.userData = response.data;

@@ -9,7 +9,7 @@ angular.module('reader-front').controller('booksReservedController', function ($
     $scope.loadReservedBooks = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
         $http({
-            url: contextPath + '/' + $localStorage.webUser.username,
+            url: contextPath,
             method: 'GET',
             params : {
                 p: pageIndex

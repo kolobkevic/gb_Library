@@ -18,16 +18,10 @@ public class ReservedBookController {
     private final ReservedBooksService reservedBooksService;
     private final ReservedBookConverter converter;
 
-    @GetMapping("/{userId}")
-    public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) int pageIndex,
-                                               @PathVariable int userId) {
-        return reservedBooksService.getAllPageable(userId, pageIndex).map(converter::entityToDto);
-    }
-
-    @GetMapping("/{userLogin}")
+    @GetMapping
     public Page<ReservedBookReaderDto> findAllByUserLogin(@RequestParam(name = "p", defaultValue = "1", required = false) int pageIndex,
-                                                          @PathVariable String userLogin) {
-        return reservedBooksService.findAllByUserLogin(userLogin, pageIndex).map(converter::entityToDto);
+                                                          @RequestHeader String username) {
+        return reservedBooksService.findAllByUserLogin(username, pageIndex).map(converter::entityToDto);
     }
 
     @DeleteMapping("/{id}")

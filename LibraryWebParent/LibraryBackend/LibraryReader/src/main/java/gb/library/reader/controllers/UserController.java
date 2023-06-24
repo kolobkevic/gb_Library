@@ -22,9 +22,9 @@ public class UserController {
     private final UserConverter userConverter;
 
 
-    @GetMapping("/{login}")
-    public UserReaderDto findByLogin(@PathVariable String login) {
-        return userConverter.entityToDto(userService.findByEmail(login));
+    @GetMapping
+    public UserReaderDto findByLogin(@RequestHeader String username) {
+        return userConverter.entityToDto(userService.findByEmail(username));
     }
 
     @PostMapping("/create")
@@ -38,9 +38,9 @@ public class UserController {
         return userConverter.entityToDto(userService.update(userConverter.dtoToEntity(userDto)));
     }
 
-    @DeleteMapping("/delete/{userId}")
-    public void delete(@PathVariable int userId) {
-        userService.delete(userId);
+    @DeleteMapping
+    public void delete(@RequestHeader String username) {
+        userService.deleteUserByEmail(username);
     }
 
     @GetMapping("/check_email")
