@@ -66,7 +66,9 @@
 
 angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:5555/reader';
-    $scope.userData = $localStorage.webUser.username;
+    if ($rootScope.isUserLoggedIn) {
+        $scope.userData = $localStorage.webUser.username;
+    }
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
