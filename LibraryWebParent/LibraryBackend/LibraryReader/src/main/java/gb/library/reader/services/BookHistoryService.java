@@ -3,6 +3,7 @@ package gb.library.reader.services;
 import gb.library.common.entities.BookOnHands;
 import gb.library.backend.repositories.BookHistoryRepository;
 import gb.library.common.entities.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ public class BookHistoryService {
 
     public final static long DAYS_TO_RETURN = 30;
 
+    @Transactional
     public Page<BookOnHands> getBooksOnHands(String userLogin, int pageIndex, int pageSize, boolean unReturned) {
         if (pageIndex < 1) {
             pageIndex = 1;
