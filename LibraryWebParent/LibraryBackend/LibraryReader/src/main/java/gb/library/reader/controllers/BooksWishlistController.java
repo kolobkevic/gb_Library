@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/wishlist")
@@ -18,16 +17,17 @@ public class BooksWishlistController {
     private final BooksWishlistService booksWishlistService;
     private final BooksWishlistConverter booksWishlistConverter;
 
-    @GetMapping
-    public Page<BooksWishlistDto> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) Integer pageIndex,
-                                          @RequestParam(name = "page_size", defaultValue = "10", required = false) Integer pageSize) {
+    @GetMapping("/{userLogin}")
+    public Page<BooksWishlistDto> findAllByUserLogin(@PathVariable String userLogin,
+            @RequestParam(name = "p", defaultValue = "1", required = false) Integer pageIndex,
+            @RequestParam(name = "page_size", defaultValue = "10", required = false) Integer pageSize) {
         if (pageIndex < 1) pageIndex = 1;
-        return booksWishlistService.findAll(pageIndex - 1, pageSize).map(booksWishlistConverter::entityToDto);
+        return booksWishlistService.findAll(userLogin,pageIndex - 1, pageSize).map(booksWishlistConverter::entityToDto);
     }
 
-    @GetMapping("/{readerId}/add/{worldBookId}")
-    public void addWorldBookToWishlist(@PathVariable Integer readerId, @PathVariable Integer worldBookId) {
-        booksWishlistService.addToWishlist(readerId, worldBookId);
+    @GetMapping("/{userLogin}/add/{worldBookId}")
+    public void addWorldBookToWishlist(@PathVariable String userLogin, @PathVariable Integer worldBookId) {
+        booksWishlistService.addToWishlist(userLogin, worldBookId);
     }
 
     @DeleteMapping("/{recordId}")

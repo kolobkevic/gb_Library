@@ -1,4 +1,4 @@
-angular.module('reader-front').controller('booksCatalogController', function ($scope, $http, $location) {
+angular.module('reader-front').controller('booksCatalogController', function ($scope, $http, $location, $localStorage) {
 
     let contextPath = 'http://localhost:5555/reader/api/v1/books_catalog';
     let usersPath = 'http://localhost:5555/reader/api/v1/users';
@@ -21,7 +21,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
     const cancelConfirmReserveBtn = document.getElementById("cancelConfirmReserveBtn");
 
     let showHeaderAndFooter = function () {
-        if (header.style.display == "none" && footer.style.display == "none") {
+        if (header.style.display === "none" && footer.style.display === "none") {
             header.style.display = "inline";
             footer.style.display = "inline";
         }
@@ -96,7 +96,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     // Скорректировать после добавления аутентификации
     $scope.addToBooksWishlist = function (bookId) {
-        $http.get(booksWishlistPath + '/1/add/' + bookId)
+        $http.get(booksWishlistPath + '/' + $localStorage.webUser.username + '/add/' + bookId)
             .then(function (response) {
                 console.log(bookId);
                 console.log('Книга успешно добавлена в список');
@@ -107,7 +107,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     let bookReservedData = function () {
         $http({
-            url: reservedPath + '/1',
+            url: reservedPath + '/' + $localStorage.webUser.username,
             method: 'GET'
         }).then(function (response) {
             let responseData = response.data.content;
@@ -131,7 +131,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     let bookWishListData = function (pageIndex = 0) {
         $http({
-            url: booksWishlistPath,
+            url: booksWishlistPath + '/' + $localStorage.webUser.username,
             method: 'GET',
             params: {
                 p: pageIndex
@@ -195,9 +195,9 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
         });
     };
 
-    let findUserData = function (id) {
+    let findUserData = function (userLogin) {
         $http({
-            url: usersPath + '/' + id,
+            url: usersPath + '/' + userLogin,
             method: 'GET'
         }).then(function (response) {
             $scope.userData = response.data;
@@ -207,8 +207,7 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
 
     $scope.prepareForReserve = function (worldBook) {
         $scope.worldBook = worldBook;
-        // TODO Отредактировать по аутентификации
-        findUserData(1);
+        findUserData($localStorage.webUser.username);
         findLibraryBook(worldBook);
     };
 
@@ -230,7 +229,6 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
                 }).then(function successCallback(response) {
                         reservedBookJSON = null;
                         alert('Книга ' + $scope.worldBook.title + ' автора ' + $scope.worldBook.authorDTO.firstName + ' ' + $scope.worldBook.authorDTO.lastName + ' забронирована');
-                        // TODO Отредактировать по аутентификации
                         $location.path('/books_reserved');
                     },
                     function failureCallback(response) {
@@ -239,14 +237,29 @@ angular.module('reader-front').controller('booksCatalogController', function ($s
             } else {
                 console.log("Нет информации");
                 alert('К сожалению, вариантов данной книги в библиотеке нет');
+                return -1;
             }
         }, 200);
     };
 
+    $scope.tryToLogout = function () {
+        $scope.clearUser();
+        $scope.user = null;
+        $location.path('/');
+    };
+
+    let prepareDataForUser = function () {
+        if ($localStorage.webUser != null) {
+            bookWishListData();
+            bookReservedData();
+            console.log("Данные загружены!");
+        } else {
+            console.log("Нет данных пользователя!");
+        }
+    };
 
     showHeaderAndFooter();
-    bookWishListData();
-    bookReservedData();
     $scope.loadBooksCatalogPage();
     $scope.loadGenres();
+    prepareDataForUser();
 });

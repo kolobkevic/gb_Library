@@ -32,6 +32,11 @@ public class UserService {
                 new ObjectInDBNotFoundException("Пользователь не найден в базе", "User"));
     }
 
+    public User findByEmail(String login) {
+        return repository.findByEmail(login).orElseThrow(() ->
+                new ObjectInDBNotFoundException("Пользователь не найден в базе", "User"));
+    }
+
     public User update(User user) {
         User updatedUser = repository.findById(user.getId()).orElseThrow(() ->
                 new ObjectInDBNotFoundException("Пользователь не найден в базе", "User"));

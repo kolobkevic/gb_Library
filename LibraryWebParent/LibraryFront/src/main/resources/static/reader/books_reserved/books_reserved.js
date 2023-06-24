@@ -9,9 +9,11 @@ angular.module('reader-front').controller('booksReservedController', function ($
     $scope.loadReservedBooks = function (pageIndex = 1) {
         currentPageIndex = pageIndex;
         $http({
-            // url: contextPath + 'api/v1/reserved' + $localStorage.webUser.username,
-            url: contextPath + '/1',
-            method: 'GET'
+            url: contextPath + '/' + $localStorage.webUser.username,
+            method: 'GET',
+            params : {
+                p: pageIndex
+            }
         }).then(function (response) {
             console.log(response);
             if (response.data.content.length === 0) {

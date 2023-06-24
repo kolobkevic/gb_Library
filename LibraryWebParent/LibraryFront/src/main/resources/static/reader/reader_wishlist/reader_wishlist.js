@@ -1,10 +1,8 @@
-angular.module('reader-front').controller('booksWishlistController', function ($scope, $http, $location) {
+angular.module('reader-front').controller('booksWishlistController', function ($scope, $http, $location, $localStorage) {
     let contextPath = 'http://localhost:5555/reader/api/v1/wishlist';
     let reservedPath = 'http://localhost:5555/reader/api/v1/reserved';
     let usersPath = 'http://localhost:5555/reader/api/v1/users';
     let libraryBooksPath = 'http://localhost:5555/reader/api/v1/library_books';
-
-
 
     let defaultPage = 1;
     let currentPage = 1;
@@ -33,7 +31,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
 
     $scope.loadBooksWishlist = function (pageIndex = defaultPage) {
         $http({
-            url: contextPath,
+            url: contextPath + '/' + $localStorage.webUser.username,
             method: 'GET',
             params: {
                 p: pageIndex
@@ -56,14 +54,17 @@ angular.module('reader-front').controller('booksWishlistController', function ($
     };
 
     $scope.removeCurrentBookFromWishlist = function (recordId) {
-        $http.delete(contextPath + '/' + recordId).then(function () {
-            $scope.loadBooksWishlist(currentPage);
+        $http({
+            url: contextPath + '/' + recordId,
+            method: 'DELETE'
+        }).then(function () {
+           $scope.loadBooksWishlist(currentPage);
         });
     };
 
     let bookReservedData = function () {
         $http({
-            url: reservedPath + '/1',
+            url: reservedPath + '/' + $localStorage.webUser.username,
             method: 'GET'
         }).then(function (response) {
             let responseData = response.data.content;
@@ -124,9 +125,9 @@ angular.module('reader-front').controller('booksWishlistController', function ($
         });
     };
 
-    let findUserData = function (id) {
+    let findUserData = function () {
         $http({
-            url: usersPath + '/' + id,
+            url: usersPath + '/' + $localStorage.webUser.username,
             method: 'GET'
         }).then(function (response) {
             $scope.userData = response.data;
@@ -136,8 +137,7 @@ angular.module('reader-front').controller('booksWishlistController', function ($
 
     $scope.prepareForReserve = function (worldBook) {
         $scope.worldBook = worldBook;
-        // TODO Отредактировать по аутентификации
-        findUserData(1);
+        findUserData();
         findLibraryBook(worldBook);
     };
 
@@ -159,7 +159,6 @@ angular.module('reader-front').controller('booksWishlistController', function ($
                 }).then(function successCallback(response) {
                         reservedBookJSON = null;
                         alert('Книга ' + $scope.worldBook.title + ' автора ' + $scope.worldBook.authorDTO.firstName + ' ' + $scope.worldBook.authorDTO.lastName + ' забронирована');
-                        // TODO Отредактировать по аутентификации
                         $location.path('/books_reserved');
                     },
                     function failureCallback(response) {

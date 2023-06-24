@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/reserved")
-@CrossOrigin
+@CrossOrigin("*")
 public class ReservedBookController {
     private final ReservedBooksService reservedBooksService;
     private final ReservedBookConverter converter;
@@ -22,6 +22,12 @@ public class ReservedBookController {
     public Page<ReservedBookReaderDto> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) int pageIndex,
                                                @PathVariable int userId) {
         return reservedBooksService.getAllPageable(userId, pageIndex).map(converter::entityToDto);
+    }
+
+    @GetMapping("/{userLogin}")
+    public Page<ReservedBookReaderDto> findAllByUserLogin(@RequestParam(name = "p", defaultValue = "1", required = false) int pageIndex,
+                                                          @PathVariable String userLogin) {
+        return reservedBooksService.findAllByUserLogin(userLogin, pageIndex).map(converter::entityToDto);
     }
 
     @DeleteMapping("/{id}")

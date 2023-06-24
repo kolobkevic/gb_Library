@@ -21,9 +21,10 @@ public class UserController {
     private final UserService userService;
     private final UserConverter userConverter;
 
-    @GetMapping("/{userId}")
-    public UserReaderDto findById(@PathVariable int userId) {
-        return userConverter.entityToDto(userService.findById(userId));
+
+    @GetMapping("/{login}")
+    public UserReaderDto findByLogin(@PathVariable String login) {
+        return userConverter.entityToDto(userService.findByEmail(login));
     }
 
     @PostMapping("/create")
