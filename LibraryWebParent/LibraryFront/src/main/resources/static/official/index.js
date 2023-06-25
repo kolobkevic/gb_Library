@@ -3,8 +3,6 @@
         .module('employee-front', ['ngRoute', 'ngStorage'])
         .run(run);
 
-
-
     function run($rootScope, $http, $localStorage) {
 
         if ($localStorage.biblioUser) {
@@ -29,6 +27,8 @@
 
 angular.module('employee-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
     const contextPath = 'http://' + window.location.hostname + ':5555' + '/auth'
+
+    console.log($localStorage.webUser.username);
 
 
     $scope.tryToAuth = function () {

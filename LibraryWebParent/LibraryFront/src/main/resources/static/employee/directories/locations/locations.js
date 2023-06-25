@@ -1,6 +1,30 @@
-angular.module('employee-front').controller('locationsController', function ($rootScope, $scope, $http, $location, $localStorage) {
-
+angular.module('employee-front').controller('locationsController', function ($scope, $http, $localStorage) {
     const corePath = 'http://' + window.location.hostname + ':5555/official/api/v1';
+
+    let libraryBooksLink = document.getElementById("libraryBooksLink");
+    let readersLink = document.getElementById("readersLink");
+    let ordersLink = document.getElementById("ordersLink");
+    let directoriesLink = document.getElementById("directoriesLink");
+
+    let authorsLink = document.getElementById("authorsLink");
+    let genresLink = document.getElementById("genresLink");
+    let locationsLink = document.getElementById("locationsLink");
+    let worldBooksLink = document.getElementById("worldBooksLink");
+
+    function setActiveLink() {
+        libraryBooksLink.className = "inactive_item";
+        readersLink.className = "inactive_item";
+        ordersLink.className = "inactive_item";
+        directoriesLink.className = "active_item";
+
+        authorsLink.className = "inactive_item";
+        genresLink.className = "inactive_item";
+        locationsLink.className = "active_item";
+        worldBooksLink.className = "inactive_item";
+    }
+
+    let directoriesMenu = document.getElementById("directoriesMenu");
+    if (directoriesMenu.style.display === 'none') directoriesMenu.style.display = 'block';
 
     let $zoneFilter = document.getElementById('zoneFilter');
     let $sectorFilter = document.getElementById('sectorFilter');
@@ -257,9 +281,11 @@ angular.module('employee-front').controller('locationsController', function ($ro
         $scope.loadZones();
         document.getElementById("booksList").style.display = 'inline';
         document.getElementById("zone_info").style.display = 'none';
+        document.getElementById("edit_zone_info").style.display = 'none';
         document.getElementById("createNewZoneForm").style.display = 'none';
     };
 
 
     $scope.loadZones();
+    setActiveLink();
 });

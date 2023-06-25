@@ -1,0 +1,66 @@
+<div class="main_directories container">
+    <div id="authorsList">
+        <div style="padding-top: 25px;">
+            <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+            <tr style="font-weight: bold;">
+                <td>ID</td>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input name="firstName" type="text" id="input_firstName">
+                </td>
+                <td>
+                    <input name="lastName" type="text" id="input_lastName">
+                </td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="s in authorList">
+                <td>{{s.id}}</td>
+                <td>{{s.firstName}}</td>
+                <td>{{s.lastName}}</td>
+                <td>
+                    <a href="#" ng-click="goToEdit(s.id)">Изменить</a>
+                </td>
+            </tbody>
+        </table>
+        <div style="margin-left: 300px">
+            Страница
+            <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
+                <
+            </button>
+            <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+            <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
+            из {{pagesCount}}
+        </div>
+    </div>
+
+    <div id="editForm" style="display:none">
+        <button class="button_switch" style="margin-top: 25px;" ng-click="goToEdit(-10)">Вернуться к списку Авторов</button>
+        <br>
+        <form class="edit_form" novalidate ng-submit="saveAuthor()">
+            <br><br>
+            <p id="author_id"></p>
+            <br>
+            <label>Имя:
+                <input class="form-control" type="text" id="form_firstName" placeholder="Имя" ng-model="author.firstName">
+            </label>
+            <label>Фамилия:
+                <input class="form-control" type="text" id="form_lastName" placeholder="Фамилия"
+                       ng-model="author.lastName">
+            </label>
+            <p></p>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>

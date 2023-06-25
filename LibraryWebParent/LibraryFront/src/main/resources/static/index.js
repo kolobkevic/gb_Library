@@ -25,25 +25,18 @@ angular.module('main-page', ['ngRoute', 'ngStorage']).controller('mainPageContro
         }
     };
 
-    function checkInputFields() {
+
+    $scope.startEmployeeAuth = function () {
         if (loginField.value.trim() === '' ||
             passwordField.value.trim() === '') {
             alert("Все поля должы быть заполены!");
-            return false;
+            return;
         }
-    }
 
-    function formAuthUserModel() {
-        return {
+        let auth_user = {
             email: loginField.value.trim(),
             password: passwordField.value.trim(),
         };
-    }
-
-
-    $scope.startEmployeeAuth = function () {
-        if (!checkInputFields()) return;
-        let auth_user = formAuthUserModel();
 
         console.log(auth_user);
 
@@ -61,7 +54,7 @@ angular.module('main-page', ['ngRoute', 'ngStorage']).controller('mainPageContro
                 loginField.value = ''
                 passwordField.value = ''
 
-                $window.location.href = 'official/index.html';
+                $window.location.href = 'employee/index.html#!/';
             }
         }, function errorCallback(response) {
             console.log(response);
