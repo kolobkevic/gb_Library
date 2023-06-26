@@ -1,0 +1,31 @@
+<div class="main_directories container">
+    <div id="ordersTable" style="padding-top: 25px;">
+        <table class="table">
+            <thead>
+            <tr style="font-weight: bold;">
+                <td>Номер заказа</td>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td>E-mail</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody ng-repeat="order in ordersList">
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.userDTO.first_name}}</td>
+                <td>{{order.userDTO.last_name}}</td>
+                <td>{{order.userDTO.email}}</td>
+                <td>
+                    <button class="button_switch">
+                        Инфо
+                    </button>
+                    <button class="button_switch" ng-click="lendOutBook(order.id, order.userDTO.user_id, order.library_book.id, order.world_book.id)">
+                        Выдать
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

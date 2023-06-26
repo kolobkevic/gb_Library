@@ -1,19 +1,39 @@
-angular.module('employee-front').controller('booksController', function ($rootScope, $scope, $http, $location, $localStorage) {
+angular.module('employee-front').controller('libraryBooksController', function ($rootScope, $scope, $http, $location, $localStorage) {
 
     const corePath = 'http://' + window.location.hostname + ':5555/official/api/v1';
     $scope.currentPage = 1;
     $scope.isEdit = false;
 
-    $input1 = document.getElementById('input_title');
-    $input2 = document.getElementById('input_author');
-    $input3 = document.getElementById('input_genre');
-    $input4 = document.getElementById('input_description');
-    $input5 = document.getElementById('selectAge');
-    $selectZone = document.getElementById('selectZone');
+    let directoriesMenu = document.getElementById("directoriesMenu");
+    if (directoriesMenu.style.display === 'block') directoriesMenu.style.display = 'none';
+
+    let libraryBooksLink = document.getElementById("libraryBooksLink");
+    let readersLink = document.getElementById("readersLink");
+    let ordersLink = document.getElementById("ordersLink");
+    let directoriesLink = document.getElementById("directoriesLink");
+
+    let ordersMenu = document.getElementById("ordersMenu");
+
+    function setActiveLink() {
+        ordersMenu.style.display = 'none';
+
+        libraryBooksLink.className = "active_item";
+        readersLink.className = "inactive_item";
+        ordersLink.className = "inactive_item";
+        directoriesLink.className = "inactive_item";
+    }
+
+    let $input1 = document.getElementById('input_title');
+    let $input2 = document.getElementById('input_author');
+    let $input3 = document.getElementById('input_genre');
+    let $input4 = document.getElementById('input_description');
+    let $input5 = document.getElementById('selectAge');
+    let $selectZone = document.getElementById('selectZone');
 
     $input1.onchange = function () {
         $scope.loadBooks();
     };
+
     $input2.onchange = function () {
         $scope.loadBooks();
     };
@@ -25,9 +45,11 @@ angular.module('employee-front').controller('booksController', function ($rootSc
     $input4.onchange = function () {
         $scope.loadBooks();
     };
+
     $input5.onchange = function () {
         $scope.loadBooks();
     };
+
     $selectZone.onchange = function () {
         $scope.loadSectorsList();
     };
@@ -122,19 +144,21 @@ angular.module('employee-front').controller('booksController', function ($rootSc
             });
         }
 
-
         $http({
                 url: corePath + '/libraryBook/' + id,
                 method: 'GET'
             }
         ).then(function (response) {
+            // TODO authorDTO is null, genresDTO is null
+
+            console.log(response.data);
             $scope.editId = response.data.id;
             $scope.worldBookId = response.data.worldBookDTO.id;
             // document.getElementById("book_id").innerText = "(libraryBookId=" + response.data.id + ")";
             document.getElementById("title").innerText = response.data.worldBookDTO.title;
-            document.getElementById("author").innerText = response.data.worldBookDTO.authorDTO.firstName + " " + response.data.worldBookDTO.authorDTO.lastName;
+            // document.getElementById("author").innerText = response.data.worldBookDTO.authorDTO.firstName + " " + response.data.worldBookDTO.authorDTO.lastName;
             document.getElementById("description").innerText = "Описание: " + response.data.worldBookDTO.description;
-            document.getElementById("info").innerText = "Жанр: " + response.data.worldBookDTO.genreDTO.name + ", Возраст: " + response.data.worldBookDTO.ageRating;
+            // document.getElementById("info").innerText = "Жанр: " + response.data.worldBookDTO.genreDTO.name + ", Возраст: " + response.data.worldBookDTO.ageRating;
             // document.getElementById("genre").innerText = response.data.worldBookDTO.genreDTO.name;
             // document.getElementById("ageRating").innerText = response.data.worldBookDTO.ageRating;
             document.getElementById("form_publisher").value = response.data.publisher;
@@ -207,7 +231,7 @@ angular.module('employee-front').controller('booksController', function ($rootSc
     }
 
     function setSelectedValue(selectObj, valueToSet) {
-        for (var i = 0; i < selectObj.options.length; i++) {
+        for (let i = 0; i < selectObj.options.length; i++) {
             if (selectObj.options[i].text === valueToSet) {
                 selectObj.options[i].selected = true;
                 return;
@@ -215,5 +239,6 @@ angular.module('employee-front').controller('booksController', function ($rootSc
         }
     }
 
+    setActiveLink();
     $scope.loadBooks();
 });

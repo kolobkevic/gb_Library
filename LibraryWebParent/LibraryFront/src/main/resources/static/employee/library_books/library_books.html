@@ -1,0 +1,103 @@
+<div class="main container" style="margin-top: 35px;">
+    <div id="booksList">
+        <div>
+            <p>
+                <a class="inactive_item" href="#!/directories/world_books">
+                    <button class="button_switch" style="margin-top: 25px;">Добавить книгу (из мировой библиотеки)</button>
+                </a>
+            </p>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>
+                    <input name="title" type="text" id="input_title" placeholder="">
+                </td>
+                <td>
+                    <input name="author" type="text" id="input_author" placeholder="">
+                </td>
+                <td>
+                    <input name="genre" type="text" id="input_genre" placeholder="">
+                </td>
+                <td>
+                    <input name="description" type="text" id="input_description" placeholder="">
+                </td>
+                <td><select id="selectAge">
+                    <option value=>all</option>
+                    <option value=G>0+</option>
+                    <option value=PG>?+</option>
+                    <option value=PG13>13+</option>
+                    <option value=R>18+</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Название</b></td>
+                <td><b>Автор</b></td>
+                <td><b>Жанр</b></td>
+                <td><b>Описание</b></td>
+                <td><b>Возраст</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="s in booksList">
+                <!--                    <td><a href="#" ng-click="goToEdit(s.id)">{{s.worldBook.id}}</a></td>-->
+                <td><a ng-click="goToEdit(s.id)">{{s.worldBookDTO.title}}</a></td>
+
+                <td>{{s.worldBookDTO.authorDTO.firstName}} {{s.worldBookDTO.authorDTO.lastName}}</td>
+                <td>{{s.worldBookDTO.genreDTO.name}}</td>
+
+                <td>{{s.worldBookDTO.description}}</td>
+                <td>{{s.worldBookDTO.ageRating}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="margin-left: 300px">
+            Страница
+            <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
+                <
+            </button>
+            <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+            <button class="btn btn-primary" ng-click="goToPage(currentPage+1)">></button>
+            из {{pagesCount}}
+        </div>
+    </div>
+
+    <div id="editForm" style="display: none;">
+        <button class="button_switch" ng-click="goToEdit(-10)">Вернуться к списку книг</button>
+        <br>
+        <form class="edit_form" novalidate ng-submit="saveBook()">
+            <!--                <p id="book_id"></p>-->
+            <p style="text-align: center; font-size: 24px" id="title"></p>
+            <p style="text-align: center; font-size: 20px" id="author"></p>
+            <p style="font-size: 16px" id="description"></p>
+            <p style="font-size: 14px" id="info"></p>
+            <!--                <p id="genre"></p>-->
+            <!--                <p id="ageRating"></p>-->
+            <label>Издатель:
+                <input class="form-control" type="text" id="form_publisher" ng-model="book.publisher">
+            </label>
+            <label>ISBN:
+                <input class="form-control" type="text" id="form_isbn" ng-model="book.isbn">
+            </label>
+            <label>Инвернтарный номер:
+                <input class="form-control" type="text" id="form_inventoryNumber" ng-model="book.inventoryNumber">
+            </label>
+
+            <label>Доступна:
+                <input type="checkbox" id="form_available" ng-model="book.available">
+            </label>
+
+            <p>Расположение:</p>
+            <label> Зона:
+                <select id="selectZone">
+                </select>
+                Сектор:
+                <select id="selectSector">
+                </select>
+            </label>
+            <p></p>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>

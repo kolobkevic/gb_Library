@@ -1,16 +1,39 @@
-angular.module('employee-front').controller('genresController', function ($rootScope, $scope, $http, $location, $localStorage) {
-
+angular.module('employee-front').controller('worldBooksController', function ($scope, $http, $localStorage) {
     const corePath = 'http://' + window.location.hostname + ':5555/official/api/v1';
-    console.log($localStorage.webUser.username);
+
+    let libraryBooksLink = document.getElementById("libraryBooksLink");
+    let readersLink = document.getElementById("readersLink");
+    let ordersLink = document.getElementById("ordersLink");
+    let directoriesLink = document.getElementById("directoriesLink");
+
+    let authorsLink = document.getElementById("authorsLink");
+    let genresLink = document.getElementById("genresLink");
+    let locationsLink = document.getElementById("locationsLink");
+    let worldBooksLink = document.getElementById("worldBooksLink");
+
+    function setActiveLink() {
+        libraryBooksLink.className = "inactive_item";
+        readersLink.className = "inactive_item";
+        ordersLink.className = "inactive_item";
+        directoriesLink.className = "active_item";
+
+        authorsLink.className = "inactive_item";
+        genresLink.className = "inactive_item";
+        locationsLink.className = "inactive_item";
+        worldBooksLink.className = "active_item";
+    }
+
+    let directoriesMenu = document.getElementById("directoriesMenu");
+    if (directoriesMenu.style.display === 'none') directoriesMenu.style.display = 'block';
 
     $scope.editId = -10;
 
-    $input1 = document.getElementById('input_title');
-    $input2 = document.getElementById('input_author');
-    $input3 = document.getElementById('input_genre');
-    $input4 = document.getElementById('input_description');
-    $input5 = document.getElementById('selectAge');
-    $selectZone = document.getElementById('selectZone');
+    let $input1 = document.getElementById('input_title');
+    let $input2 = document.getElementById('input_author');
+    let $input3 = document.getElementById('input_genre');
+    let $input4 = document.getElementById('input_description');
+    let $input5 = document.getElementById('selectAge');
+    let $selectZone = document.getElementById('selectZone');
 
 
     $input1.onchange = function () {
@@ -31,12 +54,16 @@ angular.module('employee-front').controller('genresController', function ($rootS
         $scope.loadWorldBooks();
     };
     $selectZone.onchange = function () {
+        console.log("data");
         console.log($scope.zoneList[1])
+        console.log("data2");
+        console.log(document.getElementById('selectZone').value);
         let zoneIndex = document.getElementById('selectZone').value;
         let selectForm = document.getElementById('selectSector');
         selectForm.options.length = 0;
 
         if (zoneIndex >= 0) {
+            // TODO Некорректное отображение
             for (const sector of $scope.zoneList[zoneIndex].sectors) {
                 if (sector.isAvailable) {
                     let opt = document.createElement('option');
@@ -159,8 +186,6 @@ angular.module('employee-front').controller('genresController', function ($rootS
                 $scope.clearUser();
             } else alert(err.data.message)
         });
-
-
     }
 
 
@@ -303,4 +328,5 @@ angular.module('employee-front').controller('genresController', function ($rootS
 
 
     $scope.loadWorldBooks();
+    setActiveLink();
 });

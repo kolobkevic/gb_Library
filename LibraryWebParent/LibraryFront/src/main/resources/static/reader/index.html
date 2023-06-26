@@ -24,6 +24,7 @@
     <script src="registration_form/registration_form.js"></script>
     <script src="authentication_form/authentication_form.js"></script>
     <script src="personal_account/personal_account.js"></script>
+
 </head>
 <body ng-app="reader-front" style="background-color: #f1f1f1">
 <div ng-controller="indexController">
@@ -33,7 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav" style="margin-left: 100px;">
                         <li class="nav-item">
-                            <a class="btn btn-primary" style="font-size: x-large" href="#!/">
+                            <a class="btn btn-primary" style="font-size: x-large" ng-click="backToMain()">
                                 Библиотека
                             </a>
                         </li>
@@ -76,7 +77,7 @@
     <div>
         <ng-view></ng-view>
     </div>
-    <footer id="footer" class="container" style="padding-top: 150px">
+    <footer id="footer" class="custom_container" style="padding-top: 150px">
         <hr>
         <p>&copy;Все права защищены</p>
     </footer>
