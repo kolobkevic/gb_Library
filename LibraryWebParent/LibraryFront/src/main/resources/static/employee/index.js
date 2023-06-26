@@ -18,9 +18,13 @@
                 templateUrl: 'readers/readers.html',
                 controller: 'readersController'
             })
-            .when('/orders', {
-                templateUrl: 'orders/orders.html',
+            .when('/reserved_data/orders', {
+                templateUrl: 'reserved_data/orders/orders.html',
                 controller: 'ordersController'
+            })
+            .when('/reserved_data/orders_history', {
+                templateUrl: 'reserved_data/orders_history/orders_history.html',
+                controller: 'ordersHistoryController'
             })
             .when('/directories/authors', {
                 templateUrl: 'directories/authors/authors.html',

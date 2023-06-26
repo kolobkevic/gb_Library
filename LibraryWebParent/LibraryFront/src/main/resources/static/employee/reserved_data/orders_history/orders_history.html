@@ -1,5 +1,5 @@
 <div class="main_directories container">
-    <div id="ordersTable" style="padding-top: 25px;">
+    <div id="ordersHistoryTable" style="padding-top: 25px;">
         <table class="table">
             <thead>
             <tr style="font-weight: bold;">
@@ -7,6 +7,7 @@
                 <td>Имя</td>
                 <td>Фамилия</td>
                 <td>E-mail</td>
+                <td>Статус</td>
                 <td></td>
             </tr>
             </thead>
@@ -16,12 +17,13 @@
                 <td>{{order.userDTO.first_name}}</td>
                 <td>{{order.userDTO.last_name}}</td>
                 <td>{{order.userDTO.email}}</td>
+                <td>Выдано</td>
                 <td>
                     <button class="button_switch">
                         Инфо
                     </button>
                     <button class="button_switch" ng-click="lendOutBook(order.id, order.userDTO.user_id, order.library_book.id, order.world_book.id)">
-                        Выдать
+                        Принять
                     </button>
                 </td>
             </tr>
