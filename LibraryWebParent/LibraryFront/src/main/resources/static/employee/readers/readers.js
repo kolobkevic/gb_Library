@@ -7,7 +7,11 @@ angular.module('employee-front').controller('readersController', function ($scop
     let ordersLink = document.getElementById("ordersLink");
     let directoriesLink = document.getElementById("directoriesLink");
 
+    let ordersMenu = document.getElementById("ordersMenu");
+
     function setActiveLink() {
+        ordersMenu.style.display = 'none';
+
         libraryBooksLink.className = "inactive_item";
         readersLink.className = "active_item";
         ordersLink.className = "inactive_item";

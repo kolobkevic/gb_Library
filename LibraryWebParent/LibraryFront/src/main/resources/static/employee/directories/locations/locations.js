@@ -11,7 +11,11 @@ angular.module('employee-front').controller('locationsController', function ($sc
     let locationsLink = document.getElementById("locationsLink");
     let worldBooksLink = document.getElementById("worldBooksLink");
 
+    let ordersMenu = document.getElementById("ordersMenu");
+
     function setActiveLink() {
+        ordersMenu.style.display = 'none';
+
         libraryBooksLink.className = "inactive_item";
         readersLink.className = "inactive_item";
         ordersLink.className = "inactive_item";

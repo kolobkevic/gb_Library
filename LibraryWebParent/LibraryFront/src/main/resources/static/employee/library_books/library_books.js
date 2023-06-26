@@ -12,7 +12,11 @@ angular.module('employee-front').controller('libraryBooksController', function (
     let ordersLink = document.getElementById("ordersLink");
     let directoriesLink = document.getElementById("directoriesLink");
 
+    let ordersMenu = document.getElementById("ordersMenu");
+
     function setActiveLink() {
+        ordersMenu.style.display = 'none';
+
         libraryBooksLink.className = "active_item";
         readersLink.className = "inactive_item";
         ordersLink.className = "inactive_item";

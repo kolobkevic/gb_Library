@@ -1,20 +1,26 @@
 angular.module('employee-front').controller('ordersController', function ($scope, $http, $localStorage) {
     const reservedBooksPath = 'http://localhost:5555/official/api/v1/reserved_books';
-    const bookOnHandsPath = 'http://localhost:5555/official/api/v1/book_on_hands';
+    const bookOnHandsPath = 'http://localhost:5555/official/api/v1/book_hands';
     const userContext = 'http://localhost:5555/official/api/v1/users';
     const libraryBookContext = 'http://localhost:5555/official/api/v1/libraryBook';
     const worldBookContext = 'http://localhost:5555/official/api/v1/worldBook';
 
     $scope.userData = $localStorage.webUser.username;
     let directoriesMenu = document.getElementById("directoriesMenu");
+    let ordersMenu = document.getElementById("ordersMenu");
     if (directoriesMenu.style.display === 'block') directoriesMenu.style.display = 'none';
 
     let libraryBooksLink = document.getElementById("libraryBooksLink");
     let readersLink = document.getElementById("readersLink");
     let ordersLink = document.getElementById("ordersLink");
     let directoriesLink = document.getElementById("directoriesLink");
+    let reservedOrdersLink = document.getElementById("reservedOrdersLink");
+
 
     function setActiveLink() {
+        ordersMenu.style.display = 'inline';
+        reservedOrdersLink.className = "active_item"
+
         libraryBooksLink.className = "inactive_item";
         readersLink.className = "inactive_item";
         ordersLink.className = "active_item";
@@ -36,14 +42,9 @@ angular.module('employee-front').controller('ordersController', function ($scope
 
     function formDate() {
         let today = new Date();
-        let hours = (today.getHours() < 10 && today.getHours() >= 0) ? '0' + today.getHours() : today.getHours();
-        let minutes = (today.getMinutes() < 10 && today.getMinutes() > 0) ? '0' + today.getMinutes() : today.getMinutes();
-
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
-
-        // return yyyy + '-' + mm + '-' + dd + ' ' + hours + ':' + minutes + ':' + today.getSeconds();
         return yyyy + '-' + mm + '-' + dd;
     }
 
@@ -74,7 +75,7 @@ angular.module('employee-front').controller('ordersController', function ($scope
         });
     }
 
-    $scope.lendOutBook = function (userID, libraryBookId, worldBookId) {
+    $scope.lendOutBook = function (reservedId, userID, libraryBookId, worldBookId) {
         findUserInfo(userID);
         findLibraryBookInfo(libraryBookId);
         findWorldBookInfo(worldBookId);
@@ -83,22 +84,14 @@ angular.module('employee-front').controller('ordersController', function ($scope
         setTimeout(function () {
             console.log($scope.userInfo);
             console.log($scope.libraryBookInfo);
+            console.log($scope.worldBookInfo);
 
-            // let lendOutBookJSON = {
-            //     'id' : 1,
-            //     'library_book': $scope.libraryBookInfo,
-            //     'user': $scope.userInfo,
-            //     'takenAt': currentDate,
-            //     'returned': false
-            // };
 
-            let lendOutBookJSON = {
-                library_book : $scope.libraryBookInfo,
-                user : $scope.userInfo,
-                world_book : $scope.worldBookInfo,
-                taken_at : currentDate,
-                returned : false
-            };
+            let lendOutBookJSON = {};
+            lendOutBookJSON.libraryBookDTO = $scope.libraryBookInfo;
+            lendOutBookJSON.userDTO = $scope.userInfo;
+            lendOutBookJSON.takenAt = currentDate;
+            lendOutBookJSON.returned = false;
 
             console.log(lendOutBookJSON);
 
@@ -108,12 +101,17 @@ angular.module('employee-front').controller('ordersController', function ($scope
                 data: lendOutBookJSON
             }).then(function successCallback(response) {
                 lendOutBookJSON = null;
-                alert('Книга успешно выдана!');
+                $http({
+                    url: reservedBooksPath + '/' + reservedId,
+                    method: 'DELETE'
+                }).then(function () {
+                    alert('Книга успешно выдана!');
+                });
             }, function failureCallback(response) {
                 console.log(response);
                 alert(response.data.message);
             });
-        }, 200);
+        }, 260);
     };
 
 

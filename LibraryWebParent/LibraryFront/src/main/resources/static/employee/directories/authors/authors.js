@@ -13,7 +13,11 @@ angular.module('employee-front').controller('authorsController', function ($scop
     let locationsLink = document.getElementById("locationsLink");
     let worldBooksLink = document.getElementById("worldBooksLink");
 
+    let ordersMenu = document.getElementById("ordersMenu");
+
     function setActiveLink() {
+        ordersMenu.style.display = 'none';
+
         authorsLink.className = "active_item";
         genresLink.className = "inactive_item";
         locationsLink.className = "inactive_item";

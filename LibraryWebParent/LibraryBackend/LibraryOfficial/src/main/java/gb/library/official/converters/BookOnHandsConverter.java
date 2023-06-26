@@ -19,9 +19,7 @@ public class BookOnHandsConverter {
                 book.getId(),
                 libraryBookReaderConverter.entityToDto(book.getBook()),
                 userConverter.entityToDto(book.getUser()),
-                worldBookConverter.entityToDto(book.getBook().getWorldBook()),
                 book.getTakenAt(),
-                book.getTakenAt().plusDays(30),
                 book.isReturned());
     }
 
@@ -30,9 +28,7 @@ public class BookOnHandsConverter {
         book.setId(bookOnHandsDTO.getId());
         book.setBook(libraryBookReaderConverter.dtoToEntity(bookOnHandsDTO.getLibraryBookDTO()));
         book.setUser(userConverter.dtoToEntity(bookOnHandsDTO.getUserDTO()));
-        book.getBook().setWorldBook(worldBookConverter.dtoToEntity(bookOnHandsDTO.getWorldBookDTO()));
         book.setTakenAt(bookOnHandsDTO.getTakenAt());
-        book.setReturned(bookOnHandsDTO.isReturned());
         return book;
     }
 }
