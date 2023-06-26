@@ -1,9 +1,35 @@
 <div class="main container">
-    <div class="main_start container" style="justify-content: space-around">
-        <p><br><br><br><br><br></p>
-        <div style="text-align: center;">
-            <h3>Библиотека</h3>
-            <h4>Заказы</h4>
+    <div class="main_start container">
+        <div id="ordersTable" style="margin-top: 35px;">
+            <table class="table">
+                <thead>
+                <tr style="font-weight: bold;">
+                    <td>Номер заказа</td>
+                    <td>Имя</td>
+                    <td>Фамилия</td>
+                    <td>E-mail</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody ng-repeat="order in ordersList">
+                <tr>
+                    <td>{{order.id}}</td>
+                    <td>{{order.userDTO.first_name}}</td>
+                    <td>{{order.userDTO.last_name}}</td>
+                    <td>{{order.userDTO.email}}</td>
+<!--                    <td ng-model="book_on_hands.user">{{order.userReaderDTO}}</td>-->
+<!--                    <td ng-model="book_on_hands.book">{{order.library_book}}</td>-->
+                    <td>
+                        <button class="button_switch">
+                            Инфо
+                        </button>
+                        <button class="button_switch" ng-click="lendOutBook(order.userDTO.user_id, order.library_book.id, order.world_book.id)">
+                            Выдать
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
