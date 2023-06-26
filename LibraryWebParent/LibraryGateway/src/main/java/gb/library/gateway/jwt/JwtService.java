@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.List;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -26,5 +28,14 @@ public class JwtService {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignKey())
                 .build().parseClaimsJws(token).getBody();
+    }
+
+    public List<String> getRoles(String token) {
+        return getClaimFromToken(token, (Function<Claims, List<String>>) claims -> claims.get("roles", List.class));
+    }
+
+    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
     }
 }

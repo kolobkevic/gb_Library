@@ -25,7 +25,7 @@ public class AuthController {
 
         userDetails = userService.checkPasswordIsEncoded(userDetails, request.getPassword());
         if(passwordEncoder.matches(request.getPassword(), userDetails.getPassword())){
-            String token = jwtService.generateToken(request.getEmail());
+            String token = jwtService.generateToken(userDetails);
             return ResponseEntity.ok(new JwtResponse(token));
         }
         throw new BadCredentialsException("Неверные данные пользователя");
