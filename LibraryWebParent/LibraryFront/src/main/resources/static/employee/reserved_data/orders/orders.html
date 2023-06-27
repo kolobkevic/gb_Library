@@ -41,14 +41,14 @@
         </table>
         <div style="margin-left: 300px">
             Страница
-            <button class="btn btn-primary" ng-click="goToPage(currentPage-1)">
+            <button class="btn btn-primary" ng-click="goToPage(currentPage - 1)">
                 <
             </button>
-            <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+            <input name="id" type="text" id="current_page_id" style="width: 30px; text-align: center">
             <button class="btn btn-primary" ng-click="goToPage(currentPage + 1)">
                 >
             </button>
-            из {{pagesCount}}
+            из {{pageCount}}
         </div>
     </div>
 
@@ -63,10 +63,23 @@
         <p style="display: none;">{{currentOrder.library_book.id}}</p>
         <p style="font-size: medium">Издательство: {{currentOrder.library_book.publisher}}</p>
         <p style="font-size: medium">Номер хранилища: {{currentOrder.library_book.placedAt.zone}}</p>
+        <p style="font-size: medium">Наличие: {{currentOrder.library_book.available}}</p>
         <p style="font-size: medium">Статус: ожидает выдачи</p>
         <button class="button_switch" style="margin-top: 20px;"
                 ng-click="lendOutBook(currentOrder.id, currentOrder.userDTO.user_id, currentOrder.library_book.id)">Выдать заказ</button>
         <button class="button_switch" style="margin-top: 20px;"
                 ng-click="cancelOrder(currentOrder.id)">Отменить заказ</button>
+    </div>
+
+    <div id="messageModalWindow"
+         style="display: none; position: fixed; top: 0; left: 0; width: 100%;
+                         height: 100%; background-color: rgba(0, 0, 0, 0.5);
+                         align-items: center; justify-content: center;">
+        <div style="background-color: #fff; padding: 20px; border-radius: 5px;">
+            <p id="textContent">Книга успешно выдана</p>
+            <button id="reserveBtn" class="btn btn-primary" style="margin-left: 60px;">
+                Ок
+            </button>
+        </div>
     </div>
 </div>

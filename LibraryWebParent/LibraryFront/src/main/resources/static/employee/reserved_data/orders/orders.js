@@ -21,6 +21,7 @@ angular.module('employee-front').controller('ordersController', function ($scope
     let directoriesLink = document.getElementById("directoriesLink");
 
     let reservedOrdersLink = document.getElementById("reservedOrdersLink");
+    let activeOrdersLink = document.getElementById("activeOrdersLink");
     let lendOutHistory = document.getElementById("lendOutHistory");
 
     let $orderSearchField = document.getElementById('orderSearchField');
@@ -33,6 +34,7 @@ angular.module('employee-front').controller('ordersController', function ($scope
     function setActiveLink() {
         ordersMenu.style.display = 'inline';
         reservedOrdersLink.className = "active_item"
+        activeOrdersLink.className = "inactive_item"
         lendOutHistory.className = "inactive_item"
 
         libraryBooksLink.className = "inactive_item";
@@ -41,28 +43,34 @@ angular.module('employee-front').controller('ordersController', function ($scope
         directoriesLink.className = "inactive_item";
     }
 
-    $scope.loadOrders = function (pageIndex = 1) {
+    $scope.loadOrders = function () {
+        if ($scope.currentPage < 1) {
+            $scope.currentPage = 1;
+        }
+        if ($scope.currentPage > $scope.pageCount) {
+            $scope.currentPage = $scope.pageCount;
+        }
+
         $http({
             url: reservedBooksPath,
             method: 'GET',
             params: {
-                p: pageIndex,
+                p: $scope.currentPage,
                 search: document.getElementById('orderSearchField').value.trim(),
             }
         }).then(function (response) {
-            console.log(response);
 
             $scope.pageCount = response.data.totalPages;
             $scope.currentPage = response.data.pageable.pageNumber + 1;
 
-            document.getElementById("current_page-id").value = $scope.currentPage;
+            document.getElementById("current_page_id").value = $scope.currentPage;
             $scope.ordersList = response.data.content;
         });
     };
 
     $scope.goToPage = function (page) {
         $scope.currentPage = page;
-        $scope.loadAuthors();
+        $scope.loadOrders();
     };
 
     function formDate() {
@@ -106,18 +114,11 @@ angular.module('employee-front').controller('ordersController', function ($scope
         let currentDate = formDate();
 
         setTimeout(function () {
-            console.log($scope.userInfo);
-            console.log($scope.libraryBookInfo);
-            console.log($scope.worldBookInfo);
-
-
             let lendOutBookJSON = {};
             lendOutBookJSON.libraryBookDTO = $scope.libraryBookInfo;
             lendOutBookJSON.userDTO = $scope.userInfo;
             lendOutBookJSON.takenAt = currentDate;
             lendOutBookJSON.returned = false;
-
-            console.log(lendOutBookJSON);
 
             $http({
                 url: bookOnHandsPath,
@@ -129,14 +130,28 @@ angular.module('employee-front').controller('ordersController', function ($scope
                     url: reservedBooksPath + '/' + reservedId,
                     method: 'DELETE'
                 }).then(function () {
-                    alert('Книга успешно выдана!');
-                    $scope.backToOrders();
+                    $scope.libraryBookInfo.available = false;
+                    $http({
+                        url: libraryBookContext,
+                        method: 'PUT',
+                        data: $scope.libraryBookInfo
+                    }).then(function (response) {
+                        $scope.showMessageModalWindow();
+                        $scope.backToOrders();
+                    });
                 });
             }, function failureCallback(response) {
                 console.log(response);
                 alert(response.data.message);
             });
         }, 260);
+    };
+
+    $scope.showMessageModalWindow = function () {
+        document.getElementById("messageModalWindow").style.display = 'flex';
+        document.getElementById("reserveBtn").addEventListener("click", function () {
+            document.getElementById("messageModalWindow").style.display = 'none';
+        });
     };
 
     $scope.showOrderInfo = function (orderId) {

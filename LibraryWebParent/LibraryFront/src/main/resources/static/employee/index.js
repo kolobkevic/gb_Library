@@ -22,6 +22,10 @@
                 templateUrl: 'reserved_data/orders/orders.html',
                 controller: 'ordersController'
             })
+            .when('/reserved_data/active_orders', {
+                templateUrl: 'reserved_data/active_orders/active_orders.html',
+                controller: 'activeOrdersController'
+            })
             .when('/reserved_data/orders_history', {
                 templateUrl: 'reserved_data/orders_history/orders_history.html',
                 controller: 'ordersHistoryController'

@@ -1,13 +1,16 @@
-angular.module('employee-front').controller('ordersHistoryController', function ($scope, $http) {
-    const worldBookPath = 'http://localhost:5555/official/api/v1/worldBook';
+angular.module('employee-front').controller('activeOrdersController', function ($scope, $http) {
     const bookOnHandsPath = 'http://localhost:5555/official/api/v1/book_hands';
+    const reservedBooksPath = 'http://localhost:5555/official/api/v1/reserved_books';
+    const libraryBookContext = 'http://localhost:5555/official/api/v1/libraryBook';
+    const worldBookPath = 'http://localhost:5555/official/api/v1/worldBook';
 
     let directoriesMenu = document.getElementById("directoriesMenu");
     let ordersMenu = document.getElementById("ordersMenu");
-    if (directoriesMenu.style.display === 'block') directoriesMenu.style.display = 'none';
 
     let orderInfo = document.getElementById("orderInfo");
-    let ordersHistoryTable = document.getElementById("ordersHistoryTable");
+    let activeOrdersTable = document.getElementById("activeOrdersTable");
+
+    if (directoriesMenu.style.display === 'block') directoriesMenu.style.display = 'none';
 
     let libraryBooksLink = document.getElementById("libraryBooksLink");
     let readersLink = document.getElementById("readersLink");
@@ -15,20 +18,20 @@ angular.module('employee-front').controller('ordersHistoryController', function 
     let directoriesLink = document.getElementById("directoriesLink");
 
     let reservedOrdersLink = document.getElementById("reservedOrdersLink");
-    let activeOrdersLink = document.getElementById("activeOrdersLink");
     let lendOutHistory = document.getElementById("lendOutHistory");
+    let activeOrdersLink = document.getElementById("activeOrdersLink");
 
     let $orderSearchField = document.getElementById("orderSearchField");
 
     $orderSearchField.onchange = function () {
-        $scope.loadOrdersHistory();
+        $scope.loadActiveOrders();
     };
 
     function setActiveLink() {
         ordersMenu.style.display = 'inline';
         reservedOrdersLink.className = "inactive_item";
-        activeOrdersLink.className = "inactive_item";
-        lendOutHistory.className = "active_item";
+        activeOrdersLink.className = "active_item";
+        lendOutHistory.className = "inactive_item";
 
         libraryBooksLink.className = "inactive_item";
         readersLink.className = "inactive_item";
@@ -36,7 +39,8 @@ angular.module('employee-front').controller('ordersHistoryController', function 
         directoriesLink.className = "inactive_item";
     }
 
-    $scope.loadOrdersHistory = function (pageIndex = 1) {
+
+    $scope.loadActiveOrders = function (pageIndex = 1) {
         orderInfo.style.display = 'none';
 
         if ($scope.currentPage < 1) {
@@ -52,11 +56,9 @@ angular.module('employee-front').controller('ordersHistoryController', function 
             params: {
                 p: $scope.currentPage,
                 st: document.getElementById('orderSearchField').value.trim(),
-                a: 1
+                a: 0
             }
         }).then(function (response) {
-            console.log(response);
-
             $scope.pageCount = response.data.totalPages;
             $scope.currentPage = response.data.pageable.pageNumber + 1;
 
@@ -65,38 +67,67 @@ angular.module('employee-front').controller('ordersHistoryController', function 
         });
     };
 
+    $scope.showMessageModalWindow = function () {
+        document.getElementById("messageModalWindow").style.display = 'flex';
+        document.getElementById("reserveBtn").addEventListener("click", function () {
+            document.getElementById("messageModalWindow").style.display = 'none';
+        });
+    };
+
     $scope.goToPage = function (page) {
         $scope.currentPage = page;
-        $scope.loadOrdersHistory();
+        $scope.loadActiveOrders();
     };
 
     $scope.showOrderInfo = function (orderId) {
         orderInfo.style.display = 'inline';
-        ordersHistoryTable.style.display = 'none';
+        activeOrdersTable.style.display = 'none';
 
         $http({
             url: bookOnHandsPath + '/' + orderId,
             method: 'GET'
         }).then(function (response) {
-            console.log(response.data);
             $scope.currentOrder = response.data;
 
             $http({
                 url: worldBookPath + '/' + response.data.libraryBookDTO.worldBookDTO.id,
                 method: 'GET'
             }).then(function (response) {
-                console.log(response.data);
                 $scope.worldBookInfo = response.data;
             })
         });
     };
 
+    $scope.acceptBook = function () {
+        $scope.currentOrder.returned = true;
+        $http({
+            url: bookOnHandsPath,
+            method: 'PUT',
+            data: $scope.currentOrder
+        }).then(function successCallback(response) {
+            $scope.currentOrder.libraryBookDTO.available = true;
+            $http({
+                url: libraryBookContext,
+                method: 'PUT',
+                data: $scope.currentOrder.libraryBookDTO
+            }).then(function (response) {
+                $scope.currentOrder = null;
+                $scope.showMessageModalWindow();
+                $scope.backToOrders();
+            });
+        }, function failureCallback(response) {
+            console.log(response);
+            alert(response.data.message);
+        });
+    };
+
+
     $scope.backToOrders = function () {
-        $scope.loadOrdersHistory();
+        $scope.loadActiveOrders();
         orderInfo.style.display = 'none';
-        ordersHistoryTable.style.display = 'inline';
+        activeOrdersTable.style.display = 'inline';
     };
 
     setActiveLink();
-    $scope.loadOrdersHistory();
+    $scope.loadActiveOrders();
 });

@@ -12,6 +12,6 @@ public interface ReservedBooksRepository extends JpaRepository<ReservedBook, Int
     Page<ReservedBook> findAllByUserId(Integer userId, Pageable pageable);
 
     @Query("SELECT r FROM ReservedBook r JOIN r.user u WHERE " +
-            "CONCAT(r.id, u.firstName, u.lastName, u.email) LIKE %?1%")
+            "CONCAT(r.id, ' ', u.firstName, ' ', u.lastName, ' ', u.email) LIKE %?1%")
     Page<ReservedBook> findAllLikeSearchText(String searchText, Pageable pageable);
 }
