@@ -17,7 +17,6 @@ public class ReservedBooksService {
 
     public Page<ReservedBook> findAll(Integer pageIndex, Integer pages, String searchText) {
         if (pageIndex < 1) pageIndex = 1;
-//        return reservedBooksRepository.findAll(PageRequest.of(pageIndex - 1, pages));
         return reservedBooksRepository.findAllLikeSearchText(searchText, PageRequest.of(pageIndex - 1, pages));
     }
 
