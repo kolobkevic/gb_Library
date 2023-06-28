@@ -13,7 +13,9 @@ public interface ReaderRepository extends JpaRepository<ReaderEntity, Long> {
 
     ReaderEntity findByReaderId(Long readerId);
 
-    @Query(value = "SELECT * FROM readers OFFSET ?1 LIMIT ?2", nativeQuery = true)
+    // LIMIT [offset,] rowcount     <- для MySQL
+    // OFFSET offset LIMIT rowcount <- для PostgreSQL
+    @Query(value = "SELECT * FROM readers LIMIT ?1, ?2", nativeQuery = true)
     List<ReaderEntity> findAllOffsetLimit(long offset, int limit);
 
     @Modifying
