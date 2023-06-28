@@ -40,7 +40,7 @@ class RolesServiceTest {
     private static Role getExistedRole() {
         Role existedRole = new Role();
         existedRole.setId(1);
-        existedRole.setRoleType(RoleType.EMPLOYEER);
+        existedRole.setRoleType(RoleType.EMPLOYEE);
         existedRole.setName("Admin");
         existedRole.setDescription("Старый бородатый админ");
         return existedRole;

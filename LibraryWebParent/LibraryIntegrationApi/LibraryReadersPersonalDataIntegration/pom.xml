@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>gb.library</groupId>
-        <artifactId>LibraryIntegration</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>LibraryIntegrationApi</artifactId>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>LibraryReadersPersonalDataIntegration</artifactId>

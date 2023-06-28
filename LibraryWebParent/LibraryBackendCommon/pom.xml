@@ -5,25 +5,16 @@
     <parent>
         <groupId>gb.library</groupId>
         <artifactId>LibraryWebParent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
 
-    <artifactId>LibraryBackend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>LibraryBackend</name>
-    <description>LibraryBackend</description>
-
-    <packaging>pom</packaging>
-    <modules>
-        <module>LibraryOfficial</module>
-        <module>LibraryReader</module>
-    </modules>
+    <artifactId>LibraryBackendCommon</artifactId>
+    <version>1.0.1</version>
+    <name>LibraryBackendCommon</name>
 
     <properties>
         <java.version>17</java.version>
     </properties>
-
-
 
     <dependencies>
         <dependency>
@@ -45,14 +36,14 @@
             <artifactId>thymeleaf-spring5</artifactId>
             <version>3.0.13.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-mysql</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-core</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-mysql</artifactId>-->
+<!--        </dependency>-->
 
     </dependencies>
 

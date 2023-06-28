@@ -11,7 +11,7 @@
 
 	<groupId>gb.library</groupId>
 	<artifactId>LibraryCommon</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>Library Common</name>
 	<description>Library's common objects for whole project</description>
 

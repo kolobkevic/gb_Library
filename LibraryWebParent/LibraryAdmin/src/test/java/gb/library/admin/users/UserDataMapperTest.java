@@ -48,7 +48,7 @@ class UserDataMapperTest {
         role3.setId(107);
         role3.setName("Role_Employer");
         role3.setDescription("Employer Role");
-        role3.setRoleType(RoleType.EMPLOYEER);
+        role3.setRoleType(RoleType.EMPLOYEE);
         role3.setCreatedAt(Instant.now());
         role3.setUpdatedAt(Instant.now());
 

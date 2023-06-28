@@ -5,15 +5,15 @@
     <parent>
         <groupId>gb.library</groupId>
         <artifactId>LibraryWebParent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
 
-    <packaging>pom</packaging>
 
-    <artifactId>LibraryIntegration</artifactId>
-    <name>LibraryIntegration</name>
+    <artifactId>LibraryIntegrationApi</artifactId>
+    <name>LibraryIntegrationApi</name>
     <description>Main code for integration between microservices</description>
 
+    <packaging>pom</packaging>
     <modules>
         <module>LibraryReadersPersonalDataIntegration</module>
     </modules>

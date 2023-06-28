@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>gb.library</groupId>
-		<artifactId>LibraryBackend</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<artifactId>LibraryWebParent</artifactId>
+		<version>1.0.1</version>
 	</parent>
 
-	<artifactId>LibraryReader</artifactId>
+	<artifactId>LibraryBackendReader</artifactId>
 	<name>LibraryReader</name>
 	<description>Public module for readers</description>
 
@@ -20,8 +20,8 @@
 
 		<dependency>
 			<groupId>gb.library</groupId>
-			<artifactId>LibraryBackend</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>LibraryBackendCommon</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 
@@ -30,6 +30,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*.java</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
