@@ -4,12 +4,16 @@ import gb.library.admin.utils.CheckUniqueResponseStatusHelper;
 import gb.library.admin.utils.paging.PagingAndSortingHelper;
 import gb.library.common.AbstractDaoService;
 import gb.library.common.dtos.UserDataDTO;
-import gb.library.common.enums.RegistrationType;
 import gb.library.common.entities.User;
+import gb.library.common.enums.RegistrationType;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
 import gb.library.pd.openapi.client.pd.model.ReaderPatchRequest;
 import gb.library.pd.openapi.client.pd.model.ReaderPostRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UsersService implements AbstractDaoService<User, Integer> {
+public class UsersService implements AbstractDaoService<User, Integer>, UserDetailsService {
 
     private final UsersRepository usersRepo;
     private final PasswordEncoder passwordEncoder;
@@ -52,11 +56,11 @@ public class UsersService implements AbstractDaoService<User, Integer> {
     @Override
     public User update(User entity) throws ObjectInDBNotFoundException {
         User existedUser = usersRepo.findById(entity.getId())
-                            .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
-                                    + entity.getId()
-                                    + ", т.к. она не найдена в базе.",
-                                    "Users"));
-        if (!entity.getPassword().isEmpty()){
+                .orElseThrow(() -> new ObjectInDBNotFoundException("Невозможно обновить запись с id="
+                        + entity.getId()
+                        + ", т.к. она не найдена в базе.",
+                        "Users"));
+        if (!entity.getPassword().isEmpty()) {
             existedUser.setPassword(entity.getPassword());
             encodeUserPassword(existedUser);
         }
@@ -77,19 +81,19 @@ public class UsersService implements AbstractDaoService<User, Integer> {
         userPersonalData.deleteUser(Long.valueOf(id));
     }
 
-    private void encodeUserPassword(User user){
+    private void encodeUserPassword(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
     }
 
-    public void listByPage(int pageNum, PagingAndSortingHelper helper){
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
         helper.listEntities(pageNum, USERS_PER_PAGE, usersRepo);
     }
 
     @Transactional
-    public void save(UserDataDTO userDataDTO){
+    public void save(UserDataDTO userDataDTO) {
         User user = userDataMapper.dtoToUser(userDataDTO);
-        if (user.getId() == null){
+        if (user.getId() == null) {
             user = create(user);
             ReaderPostRequest reader = userDataMapper.dtoToPostRequest(userDataDTO);
             reader.setReaderId(Long.valueOf(user.getId()));
@@ -102,7 +106,7 @@ public class UsersService implements AbstractDaoService<User, Integer> {
     }
 
     @Transactional
-    public void updateUserEnabledStatus(Integer id, boolean enabled){
+    public void updateUserEnabledStatus(Integer id, boolean enabled) {
         usersRepo.updateEnabledStatus(id, enabled, Instant.now());
     }
 
@@ -110,5 +114,25 @@ public class UsersService implements AbstractDaoService<User, Integer> {
         User user = usersRepo.findByEmail(email);
 
         return CheckUniqueResponseStatusHelper.getCheckStatus(user, id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = usersRepo.findByEmail(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("Пользователь с e-mail: %s не найдет", username));
+        }
+
+        List<SimpleGrantedAuthority> grantedAuthorities =
+                user.getRoles()
+                        .stream()
+                        .map(role -> new SimpleGrantedAuthority(role.getRoleType().getRole()))
+                        .toList();
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                grantedAuthorities);
     }
 }
