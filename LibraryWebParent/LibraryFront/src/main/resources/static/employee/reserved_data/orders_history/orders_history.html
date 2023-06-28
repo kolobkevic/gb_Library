@@ -1,0 +1,70 @@
+<div class="main_directories container">
+    <div id="ordersHistoryTable" style="padding-top: 25px;">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>
+                    <input id="orderSearchField" type="text" placeholder="Поиск по заказам">
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;">
+                <td style="display: none;">Номер заказа</td>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td>E-mail</td>
+                <td>Выдано</td>
+                <td>Возвращено</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="order in ordersHistoryList">
+                <td style="display: none;">{{order.id}}</td>
+                <td>{{order.userDTO.first_name}}</td>
+                <td>{{order.userDTO.last_name}}</td>
+                <td>{{order.userDTO.email}}</td>
+                <td>{{order.takenAt}}</td>
+                <td>{{order.returned}}</td>
+                <td>
+                    <button class="button_switch" ng-click="showOrderInfo(order.id)">
+                        Инфо
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="margin-left: 300px">
+            Страница
+            <button class="btn btn-primary" ng-click="goToPage(currentPage - 1)">
+                <
+            </button>
+            <input name="id" type="text" id="current_page-id" style="width: 30px; text-align: center">
+            <button class="btn btn-primary" ng-click="goToPage(currentPage + 1)">
+                >
+            </button>
+            из {{pageCount}}
+        </div>
+    </div>
+
+    <div id="orderInfo" style="display: none;">
+        <button class="button_switch" style="margin-top: 25px;" ng-click="backToOrders()">Вернуться к списку заказов
+        </button>
+        <h5 style="margin-top: 25px; margin-bottom: 15px;">Информация о заказе</h5>
+        <p style="display: none;">{{currentOrder.userDTO.user_id}}</p>
+        <p style="font-size: medium">Читатель: {{currentOrder.userDTO.fullName}}</p>
+        <p style="font-size: medium">Книга: {{worldBookInfo.title}}</p>
+        <p style="font-size: medium">Автор: {{worldBookInfo.authorDTO.firstName + ' ' +
+            worldBookInfo.authorDTO.lastName}}</p>
+        <p style="display: none;">{{currentOrder.library_book.id}}</p>
+        <p style="font-size: medium">Издательство: {{currentOrder.libraryBookDTO.publisher}}</p>
+        <p style="font-size: medium">Номер хранилища: {{currentOrder.libraryBookDTO.placedAt.zone}}</p>
+        <p style="font-size: medium">Наличие: {{currentOrder.libraryBookDTO.available}}</p>
+        <p style="font-size: medium">Дата выдачи: {{currentOrder.takenAt}}</p>
+        <p style="font-size: medium">Возвращено: {{currentOrder.returned}}</p>
+    </div>
+</div>

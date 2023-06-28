@@ -18,8 +18,9 @@ public class ReservedBooksController {
 
     @GetMapping
     public Page<ReservedBookDTO> findAll(@RequestParam(name = "p", defaultValue = "1", required = false) Integer pageIndex,
-                                         @RequestParam(name = "pages", defaultValue = "10", required = false) Integer pages) {
-        return reservedBooksService.findAll(pageIndex, pages).map(reservedBooksConverter::entityToDto);
+                                         @RequestParam(name = "pages", defaultValue = "10", required = false) Integer pages,
+                                         @RequestParam(name = "search", required = false) String searchText) {
+        return reservedBooksService.findAll(pageIndex, pages, searchText).map(reservedBooksConverter::entityToDto);
     }
 
     @PostMapping

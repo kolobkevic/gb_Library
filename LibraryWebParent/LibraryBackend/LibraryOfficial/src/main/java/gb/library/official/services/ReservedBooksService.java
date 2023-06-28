@@ -4,7 +4,6 @@ package gb.library.official.services;
 import gb.library.backend.repositories.ReservedBooksRepository;
 import gb.library.common.entities.ReservedBook;
 import gb.library.common.exceptions.ObjectInDBNotFoundException;
-import gb.library.official.dtos.ReservedBookDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ReservedBooksService {
     private final ReservedBooksRepository reservedBooksRepository;
 
-    public Page<ReservedBook> findAll(Integer pageIndex, Integer pages) {
+    public Page<ReservedBook> findAll(Integer pageIndex, Integer pages, String searchText) {
         if (pageIndex < 1) pageIndex = 1;
-        return reservedBooksRepository.findAll(PageRequest.of(pageIndex - 1, pages));
+        return reservedBooksRepository.findAllLikeSearchText(searchText, PageRequest.of(pageIndex - 1, pages));
     }
 
     public ReservedBook createNewOrder(ReservedBook reservedBook) {
