@@ -1,0 +1,56 @@
+<div class="main_directories container">
+    <div id="booksList">
+        <div style="padding-top: 25px;">
+            <button class="button_switch" ng-click="goToEdit(0)">Добавить запись</button>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+            <tr style="font-weight: bold;">
+                <td>ID</td>
+                <td>Жанр</td>
+                <td>Описани</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input name="genre" type="text" id="input_name" placeholder="фильтр">
+                </td>
+                <td>
+                    <input name="description" type="text" id="input_description" placeholder="фильтр">
+                </td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="s in genreList">
+                <td>{{s.id}}</td>
+                <td>{{s.name}}</td>
+                <td>{{s.description}}</td>
+                <td>
+                    <a href="#" ng-click="goToEdit(s.id)">Изменить</a>
+                </td>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="editForm" style="display:none">
+        <button class="button_switch" style="margin-top: 25px;" ng-click="goToEdit(-10)">Вернуться к списку жанров</button>
+        <br>
+        <form class="edit_form" novalidate ng-submit="saveGenre()">
+            <br><br>
+            <p id="genre_id"></p>
+            <br>
+            <label>Название:
+                <input class="form-control" type="text" id="form_genre" placeholder="Жанр" ng-model="genre.name">
+            </label>
+            <label>Описание:
+                <input class="form-control" type="text" id="form_description" placeholder="описание"
+                       ng-model="genre.description">
+            </label>
+            <p></p>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</div>

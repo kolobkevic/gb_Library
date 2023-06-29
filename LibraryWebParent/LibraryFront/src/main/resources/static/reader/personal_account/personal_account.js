@@ -1,10 +1,9 @@
-angular.module('reader-front').controller('personalAccountController', function ($scope, $http, $location) {
-    const contextPath = 'http://localhost:8070/reader/'; // поменять адрес на актуальный
+angular.module('reader-front').controller('personalAccountController', function ($scope, $http, $location, $localStorage) {
+    const contextPath = 'http://localhost:5555/reader/';
 
     $scope.loadUserInformation = function () {
         $http({
-            // url: contextPath + 'api/v1/book_on_hands' + $localStorage.webUser.username,
-            url: contextPath + 'api/v1/users/1', // поменять адрес на актуальный
+            url: contextPath + 'api/v1/users',
             method: 'GET',
         }).then(function (response) {
             console.log(response);
@@ -15,10 +14,10 @@ angular.module('reader-front').controller('personalAccountController', function 
     };
 
     $scope.updateUser = function () {
-        if (document.getElementById("firstName").value.trim() == '' ||
-            document.getElementById("lastName").value.trim() == '' ||
-            document.getElementById("email").value.trim() == '' ||
-            document.getElementById("password").value.trim() == '') {
+        if (document.getElementById("firstName").value.trim() === '' ||
+            document.getElementById("lastName").value.trim() === '' ||
+            document.getElementById("email").value.trim() === '' ||
+            document.getElementById("password").value.trim() === '') {
             alert('Все поля должны быть заполнены');
             return;
         }

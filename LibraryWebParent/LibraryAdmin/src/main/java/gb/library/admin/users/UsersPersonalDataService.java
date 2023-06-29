@@ -6,8 +6,10 @@ import gb.library.pd.openapi.client.pd.model.ReaderPatchRequest;
 import gb.library.pd.openapi.client.pd.model.ReaderPostRequest;
 import gb.library.pd.openapi.client.pd.model.ReaderResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UsersPersonalDataService {
@@ -27,6 +29,7 @@ public class UsersPersonalDataService {
         try {
             return readerApi.getReaderById(userId);
         } catch (ApiException e) {
+            log.error(e.getMessage(), e);
             // TODO: Добавить логику обработки исключения
         }
         return new ReaderResponse();
@@ -37,6 +40,7 @@ public class UsersPersonalDataService {
         try {
             readerApi.addNewReader(request);
         } catch (ApiException e) {
+            log.error(e.getMessage(), e);
             // TODO: Добавить логику обработки исключения
         }
     }
@@ -46,6 +50,7 @@ public class UsersPersonalDataService {
         try {
             readerApi.updateReader(readerId, request);
         } catch (ApiException e) {
+            log.error(e.getMessage(), e);
             // TODO: Добавить логику обработки исключения
         }
     }
@@ -55,6 +60,7 @@ public class UsersPersonalDataService {
         try {
             readerApi.removeReader(userId);
         } catch (ApiException e) {
+            log.error(e.getMessage(), e);
             // TODO: Добавить логику обработки исключения
         }
     }

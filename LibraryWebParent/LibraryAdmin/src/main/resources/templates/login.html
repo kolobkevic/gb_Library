@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8"
-        http-equiv="Content-Type" content="text/html">
-  <meta name="viewport" content="width=device-width,
-                                    initial-scale=1.0,
-                                    minimum-scale=1.0">
-  <title>Вход в админку</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-</head>
+<head th:insert="~{fragments :: page_head('Home page - Library Admin', 'none')}"></head>
+
 <body>
-  <div class="container-fluid text-center">
+<div class="container-fluid">
 
-      <form>
-          <p>Доступ к панели администратора портала библиотеки.</p>
-      </form>
+    <h1>Доступ к панели администратора портала библиотеки.</h1>
 
-      <div th:replace="~{fragments :: footer}"></div>
-  </div>
+    <div th:if="${param.error}">Неверные имя пользователя или пароль</div>
+    <div th:if="${param.logout}">Выход выполнен успешно</div>
+
+    <form method="POST" th:action="@{/login}" id="loginForm">
+        <label for="username">E-mail: </label>
+        <input type="text" name="username" id="username"/><br/>
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password"/><br/>
+        <input type="submit" value="Login"/>
+    </form>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</div>
 </body>
 </html>

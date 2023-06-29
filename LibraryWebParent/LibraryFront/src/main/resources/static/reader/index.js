@@ -64,23 +64,12 @@
     }
 })();
 
-angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:8070/reader';
+angular.module('reader-front').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage, $window) {
+    const contextPath = 'http://localhost:5555/reader';
 
-    $scope.tryToAuth = function () {
-        $http.post('http://localhost:5555/auth/auth', $scope.user) // поменять адрес на актуальный
-            .then(function successCallback(response) {
-                if (response.data.token) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.webUser = {username: $scope.user.username, token: response.data.token};
-                    $scope.user.username = null;
-                    $scope.user.password = null;
-
-                    $location.path('/books');
-                }
-            }, function errorCallback(response) {
-            });
-    };
+    if ($rootScope.isUserLoggedIn) {
+        $scope.userData = $localStorage.webUser.username;
+    }
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
@@ -95,9 +84,17 @@ angular.module('reader-front').controller('indexController', function ($rootScop
 
     $rootScope.isUserLoggedIn = function () {
         if ($localStorage.webUser) {
+            console.log($localStorage.webUser);
+            $scope.userData = $localStorage.webUser.username;
             return true;
         } else {
             return false;
         }
     };
+
+    $scope.backToMain = function () {
+        $window.location.href = '../index.html';
+    };
+
+    $rootScope.isUserLoggedIn();
 });

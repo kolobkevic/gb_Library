@@ -4,7 +4,7 @@
 
   <groupId>gb.library</groupId>
   <artifactId>gb_Library</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.1</version>
 
   <description>Studying project of public library</description>
   <packaging>pom</packaging>

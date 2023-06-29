@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+    networks:
+      - library-net
+
+  lib_mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+#    ports:
+#      - '3307:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker_init:/docker-entrypoint-initdb.d
+    command: mysqld --init-file="/docker-entrypoint-initdb.d/init.sql"
+    networks:
+      - library-net
+
+  ms_front:
+    build: ./LibraryWebParent/LibraryFront
+    restart: always
+    ports:
+      - '8000:8000'
+    networks:
+      - library-net
+
+  ms_auth:
+    build: ./LibraryWebParent/LibraryAuth
+    restart: always
+    ports:
+      - '8090:8090'
+    networks:
+      - library-net
+
+  ms_gateway:
+    build: LibraryWebParent/LibraryGateway
+    restart: always
+    ports:
+      - '5555:5555'
+    networks:
+      - library-net
+
+  ms_admin:
+    build: ./LibraryWebParent/LibraryAdmin
+    restart: always
+    ports:
+      - '8050:8050'
+    depends_on:
+      - lib_mysql
+    networks:
+      - library-net
+
+  ms_officials:
+    build: ./LibraryWebParent/LibraryBackendOfficial
+    restart: always
+    depends_on:
+      - lib_mysql
+    networks:
+      - library-net
+
+  ms_readers:
+    build: ./LibraryWebParent/LibraryBackendReader
+    restart: always
+    depends_on:
+      - lib_mysql
+    networks:
+      - library-net
+
+  ms_personal_data:
+    build: ./LibraryWebParent/LibraryReadersPersonalData
+    restart: always
+    depends_on:
+      - lib_mysql
+    networks:
+      - library-net
+
+volumes:
+  mysql_data:
+
+networks:
+  library-net:
+    driver: bridge

@@ -19,12 +19,13 @@ public class AuthController {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-    @GetMapping
-    public ResponseEntity<?> authenticate(@RequestBody JwtRequest request) throws BadCredentialsException {
+    @PostMapping
+    public ResponseEntity<JwtResponse> authenticate(@RequestBody JwtRequest request) throws BadCredentialsException {
         UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
 
+        userDetails = userService.checkPasswordIsEncoded(userDetails, request.getPassword());
         if(passwordEncoder.matches(request.getPassword(), userDetails.getPassword())){
-            String token = jwtService.generateToken(request.getEmail());
+            String token = jwtService.generateToken(userDetails);
             return ResponseEntity.ok(new JwtResponse(token));
         }
         throw new BadCredentialsException("Неверные данные пользователя");

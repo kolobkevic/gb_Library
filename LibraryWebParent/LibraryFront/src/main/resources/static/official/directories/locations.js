@@ -1,10 +1,10 @@
 angular.module('employee-front').controller('locationsController', function ($rootScope, $scope, $http, $location, $localStorage) {
 
-    const corePath = 'http://' + window.location.hostname + ':8060/official/api/v1';
+    const corePath = 'http://' + window.location.hostname + ':5555/official/api/v1';
 
-    $zoneFilter = document.getElementById('zoneFilter');
-    $sectorFilter = document.getElementById('sectorFilter');
-    $availableFilter = document.getElementById('availableFilter');
+    let $zoneFilter = document.getElementById('zoneFilter');
+    let $sectorFilter = document.getElementById('sectorFilter');
+    let $availableFilter = document.getElementById('availableFilter');
 
 
     $zoneFilter.onchange = function () {

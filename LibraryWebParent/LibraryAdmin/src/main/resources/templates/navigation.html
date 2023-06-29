@@ -9,83 +9,92 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-            <div class="collapse navbar-collapse" id="topNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/roles}">Роли</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/roles/new}">Создать новую</a>
-                            <a class="dropdown-item" th:href="@{/roles}">Посмотреть все</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/users}">Пользователи</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/users/new}">Создать нового</a>
-                            <a class="dropdown-item" th:href="@{/users}">Посмотреть всех</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/storages}">Места хранения</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/storages/new}">Создать новое</a>
-                            <a class="dropdown-item" th:href="@{/storages}">Посмотреть всех</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/genres}">Жанры</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/genres/new}">Добавить новый</a>
-                            <a class="dropdown-item" th:href="@{/genres}">Посмотреть все</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/authors}">Авторы</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/authors/new}">Добавить нового</a>
-                            <a class="dropdown-item" th:href="@{/authors}">Посмотреть всех</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/world-books}">Мировые книги</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/world-books/new}">Добавить новую</a>
-                            <a class="dropdown-item" th:href="@{/world-books}">Посмотреть все</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/library-books}">Книги библиотеки</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/library-books/new}">Добавить новую</a>
-                            <a class="dropdown-item" th:href="@{/library-books}">Посмотреть все</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/ordered-books}">Выданные книги</a>
-<!--                        <div class="dropdown-menu">-->
-<!--&lt;!&ndash;                            <a class="dropdown-item" th:href="@{/ordered-books/new}">Добавить новый</a>&ndash;&gt;-->
-<!--                            <a class="dropdown-item" th:href="@{/roles}">Посмотреть все</a>-->
-<!--                        </div>-->
-                    </li>
+        <div class="collapse navbar-collapse" id="topNavbar">
+            <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/wished-books}">Избранные
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/roles}">Роли</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/roles/new}">Создать новую</a>
+                        <a class="dropdown-item" th:href="@{/roles}">Посмотреть все</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/users}">Пользователи</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/users/new}">Создать нового</a>
+                        <a class="dropdown-item" th:href="@{/users}">Посмотреть всех</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/storages}">Места хранения</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/storages/new}">Создать новое</a>
+                        <a class="dropdown-item" th:href="@{/storages}">Посмотреть всех</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/genres}">Жанры</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/genres/new}">Добавить новый</a>
+                        <a class="dropdown-item" th:href="@{/genres}">Посмотреть все</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/authors}">Авторы</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/authors/new}">Добавить нового</a>
+                        <a class="dropdown-item" th:href="@{/authors}">Посмотреть всех</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/world-books}">Мировые
                         книги</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/world-books/new}">Добавить новую</a>
+                        <a class="dropdown-item" th:href="@{/world-books}">Посмотреть все</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/library-books}">Книги
+                        библиотеки</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/library-books/new}">Добавить новую</a>
+                        <a class="dropdown-item" th:href="@{/library-books}">Посмотреть все</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/ordered-books}">Выданные книги</a>
+                    <!--                        <div class="dropdown-menu">-->
+                    <!--&lt;!&ndash;                            <a class="dropdown-item" th:href="@{/ordered-books/new}">Добавить новый</a>&ndash;&gt;-->
+                    <!--                            <a class="dropdown-item" th:href="@{/roles}">Посмотреть все</a>-->
+                    <!--                        </div>-->
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/wished-books}">Избранные книги</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" th:href="@{/wished-books}">Посмотреть все</a>
                     </div>
                 </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/reserved-books}">Брони книг</a>
-                        <!--                        <div class="dropdown-menu">-->
-                        <!--&lt;!&ndash;                            <a class="dropdown-item" th:href="@{/ordered-books/new}">Добавить новый</a>&ndash;&gt;-->
-                        <!--                            <a class="dropdown-item" th:href="@{/roles}">Посмотреть все</a>-->
-                        <!--                        </div>-->
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/reserved-books}">Брони книг</a>
+                    <!--                        <div class="dropdown-menu">-->
+                    <!--&lt;!&ndash;                            <a class="dropdown-item" th:href="@{/ordered-books/new}">Добавить новый</a>&ndash;&gt;-->
+                    <!--                            <a class="dropdown-item" th:href="@{/roles}">Посмотреть все</a>-->
+                    <!--                        </div>-->
+                </li>
+                <li class="nav-item dropdown">
+                    <form sec:authorize="isAuthenticated()"
+                          th:action="@{/logout}" th:method="post"
+                          class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-success my-2 my-sm-0">
+                            Выход <span sec:authentication="principal.username"></span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 
 <a th:fragment="page_link(pageNum, label)" class="page-link"

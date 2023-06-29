@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS readers
 (
     id          BIGINT AUTO_INCREMENT   NOT NULL,
-    reader_id   BIGINT                  NULL,
+    reader_id   BIGINT                  NOT NULL,
 
     name        VARCHAR(64)             NOT NULL,
     surname     VARCHAR(64)             NULL,

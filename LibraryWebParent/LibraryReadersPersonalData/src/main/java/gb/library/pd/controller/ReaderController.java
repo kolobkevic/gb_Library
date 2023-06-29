@@ -7,7 +7,7 @@ import gb.library.pd.openapi.model.ReaderInfoResponse;
 import gb.library.pd.openapi.model.ReaderPatchRequest;
 import gb.library.pd.openapi.model.ReaderPostRequest;
 import gb.library.pd.openapi.model.ReaderResponse;
-import gb.library.pd.servace.ReaderService;
+import gb.library.pd.service.ReaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
