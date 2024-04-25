@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>gb.library</groupId>
 		<artifactId>LibraryWebParent</artifactId>
-		<version>1.0.1</version>
+		<version>2.0.0</version>
 	</parent>
 
 	<artifactId>LibraryBackendOfficial</artifactId>
 	<name>LibraryOfficial</name>
-	<version>1.0.1</version>
+	<version>2.0.0</version>
 	<description>Official module for employees</description>
 
 	<properties>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>gb.library</groupId>
 			<artifactId>LibraryBackendCommon</artifactId>
-			<version>1.0.1</version>
+			<version>2.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

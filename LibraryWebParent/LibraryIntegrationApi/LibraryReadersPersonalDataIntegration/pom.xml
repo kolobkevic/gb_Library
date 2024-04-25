@@ -5,7 +5,7 @@
     <parent>
         <groupId>gb.library</groupId>
         <artifactId>LibraryIntegrationApi</artifactId>
-        <version>1.0.1</version>
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>LibraryReadersPersonalDataIntegration</artifactId>
@@ -16,12 +16,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.14.2</version>
+            <version>2.17.0</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.15.1</version>
+            <version>2.17.0-rc1</version>
         </dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>2.1.1</version>
+            <version>3.0.0-M1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -75,6 +75,13 @@
 
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>maven_central</id>
+            <name>Maven Central</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
 
 
 </project>
