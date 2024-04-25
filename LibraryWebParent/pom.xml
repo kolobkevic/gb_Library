@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.6</version>
+		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>gb.library</groupId>
 	<artifactId>LibraryWebParent</artifactId>
-	<version>1.0.1</version>
+	<version>2.0.0</version>
 	<name>LibraryWebParent</name>
 	<description>Root project for all Web services</description>
 
@@ -37,7 +37,7 @@
 		<dependency>
 			<groupId>gb.library</groupId>
 			<artifactId>LibraryCommon</artifactId>
-			<version>1.0.1</version>
+			<version>2.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
