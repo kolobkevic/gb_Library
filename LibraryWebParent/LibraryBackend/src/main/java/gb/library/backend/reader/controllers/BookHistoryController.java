@@ -1,4 +1,4 @@
-package gb.library.reader.controllers;
+package gb.library.backend.reader.controllers;
 
 import gb.library.reader.converters.BookHistoryConverter;
 import gb.library.reader.dtos.BookHistoryReaderDto;
@@ -15,8 +15,8 @@ public class BookHistoryController {
     private final BookHistoryService service;
     private final BookHistoryConverter converter;
 
-    private final static String PAGE_INDEX_DEFAULT = "1";
-    private final static String PAGE_SIZE_DEFAULT = "10";
+    private static final String PAGE_INDEX_DEFAULT = "1";
+    private static final String PAGE_SIZE_DEFAULT = "10";
 
     @GetMapping
     public Page<BookHistoryReaderDto> findAllByUsername(@RequestHeader String username,

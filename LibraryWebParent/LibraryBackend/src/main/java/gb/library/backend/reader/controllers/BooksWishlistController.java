@@ -1,4 +1,4 @@
-package gb.library.reader.controllers;
+package gb.library.backend.reader.controllers;
 
 
 import gb.library.reader.converters.BooksWishlistConverter;

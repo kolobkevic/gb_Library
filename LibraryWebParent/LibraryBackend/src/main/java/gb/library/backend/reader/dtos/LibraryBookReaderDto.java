@@ -1,4 +1,4 @@
-package gb.library.reader.dtos;
+package gb.library.backend.reader.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

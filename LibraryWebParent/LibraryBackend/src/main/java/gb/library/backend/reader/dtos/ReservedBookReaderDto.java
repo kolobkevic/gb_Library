@@ -1,4 +1,4 @@
-package gb.library.reader.dtos;
+package gb.library.backend.reader.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

@@ -1,4 +1,4 @@
-package gb.library.reader.converters;
+package gb.library.backend.reader.converters;
 
 import gb.library.common.entities.User;
 import gb.library.reader.dtos.UserReaderDto;
