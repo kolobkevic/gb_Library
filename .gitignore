@@ -3,6 +3,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 /out/
+/LibraryWebParent/.mvn/
+/LibraryWebParent/LibraryBackendCommon/.mvn/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
