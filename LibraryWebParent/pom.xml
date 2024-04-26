@@ -18,14 +18,11 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>LibraryAuth</module>
-		<module>LibraryAdmin</module>
-		<module>LibraryBackendCommon</module>
+		<module>LibraryBackend</module>
 		<module>LibraryFront</module>
 		<module>LibraryReadersPersonalData</module>
 		<module>LibraryIntegrationApi</module>
 		<module>LibraryGateway</module>
-		<module>LibraryBackendOfficial</module>
-		<module>LibraryBackendReader</module>
 	</modules>
 
 	<properties>
